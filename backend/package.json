@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for Micro",
   "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
   "repository": "https://github.com/edazpotato/Micro",
   "license": "GPL-3.0",
   "private": false,
