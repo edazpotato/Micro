@@ -3,6 +3,13 @@ import Router, { useRouter } from "next/router";
 import Head from "next/head";
 import NProgress from "nprogress";
 import { ReactElement } from "react";
+import { useEffect } from "react";
+
+declare global {
+	interface Window {
+		NProgress?: typeof NProgress;
+	}
+}
 
 export function Layout({ children }: { children: ReactElement<any, any> }) {
 	const router = useRouter();
@@ -13,6 +20,10 @@ export function Layout({ children }: { children: ReactElement<any, any> }) {
 		const q = router.query["user"];
 		console.log(q);
 	}
+
+	useEffect(() => {
+		window.NProgress = NProgress;
+	}, []);
 
 	return (
 		<>

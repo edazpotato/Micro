@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import "../styles/globals.scss";
-import "../styles/nprogress.css";
+import "../styles/nprogress.scss";
 import "@fontsource/inter";
 
 import { AppProps } from "next/app";
