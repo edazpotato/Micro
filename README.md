@@ -9,3 +9,4 @@ You can have a look at the designs [here](https://www.figma.com/file/JElZBj1O6KF
 - [ ] Supporter System
 - [ ] Image Support
 - [ ] Friend System
+- [ ] Developer Portal
