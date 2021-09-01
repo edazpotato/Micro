@@ -4,6 +4,61 @@ body,
 	width: 100%;
 	height: 100%;
 }
+#__next {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
 * {
 	font-family: "Inter", sans-serif;
+}
+
+$scrollbar: #b5b5b5;
+$scrollbar-hover: #777777;
+
+$scrollbar-dark: #444444;
+$scrollbar-hover-dark: #555555;
+
+.scrollable {
+	scroll-behavior: smooth;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 8px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		background-color: $scrollbar;
+	}
+	&::-webkit-scrollbar-thumb:hover,
+	&::-webkit-scrollbar-thumb:active {
+		background-color: $scrollbar-hover;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	scrollbar-color: $scrollbar transparent;
+}
+@media screen and (prefers-color-scheme: dark) {
+	.scrollable {
+		&::-webkit-scrollbar-thumb {
+			background-color: $scrollbar-dark;
+		}
+		&::-webkit-scrollbar-thumb:hover,
+		&::-webkit-scrollbar-thumb:active {
+			background-color: $scrollbar-hover-dark;
+		}
+		scrollbar-color: $scrollbar-dark transparent;
+	}
 }

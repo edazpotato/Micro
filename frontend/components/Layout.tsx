@@ -2,6 +2,7 @@ import Router, { useRouter } from "next/router";
 
 import Head from "next/head";
 import NProgress from "nprogress";
+import { NavBar } from ".";
 import { ReactElement } from "react";
 import { useEffect } from "react";
 
@@ -30,10 +31,8 @@ export function Layout({ children }: { children: ReactElement<any, any> }) {
 			<Head>
 				<title>{title && `${title} // `}Micro</title>
 			</Head>
-			<header>
-				<nav></nav>
-			</header>
-			<main className="pt-16 w-full h-full dark:bg-background-d dark:text-text-d">
+			<NavBar />
+			<main className="scrollable w-full flex-1 bg-background dark:bg-background-d text-text dark:text-text-d overflow-y-auto">
 				{children}
 			</main>
 			<footer></footer>
