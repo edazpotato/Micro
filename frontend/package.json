@@ -4,8 +4,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"woah": "echo amazing"
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@fontsource/inter": "^4.5.0",
