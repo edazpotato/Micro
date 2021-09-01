@@ -32,6 +32,10 @@ module.exports = {
 			"text-d": "#FFFFFF",
 			"placeholder-d": "#777777",
 		},
+		borderRadius: {
+			DEFAULT: "8px",
+			full: "999px",
+		},
 		strokeWidth: {
 			["1"]: "1",
 			["2"]: "2",
@@ -49,10 +53,16 @@ module.exports = {
 			normal: "14px",
 		},
 
-		extend: {
-			spacing: {
-				["60"]: "60px",
-			},
+		spacing: {
+			["0"]: "0px",
+			["2"]: "2px",
+			["4"]: "4px",
+			["6"]: "6px",
+			["12"]: "12px",
+			["24"]: "24px",
+			["48"]: "48px",
+			["60"]: "60px",
+			["120"]: "120px",
 		},
 	},
 	variants: {

@@ -23,6 +23,7 @@ $scrollbar-hover-dark: #555555;
 .scrollable {
 	scroll-behavior: smooth;
 
+	// @media screen and (min-width: 768px) {
 	&::-webkit-scrollbar {
 		width: 6px;
 		height: 6px;
@@ -50,9 +51,8 @@ $scrollbar-hover-dark: #555555;
 
 	scrollbar-color: $scrollbar transparent;
 	scrollbar-width: thin;
-}
-@media screen and (prefers-color-scheme: dark) {
-	.scrollable {
+
+	@media screen and (prefers-color-scheme: dark) {
 		&::-webkit-scrollbar-thumb {
 			background-color: $scrollbar-dark;
 		}
@@ -63,3 +63,4 @@ $scrollbar-hover-dark: #555555;
 		scrollbar-color: $scrollbar-dark transparent;
 	}
 }
+// }

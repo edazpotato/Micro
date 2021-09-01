@@ -32,8 +32,8 @@ export function Layout({ children }: { children: ReactElement<any, any> }) {
 				<title>{title && `${title} // `}Micro</title>
 			</Head>
 			<NavBar />
-			<main className="scrollable w-full flex-1 bg-background dark:bg-background-d text-text dark:text-text-d overflow-y-auto">
-				{children}
+			<main className="scrollable w-full h-full flex-1 bg-background dark:bg-background-d text-text dark:text-text-d overflow-y-auto">
+				<section className="container mx-auto">{children}</section>
 			</main>
 			<footer></footer>
 		</>

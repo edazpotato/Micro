@@ -2,13 +2,13 @@ import { ReactNode } from "react";
 
 export function Typography({
 	children,
-	variant,
+	largeness,
 	element,
-	bold,
+	boldness,
 }: {
 	children: ReactNode;
-	variant?: "massive" | "huge" | "large" | "normal";
-	bold?: boolean;
+	largeness?: "massive" | "huge" | "large" | "normal";
+	boldness?: "not at all" | "slightly bold" | "mediumly bold" | "bold";
 	element?:
 		| "h1"
 		| "h2"
@@ -20,7 +20,8 @@ export function Typography({
 		| "blockquote"
 		| "span";
 }) {
-	let size = variant || "normal";
+	let size = largeness || "normal";
+	let bold = boldness || "regular";
 	let Element = element;
 	if (!Element)
 		switch (size) {
@@ -40,7 +41,7 @@ export function Typography({
 
 	return (
 		<Element
-			className={`text-text dark:text-text-d ${
+			className={`MicroTypography text-text dark:text-text-d ${
 				size === "massive"
 					? "text-massive"
 					: size === "huge"
@@ -48,7 +49,15 @@ export function Typography({
 					: size === "large"
 					? "text-large"
 					: "text-normal"
-			} ${bold ? "font-bold" : "font-normal"}`}
+			} ${
+				bold === "bold"
+					? "font-bold"
+					: bold === "semi-bold"
+					? "font-semibold"
+					: bold === "medium"
+					? "font-medium"
+					: "font-normal"
+			}`}
 		>
 			{children}
 		</Element>
