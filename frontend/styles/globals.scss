@@ -49,6 +49,7 @@ $scrollbar-hover-dark: #555555;
 	}
 
 	scrollbar-color: $scrollbar transparent;
+	scrollbar-width: thin;
 }
 @media screen and (prefers-color-scheme: dark) {
 	.scrollable {
