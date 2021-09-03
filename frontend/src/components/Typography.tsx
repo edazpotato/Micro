@@ -1,13 +1,8 @@
 import { ReactNode } from "react";
 
-export function Typography({
-	children,
-	largeness,
-	element,
-	boldness,
-}: {
+export interface TypographyProps {
 	children: ReactNode;
-	largeness?: "massive" | "huge" | "large" | "normal";
+	largeness?: "massive" | "huge" | "large" | "normal" | "button";
 	boldness?: "not at all" | "slightly bold" | "mediumly bold" | "bold";
 	element?:
 		| "h1"
@@ -19,10 +14,21 @@ export function Typography({
 		| "p"
 		| "blockquote"
 		| "span";
-}) {
+	// variant?: "button";
+}
+
+export function Typography({
+	children,
+	largeness,
+	element,
+	boldness,
+}: // variant,
+TypographyProps) {
+	let Element = element;
+
 	let size = largeness || "normal";
 	let bold = boldness || "regular";
-	let Element = element;
+
 	if (!Element)
 		switch (size) {
 			case "massive":
@@ -38,6 +44,10 @@ export function Typography({
 				Element = "span";
 				break;
 		}
+
+	// if (variant === "button") {
+	// 	return <Element className="">{children}</Element>;
+	// }
 
 	return (
 		<Element
@@ -56,7 +66,9 @@ export function Typography({
 					? "font-semibold"
 					: bold === "medium"
 					? "font-medium"
-					: "font-normal"
+					: bold === "normal"
+					? "font-normal"
+					: "font-button"
 			}`}
 		>
 			{children}

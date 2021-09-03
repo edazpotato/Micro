@@ -1,8 +1,9 @@
 module.exports = {
 	mode: "jit",
 	purge: [
-		"./pages/**/*.{js,ts,jsx,tsx}",
-		"./components/**/*.{js,ts,jsx,tsx}",
+		".src/pages/**/*.{js,ts,jsx,tsx}",
+		".src/components/**/*.{js,ts,jsx,tsx}",
+		".src/stories/**/*.{js,ts,jsx,tsx}",
 	],
 	darkMode: "media", // or 'false' or 'class'
 	theme: {
@@ -13,11 +14,12 @@ module.exports = {
 			red: "#9E2323",
 			green: "#239E2F",
 			pink: "#9E2348",
+			white: "#FFFFFF",
 
 			background: "#D8D8D8",
 			foreground: "#E5E5E5",
 			inset: "#E9E9E9",
-			border: "#E9E9E9",
+			border: "#C9C9C9",
 			icon: "#888888",
 			"header-icon": "#B5B5B5",
 			text: "#000000",
@@ -34,7 +36,7 @@ module.exports = {
 		},
 		borderRadius: {
 			DEFAULT: "8px",
-			full: "999px",
+			full: "100px",
 		},
 		strokeWidth: {
 			["1"]: "1",
@@ -51,6 +53,7 @@ module.exports = {
 			huge: "20px",
 			large: "18px",
 			normal: "14px",
+			button: "13px",
 		},
 
 		spacing: {
@@ -58,7 +61,10 @@ module.exports = {
 			["2"]: "2px",
 			["4"]: "4px",
 			["6"]: "6px",
+			["7.5"]: "7.5px",
 			["12"]: "12px",
+			["13"]: "13px",
+			["15.5"]: "15.5px",
 			["24"]: "24px",
 			["48"]: "48px",
 			["60"]: "60px",
