@@ -6,7 +6,7 @@
 		"start": "next start",
 		"lint": "next lint",
 		"storybook": "start-storybook -p 5000",
-		"build-storybook": "build-storybook -s public/",
+		"build-storybook": "build-storybook",
 		"serve-storybook": "serve storybook-static"
 	},
 	"dependencies": {
