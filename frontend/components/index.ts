@@ -4,3 +4,4 @@ export * from "./Divider";
 export * from "./Typography";
 export * from "./Card";
 export * from "./Post";
+export * from "./Button";
