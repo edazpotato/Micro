@@ -7,34 +7,28 @@ import React from "react";
 export default {
 	component: Button,
 	title: "Components/Button",
+	argTypes: { onPress: { action: "click " } },
 } as Meta;
 
-//👇 We create a “template” of how args map to rendering
-const Template: Story<ButtonProps> = (args) => (
-	<div style={{ maxWidth: "300px" }}>
-		<Button {...args} />
-	</div>
+export const Blue = () => (
+	<Button colour={ButtonColours.Blue} onPress={() => console.log("Clicked!")}>
+		Blue button
+	</Button>
 );
 
-export const Blue = Template.bind({});
+export const Disabled = () => (
+	<Button colour={ButtonColours.Blue} disabled>
+		Disabled button
+	</Button>
+);
 
-Blue.args = {
-	colour: ButtonColours.Blue,
-	children: "Blue Button",
-	onPress: () => console.log("Clicked!"),
-};
-
-export const Grey = Template.bind({});
-
-Grey.args = {
-	colour: ButtonColours.Grey,
-	children: <PlusIcon />,
-	onPress: () => console.log("Clicked!"),
-};
-
-export const Disabled = Template.bind({});
-
-Disabled.args = {
-	children: "Disabled Button",
-	disabled: true,
-};
+export const Grey = () => (
+	<div style={{ maxWidth: "300px" }}>
+		<Button
+			colour={ButtonColours.Grey}
+			onPress={() => console.log("Clicked!")}
+		>
+			<PlusIcon />
+		</Button>
+	</div>
+);
