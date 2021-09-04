@@ -1,6 +1,7 @@
-import { Button, ButtonProps, ButtonVariants } from "../components";
+import { Button, ButtonColours, ButtonProps } from "../components";
 import { Meta, Story } from "@storybook/react";
 
+import { Plus as PlusIcon } from "react-feather";
 import React from "react";
 
 export default {
@@ -9,24 +10,31 @@ export default {
 } as Meta;
 
 //👇 We create a “template” of how args map to rendering
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => (
+	<div style={{ maxWidth: "300px" }}>
+		<Button {...args} />
+	</div>
+);
 
-export const Primary = Template.bind({});
+export const Blue = Template.bind({});
 
-Primary.args = {
-	variant: ButtonVariants.primary,
-	label: "Primary Button",
-	link: false,
-	disabled: false,
+Blue.args = {
+	colour: ButtonColours.Blue,
+	children: "Blue Button",
+	onPress: () => console.log("Clicked!"),
+};
+
+export const Grey = Template.bind({});
+
+Grey.args = {
+	colour: ButtonColours.Grey,
+	children: <PlusIcon />,
 	onPress: () => console.log("Clicked!"),
 };
 
 export const Disabled = Template.bind({});
 
 Disabled.args = {
-	variant: ButtonVariants.primary,
-	label: "Disabled Button",
-	link: false,
+	children: "Disabled Button",
 	disabled: true,
-	onPress: () => console.log("Clicked!"),
 };

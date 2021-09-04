@@ -11,6 +11,8 @@ module.exports = {
 			tansparent: "transparent",
 			current: "currentColor",
 			blue: "#23539E",
+			"blue-hover": "#275baf",
+			"blue-active": "#214e96",
 			red: "#9E2323",
 			green: "#239E2F",
 			pink: "#9E2348",
@@ -33,8 +35,13 @@ module.exports = {
 			"header-icon-d": "#555555",
 			"text-d": "#FFFFFF",
 			"placeholder-d": "#777777",
+
+			"grey-hover": "#3b3b3b",
+			"grey-active": "#313131",
 		},
+
 		borderRadius: {
+			"a-little-bit": "4px",
 			DEFAULT: "8px",
 			full: "100px",
 		},
@@ -65,6 +72,7 @@ module.exports = {
 			["12"]: "12px",
 			["13"]: "13px",
 			["15.5"]: "15.5px",
+			["17.5"]: "17.5px",
 			["24"]: "24px",
 			["48"]: "48px",
 			["60"]: "60px",
@@ -73,7 +81,7 @@ module.exports = {
 		},
 	},
 	variants: {
-		extend: {},
+		extend: { backgroundColor: ["active"] },
 	},
 	plugins: [],
 };

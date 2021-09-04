@@ -11,12 +11,4 @@ module.exports = {
 			},
 		},
 	],
-	// webpackFinal: async (config) => {
-	// 	config.module.rules.push({
-	// 		test: /\.scss$/,
-	// 		use: ["css-loader", "style-loader"],
-	// 	});
-
-	// 	return config;
-	// },
 };
