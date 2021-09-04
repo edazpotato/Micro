@@ -22,6 +22,7 @@ specifiers:
   react-dom: ^17.0.2
   react-feather: ^2.0.9
   rimraf: ^3.0.2
+  sass: ^1.39.0
   serve: ^12.0.0
   tailwindcss: 2.0.3
   typescript: ^4.4.2
@@ -30,11 +31,12 @@ dependencies:
   '@fontsource/inter': 4.5.0
   '@tailwindcss/jit': 0.1.18_postcss@8.2.8+tailwindcss@2.0.3
   js-cookie: 3.0.0
-  next: 11.1.3-canary.0_a4eb30ef396b7431c88539aa95d8d42f
+  next: 11.1.3-canary.0_aa9a53dfadb281bbd90071a441a34837
   nprogress: 0.2.0
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-feather: 2.0.9_react@17.0.2
+  sass: 1.39.0
 
 devDependencies:
   '@babel/core': 7.15.4
@@ -5696,7 +5698,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.4.1_eslint@7.32.0
       eslint-plugin-react: 7.25.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
-      next: 11.1.3-canary.0_a4eb30ef396b7431c88539aa95d8d42f
+      next: 11.1.3-canary.0_aa9a53dfadb281bbd90071a441a34837
       typescript: 4.4.2
     transitivePeerDependencies:
       - supports-color
@@ -8268,7 +8270,7 @@ packages:
     resolution: {integrity: sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==}
     dev: true
 
-  /next/11.1.3-canary.0_a4eb30ef396b7431c88539aa95d8d42f:
+  /next/11.1.3-canary.0_aa9a53dfadb281bbd90071a441a34837:
     resolution: {integrity: sha512-n/fFot/UaqScn9AAKCFu5I4akqJBOCcC8lKF+4P0GJGpmrPGIpc7s6J6E+l1P2xkph/7QW5MF4/i/T/iOqPBPg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -8328,6 +8330,7 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
       react-refresh: 0.8.3
+      sass: 1.39.0
       stream-browserify: 3.0.0
       stream-http: 3.1.1
       string_decoder: 1.3.0
@@ -10041,6 +10044,14 @@ packages:
       minimist: 1.2.5
       walker: 1.0.7
     dev: true
+
+  /sass/1.39.0:
+    resolution: {integrity: sha512-F4o+RhJkNOIG0b6QudYU8c78ZADKZjKDk5cyrf8XTKWfrgbtyVVXImFstJrc+1pkQDCggyidIOytq6gS4gCCZg==}
+    engines: {node: '>=8.9.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.2
+    dev: false
 
   /scheduler/0.20.2:
     resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
