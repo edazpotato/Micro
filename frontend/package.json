@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@fontsource/inter": "^4.5.0",
 		"@react-aria/focus": "^3.4.1",
+		"@react-aria/ssr": "^3.0.3",
 		"@tailwindcss/jit": "^0.1.18",
 		"clsx": "^1.1.1",
 		"js-cookie": "^3.0.0",
@@ -22,7 +23,6 @@
 		"react-feather": "^2.0.9"
 	},
 	"devDependencies": {
-		"sass": "^1.39.0",
 		"@babel/core": "^7.13.10",
 		"@storybook/addon-a11y": "^6.3.8",
 		"@storybook/addon-essentials": "6.3.8",
@@ -38,6 +38,7 @@
 		"eslint-config-next": "^11.1.1",
 		"postcss": "8.2.10",
 		"rimraf": "^3.0.2",
+		"sass": "^1.39.0",
 		"serve": "^12.0.0",
 		"storybook-tailwind-dark-mode": "^1.0.11",
 		"tailwindcss": "2.0.3",
