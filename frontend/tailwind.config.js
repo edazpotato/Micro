@@ -18,7 +18,7 @@ module.exports = {
 			pink: "#9E2348",
 			white: "#FFFFFF",
 
-			ring: "#23979E",
+			ring: "#32BDC6",
 
 			background: "#D8D8D8",
 			foreground: "#E5E5E5",
