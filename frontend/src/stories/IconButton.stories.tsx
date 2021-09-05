@@ -1,4 +1,5 @@
-import { IconButton } from "../components";
+import { Card, IconButton, Typography } from "../components";
+
 import { Meta } from "@storybook/react";
 import React from "react";
 import { User as UserIcon } from "react-feather";
@@ -10,10 +11,29 @@ export default {
 } as Meta;
 
 export const Normal = () => (
-	<IconButton onPress={() => console.log("Clicked!")} icon={UserIcon} />
+	<>
+		<Card className="p-16">
+			<IconButton
+				onPress={() => console.log("Clicked!")}
+				icon={UserIcon}
+			/>
+		</Card>
+		<Typography>
+			^ In a card so that it can be seen against the correct background.
+		</Typography>
+	</>
 );
 
-export const Disabled = () => <IconButton disabled icon={UserIcon} />;
+export const Disabled = () => (
+	<>
+		<Card className="p-16">
+			<IconButton disabled icon={UserIcon} />
+		</Card>
+		<Typography>
+			^ In a card so that it can be seen against the correct background.
+		</Typography>
+	</>
+);
 
 export const Chonky = () => (
 	<IconButton

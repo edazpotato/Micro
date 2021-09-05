@@ -28,19 +28,20 @@ export function IconButton({
 		<Element
 			{...focusProps}
 			disabled={disabled}
+			tabIndex={disabled ? -1 : 0}
 			onClick={(e) => !disabled && onPress && onPress(e)}
 			className={clsx(
-				"MicroIconButton cursor-default duration-100 ease-in-out outline-none focus:outline-none",
+				"MicroIconButton cursor-default duration-100 ease-in-out rounded-full outline-none focus:outline-none",
 				chonky
 					? clsx(
-							"p-9 rounded-full bg-foreground dark:bg-foreground-d text-placeholder dark:text-placeholder-d",
+							"p-9 bg-icon-chonk dark:bg-icon-chonk-d text-placeholder dark:text-placeholder-d",
 							!disabled &&
-								"hover:bg-inset dark:hover:bg-inset-d dark:active:bg-icon-chonk-active-d"
+								"hover:bg-icon-chonk-hover dark:hover:bg-icon-chonk-hover-d active:bg-icon-chonk-active dark:active:bg-icon-chonk-active-d"
 					  )
 					: clsx(
-							"p-6 text-icon dark:text-icon-d ",
+							"p-6 text-icon",
 							!disabled &&
-								"hover:text-icon-hover active:text-placeholder dark:active:text-placeholder-d"
+								"hover:text-icon-hover active:text-icon-active"
 					  ),
 				isFocusVisible && "focus:ring-4"
 			)}

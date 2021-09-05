@@ -1,6 +1,7 @@
 // import "../src/styles/globals.scss";
 // import "../src/styles/nprogress.scss";
 
+import "@fontsource/inter";
 import "../src/styles/tailwind.css";
 
 import { addDecorator, addParameters } from "@storybook/react";
