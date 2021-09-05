@@ -5,3 +5,4 @@ export * from "./Typography";
 export * from "./Card";
 export * from "./Post";
 export * from "./Button";
+export * from "./IconButton";

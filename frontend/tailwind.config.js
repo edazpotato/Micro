@@ -38,6 +38,8 @@ module.exports = {
 
 			"grey-hover": "#3b3b3b",
 			"grey-active": "#313131",
+			"icon-hover": "#C0C0C0",
+			"icon-chonk-active-d": "#1E1E1E",
 		},
 
 		borderRadius: {
@@ -69,6 +71,7 @@ module.exports = {
 			["4"]: "4px",
 			["6"]: "6px",
 			["7.5"]: "7.5px",
+			["9"]: "9px",
 			["12"]: "12px",
 			["13"]: "13px",
 			["15.5"]: "15.5px",
