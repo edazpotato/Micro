@@ -51,7 +51,9 @@ module.exports = {
 			"icon-chonk-active": "#E9E9E9",
 			"icon-chonk-active-d": "#1E1E1E",
 		},
-
+		ringColor: (theme) => {
+			return { DEFAULT: theme("colors").pink };
+		},
 		borderRadius: {
 			"a-little-bit": "4px",
 			DEFAULT: "8px",
