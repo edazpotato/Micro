@@ -23,8 +23,16 @@ export const Disabled = () => (
 );
 
 export const Grey = () => (
-	<div style={{ maxWidth: "300px" }}>
+	<div>
 		<Button colour="grey" onPress={() => console.log("Clicked!")}>
+			<PlusIcon />
+		</Button>
+	</div>
+);
+
+export const GreyDisabled = () => (
+	<div>
+		<Button colour="grey" disabled>
 			<PlusIcon />
 		</Button>
 	</div>

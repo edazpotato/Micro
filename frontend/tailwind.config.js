@@ -34,8 +34,10 @@ module.exports = {
 			"text-d": "#FFFFFF",
 			"placeholder-d": "#777777",
 
-			"grey-hover": "#3b3b3b",
-			"grey-active": "#313131",
+			"grey-hover": "#CBCBCB",
+			"grey-active": "#D5D5D5",
+			"grey-hover-d": "#3b3b3b",
+			"grey-active-d": "#313131",
 
 			icon: "#888888",
 			"icon-hover": "#C0C0C0",

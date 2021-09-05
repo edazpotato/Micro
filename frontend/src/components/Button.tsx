@@ -38,9 +38,9 @@ export function Button({
 								: "bg-blue text-white border-tansparent hover:bg-blue-hover active:bg-blue-active"
 					  )
 					: clsx(
-							"p-17.5 w-full bg-inset-d text-placeholder-d",
+							"p-17.5 w-full bg-inset dark:bg-inset-d text-placeholder dark:text-placeholder-d",
 							!disabled &&
-								"hover:bg-grey-hover active:bg-grey-active"
+								"hover:bg-grey-hover active:bg-grey-active dark:hover:bg-grey-hover-d dark:active:bg-grey-active-d"
 					  ),
 				isFocusVisible && "focus:ring-4"
 			)}
