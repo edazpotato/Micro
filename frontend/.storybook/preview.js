@@ -8,16 +8,16 @@ import { addDecorator, addParameters } from "@storybook/react";
 import { withA11y } from "@storybook/addon-a11y";
 
 const backgrounds = {
-	default: "light",
+	// default: "light",
 	values: [
-		{
-			name: "light",
-			value: "#D8D8D8",
-		},
-		{
-			name: "dark",
-			value: "#111111",
-		},
+		// {
+		// 	name: "light",
+		// 	value: "#D8D8D8",
+		// },
+		// {
+		// 	name: "dark",
+		// 	value: "#111111",
+		// },
 	],
 };
 

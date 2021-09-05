@@ -5,7 +5,7 @@ module.exports = {
 		".src/components/**/*.{js,ts,jsx,tsx}",
 		".src/stories/**/*.{js,ts,jsx,tsx}",
 	],
-	darkMode: "media", // or 'false' or 'class'
+	darkMode: "class", // or 'false' or 'class'
 	theme: {
 		colors: {
 			tansparent: "transparent",
@@ -81,7 +81,7 @@ module.exports = {
 		},
 	},
 	variants: {
-		extend: { backgroundColor: ["active"] },
+		extend: { backgroundColor: ["active"], textColor: ["active"] },
 	},
 	plugins: [],
 };
