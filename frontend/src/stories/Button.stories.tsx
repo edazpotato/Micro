@@ -1,4 +1,4 @@
-import { Button, ButtonColours, ButtonProps } from "../components";
+import { Button, ButtonProps } from "../components";
 import { Meta, Story } from "@storybook/react";
 
 import { Plus as PlusIcon } from "react-feather";
@@ -11,23 +11,20 @@ export default {
 } as Meta;
 
 export const Blue = () => (
-	<Button colour={ButtonColours.Blue} onPress={() => console.log("Clicked!")}>
+	<Button colour="blue" onPress={() => console.log("Clicked!")}>
 		Blue button
 	</Button>
 );
 
 export const Disabled = () => (
-	<Button colour={ButtonColours.Blue} disabled>
+	<Button colour="blue" disabled>
 		Disabled button
 	</Button>
 );
 
 export const Grey = () => (
 	<div style={{ maxWidth: "300px" }}>
-		<Button
-			colour={ButtonColours.Grey}
-			onPress={() => console.log("Clicked!")}
-		>
+		<Button colour="grey" onPress={() => console.log("Clicked!")}>
 			<PlusIcon />
 		</Button>
 	</div>
