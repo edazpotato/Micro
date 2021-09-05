@@ -1,6 +1,6 @@
-import { Button, ButtonProps } from "../components";
-import { Meta, Story } from "@storybook/react";
+import { Button, Card, Typography } from "../components";
 
+import { Meta } from "@storybook/react";
 import { Plus as PlusIcon } from "react-feather";
 import React from "react";
 
@@ -11,29 +11,61 @@ export default {
 } as Meta;
 
 export const Blue = () => (
-	<Button colour="blue" onPress={() => console.log("Clicked!")}>
-		Blue button
-	</Button>
+	<>
+		<Card className="p-16">
+			<Button colour="blue" onPress={() => console.log("Clicked!")}>
+				Blue button
+			</Button>
+		</Card>
+		<Typography>
+			^ Inside a card so that it can be seen against the correct
+			background.
+		</Typography>
+	</>
 );
 
 export const Disabled = () => (
-	<Button colour="blue" disabled>
-		Disabled button
-	</Button>
+	<>
+		<Card className="p-16">
+			<Button colour="blue" disabled>
+				Disabled button
+			</Button>
+		</Card>
+		<Typography>
+			^ Inside a card so that it can be seen against the correct
+			background.
+		</Typography>
+	</>
 );
 
 export const Grey = () => (
-	<div>
-		<Button colour="grey" onPress={() => console.log("Clicked!")}>
-			<PlusIcon />
-		</Button>
-	</div>
+	<>
+		<Card className="p-16" fullWidth>
+			<Button
+				colour="grey"
+				onPress={() => console.log("Clicked!")}
+				className="w-120"
+			>
+				<PlusIcon />
+			</Button>
+		</Card>
+		<Typography>
+			^ Inside a card so that it can be seen against the correct
+			background.
+		</Typography>
+	</>
 );
 
 export const GreyDisabled = () => (
-	<div>
-		<Button colour="grey" disabled>
-			<PlusIcon />
-		</Button>
-	</div>
+	<>
+		<Card className="p-16" fullWidth>
+			<Button colour="grey" disabled className="w-120">
+				<PlusIcon />
+			</Button>
+		</Card>
+		<Typography>
+			^ Inside a card so that it can be seen against the correct
+			background.
+		</Typography>
+	</>
 );

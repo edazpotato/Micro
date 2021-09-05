@@ -3,7 +3,7 @@ module.exports = {
 	purge: [
 		".src/pages/**/*.{js,ts,jsx,tsx}",
 		".src/components/**/*.{js,ts,jsx,tsx}",
-		".src/stories/**/*.{js,ts,jsx,tsx}",
+		".src/stories/**/*.stories.{js,ts,jsx,tsx}",
 	],
 	darkMode: "class", // or 'false' or 'class'
 	theme: {
@@ -11,8 +11,8 @@ module.exports = {
 			tansparent: "transparent",
 			current: "currentColor",
 			blue: "#23539E",
-			"blue-hover": "#275baf",
-			"blue-active": "#214e96",
+			"blue-hover": "#306AC7",
+			"blue-active": "#214E96",
 			red: "#9E2323",
 			green: "#239E2F",
 			pink: "#9E2348",
@@ -34,9 +34,11 @@ module.exports = {
 			"text-d": "#FFFFFF",
 			"placeholder-d": "#777777",
 
-			"grey-hover": "#CBCBCB",
+			grey: "#D5D5D5",
+			"grey-hover": "#A5A5A5",
 			"grey-active": "#D5D5D5",
-			"grey-hover-d": "#3b3b3b",
+			"grey-d": "#333333",
+			"grey-hover-d": "#3B3B3B",
 			"grey-active-d": "#313131",
 
 			icon: "#888888",
@@ -44,7 +46,7 @@ module.exports = {
 			"icon-active": "#777777",
 			"icon-chonk": "#E5E5E5",
 			"icon-chonk-d": "#222222",
-			"icon-chonk-hover": "#CCCCCC",
+			"icon-chonk-hover": "#B5B5B5",
 			"icon-chonk-hover-d": "#333333",
 			"icon-chonk-active": "#E9E9E9",
 			"icon-chonk-active-d": "#1E1E1E",
@@ -83,6 +85,7 @@ module.exports = {
 			["12"]: "12px",
 			["13"]: "13px",
 			["15.5"]: "15.5px",
+			["16"]: "16px",
 			["17.5"]: "17.5px",
 			["24"]: "24px",
 			["48"]: "48px",

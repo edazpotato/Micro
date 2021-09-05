@@ -19,7 +19,8 @@ export const Normal = () => (
 			/>
 		</Card>
 		<Typography>
-			^ In a card so that it can be seen against the correct background.
+			^ Inside a card so that it can be seen against the correct
+			background.
 		</Typography>
 	</>
 );
@@ -30,7 +31,8 @@ export const Disabled = () => (
 			<IconButton disabled icon={UserIcon} />
 		</Card>
 		<Typography>
-			^ In a card so that it can be seen against the correct background.
+			^ Inside a card so that it can be seen against the correct
+			background.
 		</Typography>
 	</>
 );

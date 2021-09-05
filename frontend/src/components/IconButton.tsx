@@ -10,6 +10,7 @@ export interface IconButtonProps {
 	disabled?: boolean;
 	icon: Icon;
 	chonky?: boolean;
+	className?: string;
 }
 
 export function IconButton({
@@ -18,6 +19,7 @@ export function IconButton({
 	link,
 	disabled,
 	chonky,
+	className,
 }: IconButtonProps) {
 	const { isFocusVisible, focusProps } = useFocusRing();
 
@@ -43,7 +45,8 @@ export function IconButton({
 							!disabled &&
 								"hover:text-icon-hover active:text-icon-active"
 					  ),
-				isFocusVisible && "focus:ring-4"
+				isFocusVisible && "focus:ring-4",
+				className
 			)}
 		>
 			<ButtonIcon className="stroke-current " />
