@@ -18,6 +18,8 @@ module.exports = {
 			pink: "#9E2348",
 			white: "#FFFFFF",
 
+			ring: "#23979E",
+
 			background: "#D8D8D8",
 			foreground: "#E5E5E5",
 			inset: "#E9E9E9",
@@ -52,7 +54,7 @@ module.exports = {
 			"icon-chonk-active-d": "#1E1E1E",
 		},
 		ringColor: (theme) => {
-			return { DEFAULT: theme("colors").pink };
+			return { DEFAULT: theme("colors").ring };
 		},
 		borderRadius: {
 			"a-little-bit": "4px",
