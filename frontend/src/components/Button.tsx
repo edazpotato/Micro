@@ -28,7 +28,7 @@ export function Button({
 			tabIndex={disabled ? -1 : 0}
 			onClick={(e) => !disabled && onPress && onPress(e)}
 			disabled={disabled}
-			className={`MicroButton cursor-default duration-100 flex items-center justify-center text-center font-semibold font-13 min-w-84 outline-none focus:outline-none ${
+			className={`MicroButton cursor-default duration-100 ease-in-out flex items-center justify-center text-center font-semibold font-13 min-w-84 outline-none focus:outline-none ${
 				colour === "blue"
 					? `border rounded-full py-7.5 px-15.5 ${
 							disabled
