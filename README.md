@@ -27,7 +27,7 @@ You can have a look at the Figma designs [here](https://www.figma.com/file/JElZB
 To contribute you can just clone the repository as normal.
 `git clone https://github.com/edazpotato/Micro.git`
 
-However, be sure to look at the READMEs in the frontend and backend folders depending on what you're contributing to.
+However, be sure to look at the README files in the frontend and backend folders depending on what you're contributing to.
 
 ### Pull Requests
 
@@ -42,7 +42,7 @@ Example:
   
   [Backend]
     - Added cookie route:
-      Buys millions of cookies on the users behalf
+      Buys millions of cookies on the user's behalf
     - Added bagel route:
       Does the same thing as the cookie route but with bagels
       
