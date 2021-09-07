@@ -12,6 +12,7 @@ on:
 jobs:
   app:
     runs-on: ubuntu-latest
+    
     defaults:
       run:
         working-directory: frontend
@@ -23,7 +24,7 @@ jobs:
       with:
         working-directory: ${{ env.working-directory }}
         node-version: '16.x'
-    - run: npm i pnpm -g
+    - run: npm install pnpm -g
     - run: pnpm ci
     - run: pnpm run build
     - run: pnpm run build-storybook
