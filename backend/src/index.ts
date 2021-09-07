@@ -19,9 +19,10 @@ if (process.env.DRL !== "false") {
     for (const routeName of routes) {
         const routeLocation = "./routes/" + routeName;
         import(routeLocation).then(route => {
-            if (typeof route.default === "function") {
+            const router: express.Router = route.router || route.default;
+            if (typeof router === "function" && router.route && route.hook) {
                 try {
-                    app.use(route.hook, route.default)
+                    app.use(route.hook, router)
                     console.log(`Hooked route "${routeName}" to endpoint "${route.hook}"`)
                 } catch (e) {throw e};
             }

@@ -2,23 +2,24 @@ import mongoose, { Schema } from 'mongoose'
 
 const UserSchema: Schema = new Schema({ 
   username: String, 
-  flags: Object,
+  flags: [
+    "admin",
+    "moderator",
+    "trusted",
+    "supporter",
+    "supporter_p",
+    "disabled",
+    "banned"
+  ],
   email: {
     type: String,
     required: true,
     unique: true
   },
   password: String,
-  lowercaseEmail: String,
-  lowercaseName: String,
   id: String,
-  //verificationToken: {
-  //  type: String,
-  //  required: true
-  //},
-  //emailVerified: Boolean,
   joinedAt: Date,
-  avatar: String,
+  avatar: String || null,
 })
 
 export default mongoose.model('user', UserSchema)

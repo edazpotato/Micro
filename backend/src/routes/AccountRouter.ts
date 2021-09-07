@@ -1,4 +1,4 @@
-import { Router, json } from 'express'
+import { Router } from 'express'
 import argon2, { argon2id } from 'argon2'
 import crypto from 'crypto'
 import User from '../models/User'
@@ -9,7 +9,7 @@ const AccountRouter = Router()
 
 const usernameRegex = /^[a-z0-9]+$/i
 const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-const customEpoch = process.env.EPOCH as number | undefined
+const customEpoch: number | undefined = !process.env.EPOCH ? process.env.EPOCH as undefined : +process.env.EPOCH
 
 AccountRouter.route('/login').post(async (req, res) => {
   let errors: Array<String> = []
@@ -17,6 +17,7 @@ AccountRouter.route('/login').post(async (req, res) => {
   if (!req.body) return errors.push('Invalid body')
   if (!req.body.username) return errors.push('Invalid username')
   if (!req.body.password) return errors.push('Invalid password')
+  if (!req.clientIp) errors.push("Failed to register client ip with session")
   if (errors.length > 0) {
     return res.status(400).json({
       success: false,
@@ -32,7 +33,7 @@ AccountRouter.route('/login').post(async (req, res) => {
   }).exec()
   if (!user) errors.push('Invalid user') // @ts-ignore
 
-  let comparison = await argon2.verify(user.password, req.body.password, {
+  let comparison = await argon2.verify(user.password, req.body.password, { 
     type: argon2id,
   })
   if (!comparison) {
@@ -43,22 +44,19 @@ AccountRouter.route('/login').post(async (req, res) => {
     })
   }
 
-  const sessionToken = 'Bearer ' + crypto.randomBytes(96).toString('base64')
-  let session = new Session({
-    sessionString: sessionToken, // @ts-ignore
-    userId: user.id,
-    ip: req.clientIp
-  })
-
-  await session.save()
+  // @ts-ignore
+  const sessionToken = await initSession(user.id, req.clientIp as string);
   return res.status(200).json({
     success: true,
     message: 'Successfully logged in!', // @ts-ignore
-    session: session.sessionString,
+    sessionToken: sessionToken.token,
     user: { // @ts-ignore
-      avatar: user.avatar, // @ts-ignore
+      username: user.username, // @ts-ignore
+      id: user.id, // @ts-ignore
       flags: user.flags, // @ts-ignore
-      username: user.name
+      email: user.email, // @ts-ignore
+      joinedAt: user.joinedAt, // @ts-ignore,
+      avatar: user.avatar
     }
   })
 })
@@ -74,6 +72,7 @@ AccountRouter.route('/register').post(async (req, res) => {
     if (!req.body.username.match(usernameRegex)) errors.push('Your username must be alphanumeric')
     if (!req.body.email.match(emailRegex)) errors.push('Your email is invalid')
     if (req.body.username.length <= 2) errors.push('Your username\'s too short.')
+    if (!req.clientIp) errors.push("Failed to register client ip with session")
 
     let emails = await User.find({
       email: req.body.email,
@@ -97,19 +96,26 @@ AccountRouter.route('/register').post(async (req, res) => {
     let user = new User({
       username: req.body.username,
       email: req.body.email,
-      lowercaseName: req.body.username.toLowerCase(),
-      lowercaseEmail: req.body.email.toLowerCase(),
       password: hashedPassword,
       id: new UniqueID({ customEpoch }).getUniqueID() as string,
-      verificationToken: crypto.randomBytes(18).toString('hex'),
       joinedAt: new Date(),
-      //emailVerified: false
     })
 
     await user.save()
+
+    const sessionToken = await initSession(user.id, req.clientIp as string);
     res.status(200).json({
       success: true,
-      message: 'Successfully created your account.'
+      message: 'Successfully created your account.', // @ts-ignore
+      sessionToken: sessionToken.token,
+      user: { // @ts-ignore
+        username: user.username, // @ts-ignore
+        id: user.id, // @ts-ignore
+        flags: user.flags, // @ts-ignore
+        email: user.email, // @ts-ignore
+        joinedAt: user.joinedAt, // @ts-ignore,
+        avatar: user.avatar
+      }
     })
   } catch (e) {
     return res.status(500).json({
@@ -119,6 +125,17 @@ AccountRouter.route('/register').post(async (req, res) => {
     })
   }
 })
+
+async function initSession (userId: string, clientIp: string) {
+  const sessionToken = 'Bearer ' + crypto.randomBytes(96).toString('base64')
+  let session = new Session({
+    token: sessionToken,
+    userId,
+    ip: clientIp
+  })
+  await session.save()
+  return session;
+}
 
 export default AccountRouter
 export const hook = '/account'
