@@ -9,7 +9,7 @@ export interface ButtonProps {
 	disabled?: boolean;
 	children?: ReactChild;
 	colour: "blue" | "grey";
-	text: string;
+	text?: string;
 	className?: string;
 }
 
