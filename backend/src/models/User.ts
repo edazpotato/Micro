@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 
 const UserSchema: Schema = new Schema({ 
-  username: String, 
+  username: String,
+  displayname: String,
   flags: [
     "admin",
     "moderator",

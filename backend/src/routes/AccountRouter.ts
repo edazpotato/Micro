@@ -52,6 +52,7 @@ AccountRouter.route('/login').post(async (req, res) => {
     sessionToken: sessionToken.token,
     user: { // @ts-ignore
       username: user.username, // @ts-ignore
+      displayname: user.displayname, // @ts-ignore
       id: user.id, // @ts-ignore
       flags: user.flags, // @ts-ignore
       email: user.email, // @ts-ignore
@@ -75,10 +76,10 @@ AccountRouter.route('/register').post(async (req, res) => {
     if (!req.clientIp) errors.push("Failed to register client ip with session")
 
     let emails = await User.find({
-      email: req.body.email,
+      email: req.body.email.toLowerCase(),
     }).exec()
     let usernames = await User.find({
-      name: req.body.username,
+      name: req.body.username.toLowerCase(),
     }).exec()
 
     if (usernames.length > 0) errors.push('This username is already in use')
@@ -94,8 +95,9 @@ AccountRouter.route('/register').post(async (req, res) => {
       type: argon2id,
     })
     let user = new User({
-      username: req.body.username,
-      email: req.body.email,
+      username: req.body.username.toLowerCase(),
+      displayname: req.body.displayname || req.body.username.toLowerCase(),
+      email: req.body.email.toLowerCase(),
       password: hashedPassword,
       id: new UniqueID({ customEpoch }).getUniqueID() as string,
       joinedAt: new Date(),
@@ -109,6 +111,7 @@ AccountRouter.route('/register').post(async (req, res) => {
       message: 'Successfully created your account.', // @ts-ignore
       sessionToken: sessionToken.token,
       user: { // @ts-ignore
+        displayname: user.displayname, // @ts-ignore
         username: user.username, // @ts-ignore
         id: user.id, // @ts-ignore
         flags: user.flags, // @ts-ignore
