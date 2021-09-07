@@ -31,7 +31,7 @@ jobs:
       with:
         working-directory: ${{ env.working-directory }}
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: 'yarn'
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
     - run: yarn run build
