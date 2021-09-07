@@ -121,4 +121,4 @@ AccountRouter.route('/register').post(async (req, res) => {
 })
 
 export default AccountRouter
-export const endpoint = '/account'
+export const hook = '/account'

@@ -19,8 +19,8 @@ for (const routeName of routes) {
     import(routeLocation).then(route => {
         if (typeof route.default === "function") {
             try {
-                app.use(route.endpoint || "/", route.default)
-                console.log(`Loaded route "${routeName}" on endpoint "${route.endpoint}"`)
+                app.use(route.hook, route.default)
+                console.log(`Loaded route "${routeName}" on endpoint "${route.hook}"`)
             } catch (e) {throw e};
         }
     });
