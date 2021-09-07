@@ -14,24 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      working-directory: ./backend
+      working-directory: backend
       
     defaults:
       run:
-        working-directory: ./backend
-
-    strategy:
-      matrix:
-        node-version: [16.x]
+        working-directory: ${{ env.working-directory }}
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 16.x
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
         working-directory: ${{ env.working-directory }}
+        node-version: '16.x'
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
     - run: yarn run build
