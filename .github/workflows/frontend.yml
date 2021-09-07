@@ -29,7 +29,10 @@ jobs:
       with:
         path: ~/.pnpm-store
         key: ${{ runner.os }}-node16.x-${{ hashFiles('**/pnpm-lock.yaml') }}
-    - run: npm install pnpm -g
+    - name: Install pnpm
+      run: curl -f https://get.pnpm.io/v6.14.js | node - add --global pnpm@6
+    - name: pnpm Build
+      run: pnpm install
     - run: pnpm ci
     - run: pnpm run build
     - run: pnpm run build-storybook
