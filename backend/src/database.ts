@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export default class Database {
   constructor() {
-    if (process.env.MONGODB_URI!! !== "false") {
+    if (process.env.MONGODB_URI !== undefined && process.env.MONGODB_URI?.includes("mongodb+srv://") !== false) {
       mongoose.connect(process.env.MONGODB_URI!!, { // @ts-ignore
         useNewUrlParser: true,
         useUnifiedTopology: true,
