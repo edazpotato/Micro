@@ -10,4 +10,4 @@ RootRouter.route('/').all((req, res) => {
 })
 
 export default RootRouter
-export const endpoint = '/'
+export const hook = '/'
