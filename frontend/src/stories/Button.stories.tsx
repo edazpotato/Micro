@@ -13,7 +13,7 @@ export default {
 export const Blue = () => (
 	<>
 		<Card className="p-16">
-			<Button colour="blue" onPress={() => console.log("Clicked!")}>
+			<Button colour="blue" onPress={() => console.log("Clicked!")} text={""}>
 				Blue button
 			</Button>
 		</Card>
@@ -27,7 +27,7 @@ export const Blue = () => (
 export const Disabled = () => (
 	<>
 		<Card className="p-16">
-			<Button colour="blue" disabled>
+			<Button colour="blue" disabled text={""}>
 				Disabled button
 			</Button>
 		</Card>
@@ -44,8 +44,7 @@ export const Grey = () => (
 			<Button
 				colour="grey"
 				onPress={() => console.log("Clicked!")}
-				className="w-120"
-			>
+				className="w-120" text={""}			>
 				<PlusIcon />
 			</Button>
 		</Card>
@@ -59,7 +58,7 @@ export const Grey = () => (
 export const GreyDisabled = () => (
 	<>
 		<Card className="p-16" fullWidth>
-			<Button colour="grey" disabled className="w-120">
+			<Button colour="grey" disabled className="w-120" text={""}>
 				<PlusIcon />
 			</Button>
 		</Card>
