@@ -11,6 +11,7 @@ const UserSchema: Schema = new Schema({
   password: String,
   lowercaseEmail: String,
   lowercaseName: String,
+  id: String,
   //verificationToken: {
   //  type: String,
   //  required: true
