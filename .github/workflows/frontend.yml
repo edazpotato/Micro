@@ -1,6 +1,10 @@
 name: Frontend Check
 
 on:
+  push:
+    branches:
+    - main
+
   pull_request:
     branches:
     - main
@@ -20,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm install pnpm -g
     - run: cd frontend
     - run: npm ci
     - run: npm run build
