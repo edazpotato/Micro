@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
+    "production": "yarn build && node ./dist/index.js",
     "test": "tsc --build && node ./dist/index.js --test"
   },
   "repository": "https://github.com/edazpotato/Micro",
