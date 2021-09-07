@@ -9,6 +9,7 @@ Made using:
 -   [Typescript](https://github.com/microsoft/typescript)
 -   [Next.JS](https://github.com/vercel/next.js)
 -   [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
+-   [Storybook](https://github.com/storybookjs/storybook/)
 
 ### Developing
 
@@ -20,3 +21,5 @@ cd Micro
 pnpm i        # Install dependencies with pnpm
 pnpm run dev  # Start Next.JS dev server
 ```
+
+When working on components, use `pnpm run storybook` to easily preview them. Also make sure to write stories for new components, or breaking changes to/new variants of existing components.
