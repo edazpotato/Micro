@@ -18,7 +18,7 @@ jobs:
       
     defaults:
       run:
-        working-directory: ./backend
+        working-directory: ${{ env.working-directory }}
 
     strategy:
       matrix:
@@ -29,9 +29,9 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
+        working-directory: ${{ env.working-directory }}
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        working-directory: ${{ env.working-directory }}
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
     - run: yarn run build
