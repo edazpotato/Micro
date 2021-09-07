@@ -30,4 +30,9 @@ jobs:
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
     - run: yarn run build
+    - name: Create .env
+    uses: SpicyPizza/create-envfile@v1
+    with:
+      envkey_MONGODB_URI: ${{ secrets.SuperSecret }}
+      envkey_PORT: 5000
     - run: node ./dist/index.js
