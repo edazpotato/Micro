@@ -29,5 +29,4 @@ jobs:
         node-version: '16.x'
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
-    - run: yarn run build
-    - run: node ./dist/index.js --test
+    - run: yarn run test

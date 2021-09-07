@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "test": "tsc --build && node ./dist/index.js --test"
   },
   "repository": "https://github.com/edazpotato/Micro",
   "license": "GPL-3.0",
