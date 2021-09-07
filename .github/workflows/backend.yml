@@ -30,3 +30,4 @@ jobs:
     - run: npm install yarn -g
     - run: yarn install --frozen-lockfile
     - run: yarn run build
+    - run: node ./dist/index.js
