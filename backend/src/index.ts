@@ -1,4 +1,4 @@
-import express, { Router } from 'express'
+import express from 'express'
 import db from './database'
 import 'dotenv/config'
 import cors from 'cors'
@@ -13,17 +13,19 @@ app.use(cors({origin: "*"}));
 app.use(express.json())
 app.use(requestIp.mw())
 
-const routes = fs.readdirSync(path.join(__dirname, '/routes'));
-for (const routeName of routes) {
-    const routeLocation = "./routes/" + routeName;
-    import(routeLocation).then(route => {
-        if (typeof route.default === "function") {
-            try {
-                app.use(route.hook, route.default)
-                console.log(`Loaded route "${routeName}" on endpoint "${route.hook}"`)
-            } catch (e) {throw e};
-        }
-    });
+if (process.env.DRL !== "false") {
+    const routes = fs.readdirSync(path.join(__dirname, '/routes'));
+    for (const routeName of routes) {
+        const routeLocation = "./routes/" + routeName;
+        import(routeLocation).then(route => {
+            if (typeof route.default === "function") {
+                try {
+                    app.use(route.hook, route.default)
+                    console.log(`Hooked route "${routeName}" to endpoint "${route.hook}"`)
+                } catch (e) {throw e};
+            }
+        })
+    }
 }
 
 app.listen(process.env.PORT, () => console.log('Listening on port', process.env.PORT))
