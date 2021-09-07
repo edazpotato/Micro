@@ -30,3 +30,4 @@ if (process.env.DRL !== "false") {
 }
 
 app.listen(port, () => console.log('Listening on port', port))
+if (process.argv[2] === "--test") {setTimeout(() => {process.exit(0)},60000)}
