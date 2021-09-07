@@ -6,6 +6,7 @@ import requestIp from 'request-ip'
 import fs from 'fs'
 import path from 'path'
 
+const port = process.env.PORT || 5000;
 const app = express()
 new db()
 
@@ -28,4 +29,4 @@ if (process.env.DRL !== "false") {
     }
 }
 
-app.listen(process.env.PORT || 5000, () => console.log('Listening on port', process.env.PORT))
+app.listen(port, () => console.log('Listening on port', port))
