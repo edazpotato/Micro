@@ -35,4 +35,5 @@ jobs:
       with:
         envkey_MONGODB_URI: false
         envkey_PORT: 5000
+        directory: backend
     - run: node ./dist/index.js
