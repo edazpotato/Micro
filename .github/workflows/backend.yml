@@ -33,6 +33,6 @@ jobs:
     - name: Create .env
     uses: SpicyPizza/create-envfile@v1
     with:
-      envkey_MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      envkey_MONGODB_URI: false
       envkey_PORT: 5000
     - run: node ./dist/index.js
