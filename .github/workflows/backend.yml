@@ -41,6 +41,7 @@ jobs:
             fi
           done < files.txt
   app:
+    name: Test Backend
     needs: check
     if: needs.check.outputs.run_job == 'true'
 
