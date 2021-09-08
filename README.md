@@ -51,3 +51,7 @@ Example:
       - Added instructions on how to send me food
       - gimme food now
 ```
+
+### Documentation
+
+Most of the documentation can be found on the [wiki](https://github.com/edazpotato/Micro/wiki)
