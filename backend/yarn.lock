@@ -237,25 +237,6 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-caller-callsite@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/caller-callsite/-/caller-callsite-4.1.0.tgz#3e33cb1d910e7b09332d59a3503b9af7462f7295"
-  integrity sha512-99nnnGlJexTc41xwQTr+mWl15OI5PPczUJzM4YRE7QjkefMKCXGa5gfQjCOuVrD+1TjI/fevIDHg2nz3iYN5Ig==
-  dependencies:
-    callsites "^3.1.0"
-
-caller-path@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/caller-path/-/caller-path-3.0.1.tgz#bc932ecec3f943e10c2f8922146e23b132f932e4"
-  integrity sha512-fhmztL4wURO/BzwJUJ4aVRdnKEFskPBbrJ8fNgl7XdUiD1ygzzlt+nhPgUBSRq2ciEVubo6x+W8vJQzm55QLLQ==
-  dependencies:
-    caller-callsite "^4.1.0"
-
-callsites@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
-  integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
-
 chownr@^1.1.1:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"

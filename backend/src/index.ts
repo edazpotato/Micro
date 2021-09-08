@@ -5,7 +5,6 @@ import cors from 'cors'
 import requestIp from 'request-ip'
 import fs from 'fs'
 import path from 'path'
-import callerpath from 'caller-path'
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -34,5 +33,3 @@ if (process.env.DRL !== "false") {
 
 app.listen(port, () => console.log('Listening on port', port))
 if (process.argv[2] === "--test") {setTimeout(() => {process.exit(0)},60000)}
-
-//test
