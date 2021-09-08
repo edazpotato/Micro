@@ -1,10 +1,9 @@
 import { Router } from 'express'
 
-const DeveloperRouter = Router()
+const DeveloperRouter = Object.defineProperty(Router(), "hook", {value: "/developer"})
 
 DeveloperRouter.route('/applications/new').post(async (req, res) => {
-
+  
 })
 
-export default DeveloperRouter
-//export const hook = '/developer'
+//export default DeveloperRouter

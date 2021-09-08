@@ -20,6 +20,7 @@
     "@types/request-ip": "^0.0.37",
     "argon2": "^0.28.2",
     "body-parser": "^1.19.0",
+    "caller-path": "^3.0.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^10.0.0",

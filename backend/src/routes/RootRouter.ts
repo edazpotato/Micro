@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-const RootRouter = Router()
+const RootRouter = Object.defineProperty(Router(), "hook", {value: "/"})
 
 RootRouter.route('/').all((req, res) => {
   res.status(200).json({
@@ -10,4 +10,3 @@ RootRouter.route('/').all((req, res) => {
 })
 
 export default RootRouter
-export const hook = '/'

@@ -5,6 +5,7 @@ import cors from 'cors'
 import requestIp from 'request-ip'
 import fs from 'fs'
 import path from 'path'
+import callerpath from 'caller-path'
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -20,11 +21,12 @@ if (process.env.DRL !== "false") {
         const routeLocation = "./routes/" + routeName;
         import(routeLocation).then(route => {
             const router: express.Router = route.router || route.default;
-            if (typeof router === "function" && router.route && route.hook) {
-                try {
-                    app.use(route.hook, router)
-                    console.log(`Hooked route "${routeName}" to endpoint "${route.hook}"`)
-                } catch (e) {throw e};
+            if (typeof router === "function" && router.route) {
+                const hook: string = (router as any).hook || route.hook;
+                if (hook) try {
+                    app.use(hook, router)
+                    console.log(`Hooked route "${routeName}" to endpoint "${hook}"`)
+                } catch (e) {throw e};   
             }
         })
     }
