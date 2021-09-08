@@ -13,7 +13,10 @@ body,
 * {
 	font-family: "Inter", sans-serif;
 }
-
+::selection {
+	background: #23539E;
+	color: #ffffff;
+}
 $scrollbar: #b5b5b5;
 $scrollbar-hover: #777777;
 
