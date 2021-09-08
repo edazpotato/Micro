@@ -1,8 +1,7 @@
 import { Router } from 'express'
 import argon2, { argon2id } from 'argon2'
 import crypto from 'crypto'
-import User from '../models/User'
-import Session from '../models/Session'
+import { UserModel, SessionModel } from 'src/models'
 import { UniqueID } from 'nodejs-snowflake'
 
 const AccountRouter = Object.defineProperty(Router(), "hook", {value: "/account"})
@@ -26,7 +25,7 @@ AccountRouter.route('/login').post(async (req, res) => {
     })
   }
 
-  let user = await User.findOne({
+  let user = await UserModel.findOne({
     [req.body.username.includes('@')
       ? 'lowercaseEmail'
       : 'lowercaseName']: req.body.username.toLowerCase()
@@ -75,10 +74,10 @@ AccountRouter.route('/register').post(async (req, res) => {
     if (req.body.username.length <= 2) errors.push('Your username\'s too short.')
     if (!req.clientIp) errors.push("Failed to register client ip with session")
 
-    let emails = await User.find({
+    let emails = await UserModel.find({
       email: req.body.email.toLowerCase(),
     }).exec()
-    let usernames = await User.find({
+    let usernames = await UserModel.find({
       name: req.body.username.toLowerCase(),
     }).exec()
 
@@ -94,7 +93,7 @@ AccountRouter.route('/register').post(async (req, res) => {
     const hashedPassword = await argon2.hash(req.body.password, {
       type: argon2id,
     })
-    let user = new User({
+    let user = new UserModel({
       username: req.body.username.toLowerCase(),
       displayname: req.body.displayname || req.body.username.toLowerCase(),
       email: req.body.email.toLowerCase(),
@@ -131,7 +130,7 @@ AccountRouter.route('/register').post(async (req, res) => {
 
 async function initSession (userId: string, clientIp: string) {
   const sessionToken = 'Bearer ' + crypto.randomBytes(96).toString('base64')
-  let session = new Session({
+  let session = new SessionModel({
     token: sessionToken,
     userId,
     ip: clientIp
