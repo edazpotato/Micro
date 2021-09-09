@@ -23,4 +23,4 @@ pnpm run storybook  # Start Storybook dev server (for developing components)
 pnpm run dev        # Start Next.JS dev server (for developing the main app)
 ```
 
-When working on components, use `pnpm run storybook` to easily preview them. Also make sure to write stories for new components, or breaking changes to/new variants of existing components.
+Make sure to write stories for new components, or breaking changes to/new variants of existing components.
