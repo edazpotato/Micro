@@ -57,6 +57,7 @@ module.exports = {
 			return { DEFAULT: theme("colors").ring };
 		},
 		borderRadius: {
+			none: "0px",
 			"a-little-bit": "4px",
 			DEFAULT: "8px",
 			full: "100px",
@@ -87,7 +88,9 @@ module.exports = {
 			["7.5"]: "7.5px",
 			["9"]: "9px",
 			["12"]: "12px",
+			["12.5"]: "12.5px",
 			["13"]: "13px",
+			["15"]: "15px",
 			["15.5"]: "15.5px",
 			["16"]: "16px",
 			["17.5"]: "17.5px",

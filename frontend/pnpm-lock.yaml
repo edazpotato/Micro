@@ -5,6 +5,7 @@ specifiers:
   '@fontsource/inter': ^4.5.0
   '@react-aria/focus': ^3.4.1
   '@react-aria/ssr': ^3.0.3
+  '@react-aria/textfield': ^3.3.1
   '@storybook/addon-a11y': ^6.3.8
   '@storybook/addon-essentials': 6.3.8
   '@storybook/addon-postcss': 2.0.0
@@ -37,6 +38,7 @@ dependencies:
   '@fontsource/inter': 4.5.0
   '@react-aria/focus': 3.4.1_react@17.0.2
   '@react-aria/ssr': 3.0.3_react@17.0.2
+  '@react-aria/textfield': 3.3.1_react@17.0.2
   '@tailwindcss/jit': 0.1.18_postcss@8.2.10+tailwindcss@2.0.3
   clsx: 1.1.1
   js-cookie: 3.0.0
@@ -1981,12 +1983,38 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@react-aria/label/3.1.3_react@17.0.2:
+    resolution: {integrity: sha512-vbY5cirv8N5fRh/AdFMx5Zv21/B4+mwQSiZs8PTlo6+ymXp/u2ycsXXdQswxAvt4jxHUf53ESDNx7xqaAOefwQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1
+    dependencies:
+      '@babel/runtime': 7.15.3
+      '@react-aria/utils': 3.8.2_react@17.0.2
+      '@react-types/label': 3.4.1_react@17.0.2
+      '@react-types/shared': 3.8.0_react@17.0.2
+      react: 17.0.2
+    dev: false
+
   /@react-aria/ssr/3.0.3_react@17.0.2:
     resolution: {integrity: sha512-m7mFU1GGkdlSq++QdAcV6n21B0mc8TEqCSuMdhckkL4psMrnuj5rUoW8pI17LvIxB6RU2tGnjtjJeVBuiE86ow==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1
     dependencies:
       '@babel/runtime': 7.15.3
+      react: 17.0.2
+    dev: false
+
+  /@react-aria/textfield/3.3.1_react@17.0.2:
+    resolution: {integrity: sha512-H0zOMVs4cMB9IPz3y69lICe9+g30IVt4EwA+dFRuYQsnFiXybdD91bXS53DUF1UVHOlwf3oV+MkOBfmfroHxdw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1
+    dependencies:
+      '@babel/runtime': 7.15.3
+      '@react-aria/focus': 3.4.1_react@17.0.2
+      '@react-aria/label': 3.1.3_react@17.0.2
+      '@react-aria/utils': 3.8.2_react@17.0.2
+      '@react-types/shared': 3.8.0_react@17.0.2
+      '@react-types/textfield': 3.2.3_react@17.0.2
       react: 17.0.2
     dev: false
 
@@ -2012,11 +2040,29 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@react-types/label/3.4.1_react@17.0.2:
+    resolution: {integrity: sha512-4RKrRg7PFwHk53vwnctIR6FkEH9LAOdiw9vxS4/LU/iWt9+3d6+aFDBnIceSIkYOOwENjkrBD1nquGaD8wog+Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1
+    dependencies:
+      '@react-types/shared': 3.8.0_react@17.0.2
+      react: 17.0.2
+    dev: false
+
   /@react-types/shared/3.8.0_react@17.0.2:
     resolution: {integrity: sha512-/HlULcULGQDSn/EArpEYjexITjAaKCHD/0xw6sLBROOJPuancIb1TRlE4Ncux/3ZV/7K1LUmHs5YBiXC8QdcBA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1
     dependencies:
+      react: 17.0.2
+    dev: false
+
+  /@react-types/textfield/3.2.3_react@17.0.2:
+    resolution: {integrity: sha512-8TsI2ba54JwCyMpcr2I2m3WpctxlAQV9+IL7ijLwWUdxV+GJw/0wr2uglkWnxr7Kjtqsn+xlXfEhkavWW6c2xA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1
+    dependencies:
+      '@react-types/shared': 3.8.0_react@17.0.2
       react: 17.0.2
     dev: false
 

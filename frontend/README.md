@@ -10,8 +10,11 @@ Made using:
 -   [Next.JS](https://github.com/vercel/next.js)
 -   [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
 -   [Storybook](https://github.com/storybookjs/storybook/)
+-   [React-Aria](https://react-spectrum.adobe.com/react-aria)
 
 ### Developing
+
+Use React-Aria when possible for components because A: it makes handling component state easy, and B: it handles accessibility for us (mostly - you still need to add `aria-whatever` attributes on occasion).
 
 Dependencies are managed with [`pnpm`](https://pnpm.io/), which is just normal `npm` but with a `p` at the start of every command. Install it with `npm i -g pnpm` and then just use `pnpm` instead whenever you would use `npm` for a command.
 
