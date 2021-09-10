@@ -9,6 +9,7 @@ export interface ButtonProps {
 	disabled?: boolean;
 	children?: ReactChild;
 	colour: "blue" | "grey";
+	text?: string;
 	className?: string;
 }
 
@@ -17,6 +18,7 @@ export function Button({
 	children,
 	disabled,
 	colour,
+	text,
 	className,
 }: ButtonProps) {
 	const { isFocusVisible, focusProps } = useFocusRing();
@@ -51,7 +53,7 @@ export function Button({
 					className
 				)}
 			>
-				{children ? children : "[Button text here]"}
+				{children ? children : text}
 			</Element>
 		</div>
 	);
