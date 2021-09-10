@@ -39,6 +39,10 @@ export const NormalDisabled = () => (
 
 export const LabelVisible = () => (
 	<>
+		<Typography>
+			Normaly the label is only visible to screen-readers, in order to aid
+			accessibility while not impacting the visuals.
+		</Typography>
 		<Card className="p-16">
 			<TextField
 				label="Label text"

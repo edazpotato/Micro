@@ -73,7 +73,7 @@ export function TextField({
 	return (
 		<div
 			className={clsx(
-				"MicroTextInputWrapper overflow-x-hidden overflow-y-auto flex flex-col p-4",
+				"MicroTextInputWrapper overflow-x-hidden overflow-y-auto flex flex-col ",
 				fullWidth && "w-full"
 				// Ring is on this not the actual element to prevent the ring from getting cut off
 			)}
@@ -81,26 +81,32 @@ export function TextField({
 			<label {...labelProps} className={clsx(!showLabel && "sr-only")}>
 				<Typography>{label}</Typography>
 			</label>
-
-			<InputElement
-				{...inputProps}
-				{...focusProps}
-				ref={ref}
+			<div
 				className={clsx(
-					"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
-					fullWidth && "w-full",
-					multiline
-						? "rounded-none p-15"
-						: clsx(
-								"p-12.5",
-								rounded
-									? "rounded-full"
-									: "rounded-a-little-bit"
-						  ),
-					isFocusVisible && "focus:ring-4",
-					className
+					"p-4 bg-inset dark:bg-inset-d",
+					rounded ? "rounded-full" : "rounded-a-little-bit"
 				)}
-			/>
+			>
+				<InputElement
+					{...inputProps}
+					{...focusProps}
+					ref={ref}
+					className={clsx(
+						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
+						fullWidth && "w-full",
+						multiline
+							? "rounded-a-little-bit p-11" // 15 - 4 because of the padding for the ring
+							: clsx(
+									"p-8.5", // 12.5 - 4 because of the padding for the ring
+									rounded
+										? "rounded-full"
+										: "rounded-a-little-bit"
+							  ),
+						isFocusVisible && "focus:ring-4",
+						className
+					)}
+				/>
+			</div>
 		</div>
 	);
 }
