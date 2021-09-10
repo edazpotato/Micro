@@ -5,6 +5,7 @@ import cors from 'cors'
 import requestIp from 'request-ip'
 import fs from 'fs'
 import path from 'path'
+import updater from './updater'
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -33,3 +34,6 @@ if (process.env.DRL !== "false") {
 
 app.listen(port, () => console.log('Listening on port', port))
 if (process.argv[2] === "--test") {setTimeout(() => {process.exit(0)},60000)}
+if (process.argv[2] === "--server") setInterval(updater, 15000)
+/* Do NOT use the "--server" argument when running in a local dev environment. 
+This will overwrite any changes made to your local clone every five minutes if it finds a new commit on main. */
