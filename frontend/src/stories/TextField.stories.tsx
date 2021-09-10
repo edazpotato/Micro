@@ -37,6 +37,22 @@ export const NormalDisabled = () => (
 	</>
 );
 
+export const LabelVisible = () => (
+	<>
+		<Card className="p-16">
+			<TextField
+				label="Label text"
+				placeholder="Placeholder text"
+				showLabel
+			/>
+		</Card>
+		<Typography>
+			^ Inside a card so that it can be seen against the correct
+			background.
+		</Typography>
+	</>
+);
+
 export const Rounded = () => (
 	<>
 		<TextField

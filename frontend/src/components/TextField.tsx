@@ -11,7 +11,7 @@ type TextFieldChangeEvent = ChangeEvent<TextFieldElement>;
 export interface TextFieldProps {
 	label: string;
 	placeholder?: string;
-	value?: string | number;
+	value?: string;
 	onChange?: (value: string, event: TextFieldChangeEvent) => void;
 	onInput?: (value: string, event: TextFieldChangeEvent) => void;
 	type?: "text" | "search" | "url" | "tel" | "email" | "password";
@@ -46,11 +46,11 @@ export function TextField({
 		autoFocus,
 	});
 
-	let ref = useRef(null);
+	const ref = useRef<TextFieldElement>(null);
 
 	const InputElement = multiline ? "textarea" : "input";
 
-	let { labelProps, inputProps } = useTextField(
+	const { labelProps, inputProps } = useTextField(
 		{
 			onInput: (event: TextFieldChangeEvent) => {
 				!disabled && onInput && onInput(event.target.value, event);
@@ -73,19 +73,21 @@ export function TextField({
 	return (
 		<div
 			className={clsx(
-				"MicroTextInputWrapper overflow-x-hidden overflow-y-auto flex flex-col",
+				"MicroTextInputWrapper overflow-x-hidden overflow-y-auto flex flex-col p-4",
 				fullWidth && "w-full"
+				// Ring is on this not the actual element to prevent the ring from getting cut off
 			)}
 		>
 			<label {...labelProps} className={clsx(!showLabel && "sr-only")}>
 				<Typography>{label}</Typography>
 			</label>
+
 			<InputElement
 				{...inputProps}
 				{...focusProps}
 				ref={ref}
 				className={clsx(
-					"resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
+					"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
 					fullWidth && "w-full",
 					multiline
 						? "rounded-none p-15"
