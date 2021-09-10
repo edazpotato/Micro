@@ -6,6 +6,7 @@ The core team is currently
 -   [Modded](https://github.com/TheModdedChicken)
 -   [Minota](https://github.com/xMinota)
 -   [Edaz](https://github.com/edazpotato)
+-   [Levi](https://github.com/lerichardson)
 
 but we welcome contributions from anyone!
 

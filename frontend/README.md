@@ -20,9 +20,10 @@ Dependencies are managed with [`pnpm`](https://pnpm.io/), which is just normal `
 
 ```bash
 git clone https://github.com/edazpotato/Micro.git
-cd Micro
-pnpm i        # Install dependencies with pnpm
-pnpm run dev  # Start Next.JS dev server
+cd Micro/frontend
+pnpm i              # Install dependencies with pnpm
+pnpm run storybook  # Start Storybook dev server (for developing components)
+pnpm run dev        # Start Next.JS dev server (for developing the main app)
 ```
 
-When working on components, use `pnpm run storybook` to easily preview them. Also make sure to write stories for new components, or breaking changes to/new variants of existing components.
+Make sure to write stories for new components, or breaking changes to/new variants of existing components.
