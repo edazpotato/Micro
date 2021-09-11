@@ -6,16 +6,14 @@ import { useFocusRing } from "@react-aria/focus";
 import { useTextField } from "@react-aria/textfield";
 
 type TextFieldElement = HTMLInputElement | HTMLTextAreaElement;
-type TextFieldChangeEvent = ChangeEvent<TextFieldElement>;
+type TextFieldChangeEvent<T extends TextFieldElement> = ChangeEvent<T>;
 
-export interface TextFieldProps {
+export type TextFieldProps = {
 	label: string;
 	placeholder?: string;
 	value?: string;
-	onChange?: (value: string, event: TextFieldChangeEvent) => void;
-	onInput?: (value: string, event: TextFieldChangeEvent) => void;
+	// onChange?: (value: string, event: TextFieldChangeEvent) => void;
 	type?: "text" | "search" | "url" | "tel" | "email" | "password";
-	multiline?: boolean;
 	disabled?: boolean;
 	autoFocus?: boolean;
 	required?: boolean;
@@ -23,7 +21,22 @@ export interface TextFieldProps {
 	className?: string;
 	fullWidth?: boolean;
 	showLabel?: boolean;
-}
+} & (
+	| {
+			multiline?: false;
+			onInput?: (
+				value: string,
+				event: TextFieldChangeEvent<HTMLInputElement>
+			) => void;
+	  }
+	| {
+			multiline: true;
+			onInput?: (
+				value: string,
+				event: TextFieldChangeEvent<HTMLTextAreaElement>
+			) => void;
+	  }
+);
 
 export function TextField({
 	label,
@@ -34,7 +47,7 @@ export function TextField({
 	required,
 	type,
 	onInput,
-	onChange,
+	// onChange,
 	value,
 	rounded,
 	className,
@@ -46,13 +59,17 @@ export function TextField({
 		autoFocus,
 	});
 
-	const ref = useRef();
+	const ref = useRef<null | TextFieldElement>(null);
 
 	const InputElement = multiline ? "textarea" : "input";
 
 	const { labelProps, inputProps } = useTextField(
 		{
-			onInput: (event: TextFieldChangeEvent) => {
+			onInput: (
+				event: TextFieldChangeEvent<
+					HTMLInputElement & HTMLTextAreaElement
+				>
+			) => {
 				console.log(event);
 				!disabled && onInput && onInput(event.target.value, event);
 			},
@@ -75,9 +92,8 @@ export function TextField({
 	return (
 		<div
 			className={clsx(
-				"MicroTextInputWrapper flex flex-col ",
+				"MicroTextInputWrapper flex flex-col",
 				fullWidth && "w-full"
-				// Ring is on this not the actual element to prevent the ring from getting cut off
 			)}
 		>
 			<label {...labelProps} className={clsx(!showLabel && "sr-only")}>
@@ -92,6 +108,7 @@ export function TextField({
 				<InputElement
 					{...inputProps}
 					{...focusProps}
+					/* @ts-ignore */
 					ref={ref}
 					className={clsx(
 						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
