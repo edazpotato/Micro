@@ -11,7 +11,11 @@ const port = process.env.PORT || 5000;
 const app = express()
 new db()
 
-app.use(cors({origin: "*"}));
+app.use((req, res, next) => {
+    res.setHeader("X-Powered-By", "Our awsome supporters and open-source contributors!");
+    next();
+})
+app.use(cors({origin: "*"})); // Unsafe. We should change this when we go live. External apps like Spica will still be able to use the API fine.
 app.use(express.json())
 app.use(requestIp.mw())
 
