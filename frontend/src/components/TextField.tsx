@@ -53,11 +53,13 @@ export function TextField({
 	const { labelProps, inputProps } = useTextField(
 		{
 			onInput: (event: TextFieldChangeEvent) => {
+				console.log(event);
 				!disabled && onInput && onInput(event.target.value, event);
 			},
-			onChange: (event: TextFieldChangeEvent) => {
-				!disabled && onChange && onChange(event.target.value, event);
-			},
+			// onChange: (event: TextFieldChangeEvent) => {
+			// 	console.log(event);
+			// 	!disabled && onChange && onChange(event.target.value, event);
+			// },
 			inputElementType: InputElement,
 			isDisabled: disabled,
 			isRequired: required,

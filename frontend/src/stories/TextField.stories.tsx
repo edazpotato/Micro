@@ -99,39 +99,18 @@ export const MultiLineDisabled = () => (
 	</>
 );
 
-export const OnInputVSOnChange = () => {
-	const [value1, setValue1] = useState("");
-	const [value2, setValue2] = useState("");
+export const ControlledExample = () => {
+	const [value, setValue] = useState("");
 	return (
 		<>
-			<Card className="flex flex-col p-16">
-				<Typography>
-					This varies in different browsers and situations, but the{" "}
-					<code>onInput</code> event is always fired when the text
-					inside the input element changes, whereas the{" "}
-					<code>onChange</code> event will sometimes only fire once
-					the element has lost focus.
-				</Typography>
-				<div className="flex gap-16">
-					<div className="flex flex-col">
-						<TextField
-							label="onInput"
-							value={value1}
-							onInput={(newValue) => setValue1(newValue)}
-							showLabel
-						/>
-						<Typography>{value1}</Typography>
-					</div>
-					<div className="flex flex-col">
-						<TextField
-							label="onChange"
-							value={value2}
-							onInput={(newValue) => setValue2(newValue)}
-							showLabel
-						/>
-						<Typography>{value2}</Typography>
-					</div>
-				</div>
+			<Card className="flex-col">
+				<TextField
+					value={value}
+					onInput={(newValue) => setValue(newValue)}
+					label="Controlled Text Field"
+					placeholder="Placeholder text"
+				/>
+				<Typography>{value}</Typography>
 			</Card>
 			<Typography>
 				^ Inside a card so that it can be seen against the correct
@@ -140,3 +119,45 @@ export const OnInputVSOnChange = () => {
 		</>
 	);
 };
+
+// export const OnInputVSOnChange = () => {
+// 	const [value1, setValue1] = useState("");
+// 	const [value2, setValue2] = useState("");
+// 	return (
+// 		<>
+// 			<Card className="flex flex-col p-16">
+// 				<Typography>
+// 					This varies in different browsers and situations, but the{" "}
+// 					<code>onInput</code> event is always fired when the text
+// 					inside the input element changes, whereas the{" "}
+// 					<code>onChange</code> event will sometimes only fire once
+// 					the element has lost focus.
+// 				</Typography>
+// 				<div className="flex gap-16">
+// 					<div className="flex flex-col">
+// 						<TextField
+// 							label="onInput"
+// 							value={value1}
+// 							onInput={(newValue) => setValue1(newValue)}
+// 							showLabel
+// 						/>
+// 						<Typography>{value1}</Typography>
+// 					</div>
+// 					<div className="flex flex-col">
+// 						<TextField
+// 							label="onChange"
+// 							value={value2}
+// 							onInput={(newValue) => setValue2(newValue)}
+// 							showLabel
+// 						/>
+// 						<Typography>{value2}</Typography>
+// 					</div>
+// 				</div>
+// 			</Card>
+// 			<Typography>
+// 				^ Inside a card so that it can be seen against the correct
+// 				background.
+// 			</Typography>
+// 		</>
+// 	);
+// };
