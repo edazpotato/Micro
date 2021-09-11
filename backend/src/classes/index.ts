@@ -1,5 +1,3 @@
-import SError from "./SError";
+import server from "./server";
 
-export {
-  SError
-}
+export { server };
