@@ -1,12 +1,12 @@
-// import "../src/styles/globals.scss";
-// import "../src/styles/nprogress.scss";
-
+import "../src/styles/globals.css";
 import "@fontsource/inter";
 import "../src/styles/tailwind.css";
 
 import { addDecorator, addParameters } from "@storybook/react";
 
 import { withA11y } from "@storybook/addon-a11y";
+
+// import "../src/styles/nprogress.scss";
 
 const backgrounds = {
 	// default: "light",

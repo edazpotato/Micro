@@ -46,7 +46,7 @@ export function TextField({
 		autoFocus,
 	});
 
-	const ref = useRef<TextFieldElement>(null);
+	const ref = useRef();
 
 	const InputElement = multiline ? "textarea" : "input";
 
@@ -73,7 +73,7 @@ export function TextField({
 	return (
 		<div
 			className={clsx(
-				"MicroTextInputWrapper overflow-x-hidden overflow-y-auto flex flex-col ",
+				"MicroTextInputWrapper flex flex-col ",
 				fullWidth && "w-full"
 				// Ring is on this not the actual element to prevent the ring from getting cut off
 			)}
@@ -95,7 +95,7 @@ export function TextField({
 						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
 						fullWidth && "w-full",
 						multiline
-							? "rounded-a-little-bit p-11" // 15 - 4 because of the padding for the ring
+							? "scrollable rounded-a-little-bit p-11" // 15 - 4 because of the padding for the ring
 							: clsx(
 									"p-8.5", // 12.5 - 4 because of the padding for the ring
 									rounded
