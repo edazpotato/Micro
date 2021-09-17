@@ -1,17 +1,16 @@
-import { MouseEvent, ReactChild } from "react";
-
+import { MouseEvent } from "react";
 import clsx from "clsx";
 import { useFocusRing } from "@react-aria/focus";
 
-export interface ButtonProps {
+export type ButtonProps = {
 	link?: boolean;
 	onPress?: (event: MouseEvent) => any;
 	disabled?: boolean;
-	children?: ReactChild;
 	colour: "blue" | "grey";
-	text?: string;
 	className?: string;
-}
+	children?: string;
+	text?: string;
+} & ({ text: string } | { children: string });
 
 export function Button({
 	onPress,
@@ -53,7 +52,7 @@ export function Button({
 					className
 				)}
 			>
-				{children ? children : text}
+				{children || text}
 			</Element>
 		</div>
 	);
