@@ -1,5 +1,5 @@
 module.exports = {
-	mode: "jit",
+	// mode: "jit",
 	purge: [
 		".src/pages/**/*.{js,ts,jsx,tsx}",
 		".src/components/**/*.{js,ts,jsx,tsx}",
@@ -60,7 +60,7 @@ module.exports = {
 			none: "0px",
 			"a-little-bit": "4px",
 			DEFAULT: "8px",
-			full: "100px",
+			full: "9999px",
 		},
 		strokeWidth: {
 			["1"]: "1",
@@ -97,9 +97,12 @@ module.exports = {
 			["16"]: "16px",
 			["17.5"]: "17.5px",
 			["24"]: "24px",
+			["30"]: "30px",
+			["40"]: "40px",
 			["48"]: "48px",
 			["60"]: "60px",
 			["84"]: "84px",
+			["100"]: "100px",
 			["120"]: "120px",
 		},
 	},
