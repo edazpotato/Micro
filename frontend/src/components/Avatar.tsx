@@ -1,22 +1,73 @@
+import React, { useEffect, useState } from "react";
+
+import NextImage from "next/image";
 import { User as UserIcon } from "react-feather";
 import clsx from "clsx";
+
+function useLoaded(src?: string, dontUseNextImage?: boolean) {
+	const [loaded, setLoaded] = useState<"loaded" | "error" | false>(false);
+
+	useEffect(() => {
+		if (!dontUseNextImage) return undefined;
+
+		if (!src) return undefined;
+
+		setLoaded(false);
+
+		let active = true;
+
+		function onLoad() {
+			if (!active) {
+				return;
+			}
+			setLoaded("loaded");
+		}
+
+		function onError() {
+			if (!active) {
+				return;
+			}
+			setLoaded("error");
+		}
+
+		const image = new Image();
+		image.onload = onLoad;
+		image.onerror = onError;
+		image.src = src;
+
+		return () => {
+			active = false;
+		};
+	}, [src]);
+
+	return loaded;
+}
 
 interface AvatarProps {
 	src?: string;
 	name: string;
 	size?: "small" | "bigger" | "humongous";
+	dontUseNextImage?: boolean;
 }
 
-export function Avatar({ src, name, size = "small" }: AvatarProps) {
+export function Avatar({
+	src,
+	name,
+	size = "small",
+	dontUseNextImage = false,
+}: AvatarProps) {
+	const loaded = useLoaded(src, dontUseNextImage);
+	const hasImgNotFailing = src && loaded === "loaded";
+
 	const altText = `${name}'s avatar`;
-	const imageClasses = clsx(
-		"rounded-full w-full h-full bg-blue text-white stroke-inital"
-	);
+	const imageClasses = "";
+
+	const ImageElement = dontUseNextImage ? "img" : NextImage;
 
 	return (
 		<div
 			className={clsx(
-				"MicroAvatar rounded-full",
+				"MicroAvatar rounded-full bg-blue text-white flex items-center justify-center",
 				size === "small"
 					? "w-30 h-30"
 					: size === "bigger"
@@ -25,10 +76,19 @@ export function Avatar({ src, name, size = "small" }: AvatarProps) {
 			)}
 			title={altText}
 		>
-			{src ? (
-				<img src={src} alt={altText} className={imageClasses} />
+			{hasImgNotFailing ? (
+				<ImageElement
+					src={src}
+					alt={altText}
+					className={clsx(imageClasses, "w-full h-full rounded-full")}
+				/>
 			) : (
-				<UserIcon className={imageClasses} />
+				<UserIcon
+					className={clsx(
+						imageClasses,
+						"w-3/4 h-3/4 stroke-current "
+					)}
+				/>
 			)}
 		</div>
 	);
