@@ -21,7 +21,7 @@ export function Link({
 			)}
 			href={href}
 			target={external ? "_blank" : undefined}
-			rel="noopener noreferer">
+			rel="noopener noreferrer">
 			{children}
 		</a>
 	);
