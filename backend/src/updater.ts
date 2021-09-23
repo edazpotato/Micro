@@ -21,7 +21,10 @@ export default async function updater () {
   const localSha = await getLocalCommitSha();
   const latestSha = await getLatestCommitSha();
 
-  if (latestSha !== localSha) updateServer()
+  if (latestSha !== localSha) {
+    server.log(`Server not up-to-date. Attempting to update ${localSha.slice(0,7)} => ${latestSha.slice(0,7)}`)
+    updateServer()
+  }
   else server.log("Server is up-to-date", {name: "Updater", type: "info"})
 }
 
