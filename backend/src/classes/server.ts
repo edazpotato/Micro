@@ -1,3 +1,4 @@
+import { exec } from 'child_process';
 import express from 'express'
 import fs from "fs";
 import path from "path";
@@ -39,6 +40,16 @@ namespace server {
       errors
     }
     res.status(status).json(error)
+  }
+
+  export async function sh(command: String): Promise<String> {
+    return new Promise((res, rej) => {
+      exec(`git --git-dir "${path.join(__dirname, '../../.git')}" rev-parse HEAD`, (err, stdOut, stdErr) => {
+        if (err) rej(err);
+        if (stdErr) rej(new Error(stdErr.trim()));
+        res(stdOut.trim());
+      });
+    })
   }
 }
 

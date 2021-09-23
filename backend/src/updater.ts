@@ -25,8 +25,12 @@ export default async function updater () {
   else server.log("Server is up-to-date", {name: "Updater", type: "info"})
 }
 
-export function updateServer () {
-  // Logic for updating the server
+export async function updateServer () {
+  //await server.sh("git reset --hard HEAD");
+  //await server.sh("git pull")
+
+  await server.sh("yarn run production")
+  process.exit(0)
 }
 
 export async function getLatestCommitSha (): Promise<String> {
