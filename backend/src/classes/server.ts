@@ -13,7 +13,7 @@ namespace server {
   export async function log (message: string, options?: {type?: "info" | "warn" | "error", name?: string}) {
     const appDataLoc = path.join(getDataHome(), `/micro-backend`);
     const logsDir = path.join(appDataLoc, "/logs")
-    const callerLocArr = getCallerPath()?.split("\\") as Array<String>;
+    const callerLocArr = getCallerPath(1)?.split("\\") as Array<String>;
     const callerFile = callerLocArr[callerLocArr.length - 1] || "unknown";
     const callerName = options?.name;
     const type = options?.type || "info";
@@ -44,10 +44,10 @@ namespace server {
 
 export default server
 
-function getCallerPath() {
+function getCallerPath(depth: number) {
   let stack = new Error().stack?.split('\n') as Array<String>
-  return stack[3].slice(
-      stack[3].lastIndexOf('(')+1, 
-      stack[3].lastIndexOf('.ts')+3
+  return stack[2 + depth].slice(
+    stack[2 + depth].lastIndexOf('(') + 1, 
+    stack[2 + depth].lastIndexOf('.ts') + 3
   )
 }

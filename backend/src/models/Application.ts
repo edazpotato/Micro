@@ -11,6 +11,4 @@ const ApplicationSchema: Schema = new Schema({
   callbacks: [String]
 })
 
-// DO NOT TOUCH - TheModdedChicken
-
 export default mongoose.model('application', ApplicationSchema)
