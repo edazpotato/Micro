@@ -26,10 +26,10 @@ export default async function updater () {
 }
 
 export async function updateServer () {
-  //await server.sh("git reset --hard HEAD");
-  //await server.sh("git pull")
+  await server.sh("git reset --hard HEAD");
+  await server.sh("git pull")
 
-  await server.sh("yarn run production")
+  await server.sp("yarn run prod")
   process.exit(0)
 }
 

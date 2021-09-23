@@ -8,8 +8,8 @@
     "clean": "tsc --build --clean",
     "dev": "ts-node ./src/index.ts",
     "dev-b": "yarn build && node ./dist/index.js",
-    "production": "yarn build && node ./dist/index.js --server",
-    "pm2": "pm2 start ./dist/index.js \"Micro server\"",
+    "prod": "yarn build && pm2 startOrReload ecosystem.config.js --only micro-server-prod",
+    "pm2": "yarn build && pm2 startOrReload ecosystem.config.js --only micro-server-dev",
     "test": "yarn build && node ./dist/index.js --test"
   },
   "repository": "https://github.com/edazpotato/Micro",

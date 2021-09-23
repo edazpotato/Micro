@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { ChildProcessWithoutNullStreams, exec, spawn } from 'child_process';
 import express from 'express'
 import fs from "fs";
 import path from "path";
@@ -42,13 +42,21 @@ namespace server {
     res.status(status).json(error)
   }
 
-  export async function sh(command: String): Promise<String> {
+  export async function sh(command: string): Promise<string> {
     return new Promise((res, rej) => {
-      exec(`git --git-dir "${path.join(__dirname, '../../.git')}" rev-parse HEAD`, (err, stdOut, stdErr) => {
+      exec(command, (err, stdOut, stdErr) => {
         if (err) rej(err);
         if (stdErr) rej(new Error(stdErr.trim()));
         res(stdOut.trim());
       });
+    })
+  }
+
+  export async function sp(command: string, detached?: boolean): Promise<ChildProcessWithoutNullStreams> {
+    return new Promise((res, rej) => {
+      const child = spawn(command, {detached});
+      child.unref()
+      res(child)
     })
   }
 }
