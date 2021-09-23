@@ -27,7 +27,9 @@ export default async function updater () {
 
 export async function updateServer () {
   await server.sh("git reset --hard HEAD");
+  await server.sh("git clean -df")
   await server.sh("git pull")
+  await server.sh("yarn install")
 
   await server.sp("yarn run prod")
   process.exit(0)
