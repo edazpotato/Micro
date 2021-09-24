@@ -11,7 +11,7 @@ const fileDateFormat = "HH-mm-ss_DD-MM-YYYY"
 const serverStartDate = new Date()
 
 namespace server {
-  export async function log (message: string, options?: {type?: "info" | "warn" | "error", name?: string, exits?: number, error?: Error}) {
+  export async function log (message: string, options?: {type?: "info" | "warn" | "error", name?: string, exits?: number, error?: Error, logInFile?: boolean}) {
     const appDataLoc = path.join(getDataHome(), `/micro-backend`);
     const logsDir = path.join(appDataLoc, "/logs")
     const callerLocArr = getCallerPath(1)?.split("\\") as Array<String>;
@@ -25,27 +25,33 @@ namespace server {
     const fullMessage = `[${type.toUpperCase()} | ${callerName ? callerName + "/" : ""}${callerFile}](${date.format(dateNow, `${dateFormat}`, true)}): ${message}`;
     const logLoc = path.join(logsDir, `/${date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)}.txt`);
   
-    await new Promise((res, rej) => {
-      fs.appendFile(
-        logLoc, 
-        fullMessage + "\n", 
-        (err) => {
-          if (err) console.log(fullMessage + "\n", err)
-          else console.log(fullMessage)
-
-          if (options?.error) fs.appendFile(
-            logLoc,
-            options.error.message,
+    console.log(fullMessage)
+    if (options?.logInFile === undefined || options?.logInFile === true) {
+      try {
+        await new Promise((res, rej) => {
+          fs.appendFile(
+            logLoc, 
+            fullMessage + "\n", 
             (err) => {
               if (err) console.log(err);
-
-              res(null)
+    
+              if (options?.error) fs.appendFile(
+                logLoc,
+                options.error.message,
+                (err) => {
+                  if (err) console.log(err);
+    
+                  res(null)
+                }
+              )
+              else res(null)
             }
           )
-          else res(null)
-        }
-      )
-    })
+        })
+      } catch (e) {
+        console.log("Couldn't append to log file\n" + e)
+      }
+    }
     
     if (options?.exits) process.exit(options.exits);
   }
