@@ -23,11 +23,11 @@ namespace server {
     if (!fs.existsSync(appDataLoc)) fs.mkdirSync(appDataLoc)
     if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir)
     const fullMessage = `[${type.toUpperCase()} | ${callerName ? callerName + "/" : ""}${callerFile}](${date.format(dateNow, `${dateFormat}`, true)}): ${message}`;
-    const logLoc = path.join(logsDir, `/${date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)}.txt`);
   
     console.log(fullMessage)
     if (options?.logInFile === undefined || options?.logInFile === true) {
       try {
+        const logLoc = path.join(logsDir, `/${date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)}.txt`);
         await new Promise((res, rej) => {
           fs.appendFile(
             logLoc, 
