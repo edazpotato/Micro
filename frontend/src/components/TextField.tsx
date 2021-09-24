@@ -94,8 +94,7 @@ export function TextField({
 			className={clsx(
 				"MicroTextInputWrapper flex flex-col",
 				fullWidth && "w-full"
-			)}
-		>
+			)}>
 			<label {...labelProps} className={clsx(!showLabel && "sr-only")}>
 				<Typography>{label}</Typography>
 			</label>
@@ -103,20 +102,19 @@ export function TextField({
 				className={clsx(
 					"p-4 bg-inset dark:bg-inset-d",
 					rounded ? "rounded-full" : "rounded-a-little-bit"
-				)}
-			>
+				)}>
 				<InputElement
 					{...inputProps}
 					{...focusProps}
 					/* @ts-ignore */
 					ref={ref}
 					className={clsx(
-						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none",
+						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none font-medium",
 						fullWidth && "w-full",
 						multiline
 							? "scrollable rounded-a-little-bit p-11" // 15 - 4 because of the padding for the ring
 							: clsx(
-									"p-8.5", // 12.5 - 4 because of the padding for the ring
+									"py-8.5 px-20", // 12.5 - 4 because of the padding for the ring
 									rounded
 										? "rounded-full"
 										: "rounded-a-little-bit"

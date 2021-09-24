@@ -38,7 +38,7 @@ function useLoaded(src?: string, dontUseNextImage?: boolean) {
 		return () => {
 			active = false;
 		};
-	}, [src]);
+	}, [src, dontUseNextImage]);
 
 	return loaded;
 }
@@ -74,8 +74,7 @@ export function Avatar({
 					? "w-40 h-40"
 					: "w-100 h-100"
 			)}
-			title={altText}
-		>
+			title={altText}>
 			{hasImgNotFailing ? (
 				<ImageElement
 					src={src}

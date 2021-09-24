@@ -1,3 +1,6 @@
+// The weirdness with keys that are numbers in this file
+// is to deal with some weirdness from Prettier
+
 module.exports = {
 	// mode: "jit",
 	purge: [
@@ -19,6 +22,7 @@ module.exports = {
 			white: "#FFFFFF",
 
 			ring: "#32BDC6",
+			link: "#229CF4",
 
 			background: "#D8D8D8",
 			foreground: "#E5E5E5",
@@ -94,10 +98,12 @@ module.exports = {
 			["12"]: "12px",
 			["12.5"]: "12.5px",
 			["13"]: "13px",
+			["14"]: "14px",
 			["15"]: "15px",
 			["15.5"]: "15.5px",
 			["16"]: "16px",
 			["17.5"]: "17.5px",
+			["20"]: "20px",
 			["24"]: "24px",
 			["30"]: "30px",
 			["40"]: "40px",

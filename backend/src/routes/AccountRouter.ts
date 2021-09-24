@@ -26,7 +26,7 @@ AccountRouter.route('/login').post(async (req, res) => {
       [req.body.username.includes('@')
         ? 'lowercaseEmail'
         : 'lowercaseName']: req.body.username.toLowerCase()
-    }).exec()
+    }).exec() as any
     if (!user) errors.push('client::user_invalid')
   
     let comparison = await argon2.verify((user as any).password, req.body.password, { 
@@ -37,15 +37,15 @@ AccountRouter.route('/login').post(async (req, res) => {
     const sessionToken = await initSession((user as any).id, req.clientIp as string);
     return res.status(200).json({
       message: 'Successfully logged in!',
-      data: { // @ts-ignore
-        sessionToken: sessionToken.token, 
-        user: { // @ts-ignore
-          username: user.username, // @ts-ignore
-          displayname: user.displayname, // @ts-ignore
-          id: user.id, // @ts-ignore
-          flags: user.flags, // @ts-ignore
-          email: user.email, // @ts-ignore
-          joinedAt: user.joinedAt, // @ts-ignore,
+      data: {
+        sessionToken: (sessionToken as any).token, 
+        user: {
+          username: user.username,
+          displayname: user.displayname,
+          id: user.id,
+          flags: user.flags,
+          email: user.email,
+          joinedAt: user.joinedAt,
           avatar: user.avatar
         }
       }
@@ -88,25 +88,21 @@ AccountRouter.route('/register').post(async (req, res) => {
       password: hashedPassword,
       id: new UniqueID({ customEpoch }).getUniqueID() as string,
       joinedAt: new Date(),
-    })
-
-    var test: string = (user as any)
-    test.match("1")
-  
+    }) as any
     await user.save()
   
     const sessionToken = await initSession(user.id, req.clientIp as string);
     res.status(200).json({
       message: 'Successfully created your account.',
-      data: { // @ts-ignore
-        sessionToken: sessionToken.token,
-        user: { // @ts-ignore
-          displayname: user.displayname, // @ts-ignore
-          username: user.username, // @ts-ignore
-          id: user.id, // @ts-ignore
-          flags: user.flags, // @ts-ignore
-          email: user.email, // @ts-ignore
-          joinedAt: user.joinedAt, // @ts-ignore,
+      data: {
+        sessionToken: (sessionToken as any).token,
+        user: {
+          displayname: user.displayname,
+          username: user.username,
+          id: user.id,
+          flags: user.flags,
+          email: user.email,
+          joinedAt: user.joinedAt,
           avatar: user.avatar
         }
       }

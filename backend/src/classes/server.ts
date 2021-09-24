@@ -1,3 +1,4 @@
+import { ChildProcessWithoutNullStreams, exec, spawn } from 'child_process';
 import express from 'express'
 import fs from "fs";
 import path from "path";
@@ -13,7 +14,7 @@ namespace server {
   export async function log (message: string, options?: {type?: "info" | "warn" | "error", name?: string}) {
     const appDataLoc = path.join(getDataHome(), `/micro-backend`);
     const logsDir = path.join(appDataLoc, "/logs")
-    const callerLocArr = getCallerPath()?.split("\\") as Array<String>;
+    const callerLocArr = getCallerPath(1)?.split("\\") as Array<String>;
     const callerFile = callerLocArr[callerLocArr.length - 1] || "unknown";
     const callerName = options?.name;
     const type = options?.type || "info";
@@ -40,14 +41,32 @@ namespace server {
     }
     res.status(status).json(error)
   }
+
+  export async function sh(command: string): Promise<string> {
+    return new Promise((res, rej) => {
+      exec(command, (err, stdOut, stdErr) => {
+        if (err) rej(err);
+        if (stdErr) rej(new Error(stdErr.trim()));
+        res(stdOut.trim());
+      });
+    })
+  }
+
+  export async function sp(command: string, detached?: boolean): Promise<ChildProcessWithoutNullStreams> {
+    return new Promise((res, rej) => {
+      const child = spawn(command, {detached});
+      child.unref()
+      res(child)
+    })
+  }
 }
 
 export default server
 
-function getCallerPath() {
+function getCallerPath(depth: number) {
   let stack = new Error().stack?.split('\n') as Array<String>
-  return stack[3].slice(
-      stack[3].lastIndexOf('(')+1, 
-      stack[3].lastIndexOf('.ts')+3
+  return stack[2 + depth].slice(
+    stack[2 + depth].lastIndexOf('(') + 1, 
+    stack[2 + depth].lastIndexOf('.ts') + 3
   )
 }
