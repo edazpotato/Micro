@@ -6,6 +6,7 @@ import requestIp from 'request-ip'
 import fs from 'fs'
 import path from 'path'
 import updater from './updater'
+import { server } from './classes'
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -15,7 +16,7 @@ app.use((req, res, next) => {
     res.setHeader("X-Powered-By", "Our awsome supporters and open-source contributors!");
     next();
 })
-app.use(cors({origin: "*"})); // Unsafe. We should change this when we go live. External apps like Spica will still be able to use the API fine.
+app.use(cors({origin: "micro.edaz.codes"})); // Unsafe. We should change this when we go live. External apps like Spica will still be able to use the API fine.
 app.use(express.json())
 app.use(requestIp.mw())
 
@@ -37,8 +38,30 @@ if (process.env.DRL !== "false") {
 }
 
 app.listen(port, () => console.log('Listening on port', port))
-if (process.argv[2] === "--test") {setTimeout(() => {process.exit(0)},60000)}
-if (process.argv[2] === "--prod") setInterval(updater, 150000)
-/* Do NOT use the "--server" argument when running in a local dev environment. 
+
+const argFunc = {
+    env: (env: string) => {
+        try {
+            const envs = {
+                prod: () => setInterval(updater, 150000),
+                test: () => setTimeout(() => {process.exit(0)},60000)
+            }
+
+            //@ts-ignore
+            if (Object.keys(envs).find(e => e === env)) envs[env]();
+            else throw new Error(`Couldn't find an environment called "${env}"`);
+            
+            if (env === "test") server.log(`Running in the "${env}" environment`, {name: "Env"})
+            server.log(`Running in the "${env}" environment`, {name: "Env"})
+        } catch (e) {
+            server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
+        }
+    }
+}
+const serverArgs = server.argv(process.argv, Object.keys(argFunc))
+/* Do NOT use the "--env prod" argument when running in a local dev environment. 
 This will overwrite any changes made to your local clone every five minutes if it finds a new commit on main. */
-// Wow
+
+for (const arg of serverArgs.args) { //@ts-ignore
+    argFunc[arg.arg](...arg.data)
+}

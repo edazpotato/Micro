@@ -10,7 +10,7 @@
     "dev-b": "yarn build && node ./dist/index.js",
     "prod": "yarn build && pm2 startOrReload ecosystem.config.js --only micro-server-prod",
     "pm2": "yarn build && pm2 startOrReload ecosystem.config.js --only micro-server-dev",
-    "test": "yarn build && node ./dist/index.js --test"
+    "test": "yarn build && node ./dist/index.js --env test"
   },
   "repository": "https://github.com/edazpotato/Micro",
   "license": "GPL-3.0",

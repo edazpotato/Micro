@@ -3,7 +3,7 @@ module.exports = {
     name: "micro-server-prod",
     script: './dist/index.js',
     watch: './dist/',
-    args: "--prod"
+    args: "--env test"
   },
   {
     name: "micro-server-dev",
