@@ -17,7 +17,11 @@ body,
   background: #23539e;
   color: #ffffff;
 }
-
+.divider {
+  border-bottom: 1px solid #444444;
+  width: 140%;
+  margin: 0.5rem 0;
+}
 :root {
   --scrollbar: #b5b5b5;
   --scrollbar-hover: #777777;

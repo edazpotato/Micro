@@ -9,7 +9,7 @@ export default function Homepage() {
         </Typography>
         <form action="get">
           <div className="centered grid place-items-center">
-            <Card className="grid gap-4 place-items-center rounded-lg p-16">
+            <Card className="grid gap-4 place-items-center rounded-lg px-60 py-20">
               <TextField
                 label="Username..."
                 placeholder="Username..."
@@ -35,8 +35,8 @@ export default function Homepage() {
                 type="text"
                 required={true}
               ></TextField>
-              <hr />
-              <Button colour="blue" text="Signup" />
+              <div className="divider"></div>
+              <Button colour="blue" text="Signup" className="p-4" />
             </Card>
             <Typography>
               <p>
