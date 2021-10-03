@@ -65,3 +65,8 @@ Quick reference for Micro's banding colours and other related things.
 Icon set: [Feather Icons](https://github.com/feathericons/feather)
 
 **Colours**
+| Name | Hex Code | RGB Values | Preview |
+| ------------- | ---------- | -------------- | :-----: |
+| Alles Blue | `#23539E` | `35, 83, 158` | [!]() |
+| Micro Pink | `#9E2348` | `158, 35, 72` | [!]() |
+| IfElse Purple | `#90348c` | `144, 52, 140` | [!]() |
