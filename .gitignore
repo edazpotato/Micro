@@ -1,5 +1,21 @@
+# Dependencies
 node_modules/
+
+# Log files
 *.log
+
+# Dotfiles
 .env
 .next
+
+# Linux temp files
+*~
+
+# macOS/OSX filesystem dust
+.DS_Store/
+
+# npm cache
+.npm
+
+# Built storybook
 storybook-static/
