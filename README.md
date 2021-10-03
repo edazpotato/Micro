@@ -67,6 +67,6 @@ Icon set: [Feather Icons](https://github.com/feathericons/feather)
 **Colours**
 | Name | Hex Code | RGB Values | Preview |
 | ------------- | ---------- | -------------- | :-----: |
-| Alles Blue | `#23539E` | `35, 83, 158` | [!]() |
-| Micro Pink | `#9E2348` | `158, 35, 72` | [!]() |
-| IfElse Purple | `#90348c` | `144, 52, 140` | [!]() |
+| Alles Blue | `#23539E` | `35, 83, 158` | ![image](https://user-images.githubusercontent.com/46797041/135750178-6662305f-54b4-43c6-ae69-7105e8984bfa.png) |
+| Micro Pink | `#9E2348` | `158, 35, 72` | ![image](https://user-images.githubusercontent.com/46797041/135750200-d47de455-b454-4e1d-ae15-c25c7d9f55e7.png) |
+| IfElse Purple | `#90348c` | `144, 52, 140` | ![image](https://user-images.githubusercontent.com/46797041/135750211-02dcfe02-0bfc-4d11-8361-f6e7521080d3.png) |
