@@ -12,7 +12,8 @@ export const Basic = () => (
 		<Card className="p-16 w-full">
 			<MeterBar
 				label="Revenue split"
-				renderTotalAmountText={(amount) => `Out of $${amount}`}
+				showTotalText
+				renderTotalText={(amount) => `Out of $${amount}`}
 				renderExtendedText={(amount) => `$${amount} NZD`}
 				sections={[
 					{

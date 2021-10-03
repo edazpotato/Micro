@@ -40,8 +40,9 @@ interface MeterBarProps {
 	className?: string;
 	label: string;
 	sections: MeterBarSection[];
+	showTotalText?: boolean;
 	renderExtendedText?: (amount: number) => string;
-	renderTotalAmountText?: (amount: number) => string;
+	renderTotalText?: (amount: number) => string;
 }
 
 export function MeterBar({
@@ -49,7 +50,8 @@ export function MeterBar({
 	className,
 	renderExtendedText,
 	label,
-	renderTotalAmountText,
+	renderTotalText,
+	showTotalText = false,
 }: MeterBarProps) {
 	const [percentages, total] = getNumbersPercentageOfSum(
 		sections.map((section) => section.amount),
@@ -71,8 +73,8 @@ export function MeterBar({
 			<div className="px-20 flex">
 				<Typography largeness="large">
 					{label} (
-					{renderTotalAmountText
-						? renderTotalAmountText(total)
+					{showTotalText && renderTotalText
+						? renderTotalText(total)
 						: `Out of ${total}`}
 					)
 				</Typography>
