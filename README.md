@@ -1,7 +1,8 @@
 # Micro
 
 Micro is being remade!
-The core team is currently
+
+The core team currently consists of:
 
 -   [Modded](https://github.com/TheModdedChicken)
 -   [Minota](https://github.com/xMinota)
@@ -25,10 +26,9 @@ You can have a look at the Figma designs [here](https://www.figma.com/file/JElZB
 
 ### Project Setup
 
-To contribute you can just clone the repository as normal.
-`git clone https://github.com/edazpotato/Micro.git`
+To contribute you can just clone the repository with `git clone https://github.com/edazpotato/Micro.git` to clone the repository over HTTPS
 
-However, be sure to look at the README files in the frontend and backend folders depending on what you're contributing to.
+However, be sure to look at the README files in the [frontend](./frontend/) and [backend](./backend/) folders depending on what you're contributing to.
 
 ### Pull Requests
 
@@ -55,4 +55,4 @@ Example:
 
 ### Documentation
 
-Most of the documentation can be found on the [wiki](https://github.com/edazpotato/Micro/wiki)
+Most of the documentation can be found on the [wiki](https://github.com/edazpotato/Micro/wiki).
