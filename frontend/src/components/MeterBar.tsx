@@ -4,14 +4,17 @@ import clsx from "clsx";
 function getNumbersPercentageOfSum(
 	numbers: number[],
 	decimalPlaces: number = 2
-): number[] {
+): [number[], number] {
 	let total = 0;
 	for (const number of numbers) {
 		total += number;
 	}
-	return numbers.map((number) =>
-		Number(((number / total) * 100).toFixed(decimalPlaces))
-	);
+	return [
+		numbers.map((number) =>
+			Number(((number / total) * 100).toFixed(decimalPlaces))
+		),
+		Number(total.toFixed(decimalPlaces)),
+	];
 }
 
 function getContrastText(background: [number, number, number]) {
@@ -38,6 +41,7 @@ interface MeterBarProps {
 	label: string;
 	sections: MeterBarSection[];
 	renderExtendedText?: (amount: number) => string;
+	renderTotalAmountText?: (amount: number) => string;
 }
 
 export function MeterBar({
@@ -45,8 +49,9 @@ export function MeterBar({
 	className,
 	renderExtendedText,
 	label,
+	renderTotalAmountText,
 }: MeterBarProps) {
-	const percentages = getNumbersPercentageOfSum(
+	const [percentages, total] = getNumbersPercentageOfSum(
 		sections.map((section) => section.amount),
 		2
 	);
@@ -64,7 +69,13 @@ export function MeterBar({
 	return (
 		<div className={clsx("MicroMeterBar w-full flex flex-col", className)}>
 			<div className="px-20 flex">
-				<Typography largeness="large">{label}</Typography>
+				<Typography largeness="large">
+					{label} (
+					{renderTotalAmountText
+						? renderTotalAmountText(total)
+						: `Out of ${total}`}
+					)
+				</Typography>
 				<legend className="ml-auto flex space-x-12">
 					{parsedSections.map((section, i) => (
 						<span
