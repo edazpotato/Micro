@@ -32,7 +32,7 @@ function getContrastText(background: [number, number, number]) {
 interface MeterBarSection {
 	label: string;
 	amount: number;
-	renderExtendedText?: (amount: number) => string;
+	renderSectionAmount?: (amount: number) => string;
 	colour: [number, number, number];
 }
 
@@ -40,18 +40,20 @@ interface MeterBarProps {
 	className?: string;
 	label: string;
 	sections: MeterBarSection[];
-	showTotalText?: boolean;
-	renderExtendedText?: (amount: number) => string;
-	renderTotalText?: (amount: number) => string;
+	showTotal?: boolean;
+	showAmounts?: boolean;
+	renderSectionAmount?: (amount: number) => string;
+	renderTotal?: (amount: number) => string;
 }
 
 export function MeterBar({
 	sections,
 	className,
-	renderExtendedText,
+	renderSectionAmount,
 	label,
-	renderTotalText,
-	showTotalText = false,
+	renderTotal,
+	showTotal,
+	showAmounts,
 }: MeterBarProps) {
 	const [percentages, total] = getNumbersPercentageOfSum(
 		sections.map((section) => section.amount),
@@ -62,7 +64,7 @@ export function MeterBar({
 		.map((section, i) => ({
 			backgroundColour: section.colour,
 			percentage: percentages[i],
-			renderExtendedText: section.renderExtendedText,
+			renderSectionAmount: section.renderSectionAmount,
 			label: section.label,
 			amount: section.amount,
 		}))
@@ -72,11 +74,12 @@ export function MeterBar({
 		<div className={clsx("MicroMeterBar w-full flex flex-col", className)}>
 			<div className="px-20 flex">
 				<Typography largeness="large">
-					{label} (
-					{showTotalText && renderTotalText
-						? renderTotalText(total)
-						: `Out of ${total}`}
-					)
+					{label}
+					{showTotal &&
+						" " +
+							(renderTotal
+								? renderTotal(total)
+								: `(Out of ${total})`)}
 				</Typography>
 				<legend className="ml-auto flex space-x-12">
 					{parsedSections.map((section, i) => (
@@ -111,12 +114,15 @@ export function MeterBar({
 							color: getContrastText(section.backgroundColour),
 						}}>
 						{`${section.percentage}%`}
-						{section.percentage > 30 &&
+						{showAmounts &&
+							section.percentage > 30 &&
 							` (${
-								section.renderExtendedText
-									? section.renderExtendedText(section.amount)
-									: renderExtendedText
-									? renderExtendedText(section.amount)
+								section.renderSectionAmount
+									? section.renderSectionAmount(
+											section.amount
+									  )
+									: renderSectionAmount
+									? renderSectionAmount(section.amount)
 									: section.amount
 							})`}
 					</span>
