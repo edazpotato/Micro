@@ -64,6 +64,7 @@ module.exports = {
 			none: "0px",
 			"a-little-bit": "4px",
 			DEFAULT: "8px",
+			medium: "100px",
 			full: "9999px",
 		},
 		strokeWidth: {
@@ -108,6 +109,7 @@ module.exports = {
 			["30"]: "30px",
 			["40"]: "40px",
 			["48"]: "48px",
+			["50"]: "50px",
 			["60"]: "60px",
 			["84"]: "84px",
 			["100"]: "100px",
