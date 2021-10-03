@@ -1,3 +1,4 @@
+import { Typography } from ".";
 import clsx from "clsx";
 
 function getNumbersPercentageOfSum(
@@ -63,10 +64,10 @@ export function MeterBar({
 	return (
 		<div className={clsx("MicroMeterBar w-full flex flex-col", className)}>
 			<div className="px-20 flex">
-				<h4 className="text-text dark:text-text-d">{label}</h4>
+				<Typography largeness="large">{label}</Typography>
 				<legend className="ml-auto flex space-x-12">
 					{parsedSections.map((section) => (
-						<span className="text-text dark:text-text-d flex items-center">
+						<span className="flex items-center">
 							<svg width="10" height="10" className="mr-2">
 								<rect
 									width="10"
@@ -78,7 +79,7 @@ export function MeterBar({
 									}}
 								/>
 							</svg>
-							{section.label}
+							<Typography>{section.label}</Typography>
 						</span>
 					))}
 				</legend>
