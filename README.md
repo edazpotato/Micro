@@ -36,17 +36,18 @@ Feel free to put whatever you'd like in the description of your pull request.
 However, please be sure to include a brief summary of the changes you made and where you made them.
 
 Example:
+
 ```
   [Frontend]
     - Added bagels
     - Added cookies
-  
+
   [Backend]
     - Added cookie route:
       Buys millions of cookies on the user's behalf
     - Added bagel route:
       Does the same thing as the cookie route but with bagels
-      
+
   [Docs]
     - Added food page:
       - Added instructions on how to send me food
@@ -56,3 +57,11 @@ Example:
 ### Documentation
 
 Most of the documentation can be found on the [wiki](https://github.com/edazpotato/Micro/wiki)
+
+#### Branding
+
+Quick reference for Micro's banding colours and other related things.
+
+Icon set: [Feather Icons](https://github.com/feathericons/feather)
+
+**Colours**
