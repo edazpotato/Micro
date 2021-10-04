@@ -16,28 +16,28 @@ app.use((req, res, next) => {
     res.setHeader("X-Powered-By", "Our awsome supporters and open-source contributors!");
     next();
 })
-app.use(cors({origin: "micro.edaz.codes"})); // Unsafe. We should change this when we go live. External apps like Spica will still be able to use the API fine.
+app.use(cors({origin: "micro.edaz.codes"}));
 app.use(express.json())
 app.use(requestIp.mw())
 
 if (process.env.DRL !== "false") {
-    const routes = fs.readdirSync(path.join(__dirname, '/routes'));
-    for (const routeName of routes) {
-        const routeLocation = "./routes/" + routeName;
-        import(routeLocation).then(route => {
-            const router: express.Router = route.router || route.default;
-            if (typeof router === "function" && router.route) {
-                const hook: string = (router as any).hook || route.hook;
+    const routers = fs.readdirSync(path.join(__dirname, '/routers'));
+    for (const routerName of routers) {
+        const routeLocation = "./routers/" + routerName;
+        import(routeLocation).then(routerE => {
+            const router: express.Router = routerE.router || routerE.default;
+            if (typeof router === "function" && (router as any).___hook) {
+                const hook: string = (router as any).___hook;
                 if (hook) try {
                     app.use(hook, router)
-                    console.log(`Hooked route "${routeName}" to endpoint "${hook}"`)
+                    server.log(`Hooked router "${routerName}" to endpoint "${hook}"`)
                 } catch (e) {throw e};   
             }
         })
     }
 }
 
-app.listen(port, () => console.log('Listening on port', port))
+app.listen(port, () => server.log(`Listening on port ${port}`))
 
 const argFunc = {
     env: (env: string) => {

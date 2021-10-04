@@ -1,7 +1,8 @@
 import { Router } from 'express'
+import { server } from '../classes'
 import { getLocalCommitSha } from '../updater'
 
-const RootRouter = Object.defineProperty(Router(), "hook", {value: "/"})
+const RootRouter = server.router("/")
 
 RootRouter.route('/').all((req, res) => {
   res.status(200).json({

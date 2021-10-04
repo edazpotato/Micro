@@ -21,6 +21,11 @@ const UserSchema: Schema = new Schema({
   id: String,
   joinedAt: Date,
   avatar: String || null,
+  sessions: [{
+    ip: String,
+    token: String,
+    expiresAt: Date
+  }],
 })
 
 export default mongoose.model('user', UserSchema)
