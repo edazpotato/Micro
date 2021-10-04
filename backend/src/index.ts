@@ -51,8 +51,7 @@ const argFunc = {
             if (Object.keys(envs).find(e => e === env)) envs[env]();
             else throw new Error(`Couldn't find an environment called "${env}"`);
             
-            if (env === "test") server.log(`Running in the "${env}" environment`, {name: "Env"})
-            else server.log(`Running in the "${env}" environment`, {name: "Env"})
+            server.log(`Running in the "${env}" environment`, {name: "Env"})
         } catch (e) {
             server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
         }
