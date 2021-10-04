@@ -52,13 +52,14 @@ const argFunc = {
             else throw new Error(`Couldn't find an environment called "${env}"`);
             
             if (env === "test") server.log(`Running in the "${env}" environment`, {name: "Env"})
-            server.log(`Running in the "${env}" environment`, {name: "Env"})
+            else server.log(`Running in the "${env}" environment`, {name: "Env"})
         } catch (e) {
             server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
         }
     }
 }
 const serverArgs = server.argv(process.argv, Object.keys(argFunc))
+export default serverArgs
 /* Do NOT use the "--env prod" argument when running in a local dev environment. 
 This will overwrite any changes made to your local clone every five minutes if it finds a new commit on main. */
 
