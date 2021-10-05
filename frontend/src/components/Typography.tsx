@@ -53,36 +53,28 @@ export function Typography({
 				break;
 		}
 
-	// if (variant === "button") {
-	// 	return <Element className="">{children}</Element>;
-	// }
+	let textSize;
+	if (size === "massive") textSize = "text-massive";
+	else if (size === "huger") textSize = "text-huger";
+	else if (size === "huge") textSize = "text-huge";
+	else if (size === "large") textSize = "text-large";
+	else if (size === "normal") textSize = "text-normal";
+	else if (size === "button") textSize = "text-button";
+	else textSize = "text-small";
+
+	let textBoldness;
+	if (bold === "bold") textBoldness = "font-bold";
+	else if (bold === "slightly bold") textBoldness = "font-semibold";
+	else if (bold === "mediumly bold") textBoldness = "font-medium";
+	else if (bold === "not at all") textBoldness = "font-normal";
+	else textBoldness = "font-button";
 
 	return (
 		<Element
 			className={clsx(
 				"MicroTypography text-text dark:text-text-d inline-block",
-				size === "massive"
-					? "text-massive"
-					: size === "huger"
-					? "text-huger"
-					: size === "huge"
-					? "text-huge"
-					: size === "large"
-					? "text-large"
-					: size === "normal"
-					? "text-normal"
-					: size === "button"
-					? "text-button"
-					: "text-small",
-				bold === "bold"
-					? "font-bold"
-					: bold === "slightly bold"
-					? "font-semibold"
-					: bold === "mediumly bold"
-					? "font-medium"
-					: bold === "not at all"
-					? "font-normal"
-					: "font-button",
+				textSize,
+				textBoldness,
 				className
 			)}>
 			{children}

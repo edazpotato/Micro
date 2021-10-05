@@ -1,9 +1,7 @@
 import { Hash as HashIcon } from "react-feather";
 import { Typography } from ".";
-import { useRouter } from "next/router";
 
 export function NavBar() {
-	const router = useRouter();
 	let Icon = HashIcon;
 	return (
 		<header className="MicroNavBar h-60 sticky w-full ">

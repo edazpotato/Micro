@@ -4,7 +4,6 @@ import "../styles/tailwind.css";
 import "@fontsource/inter";
 
 import { AppProps } from "next/app";
-import { Layout } from "../components";
 import NProgress from "nprogress";
 import Router from "next/router";
 import { SSRProvider } from "@react-aria/ssr";

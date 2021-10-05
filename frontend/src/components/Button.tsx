@@ -1,4 +1,4 @@
-import { MouseEvent, ReactChild, ReactElement, ReactText } from "react";
+import { MouseEvent, ReactChild, ReactElement } from "react";
 
 import clsx from "clsx";
 import { useFocusRing } from "@react-aria/focus";
