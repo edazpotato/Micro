@@ -24,7 +24,7 @@ namespace server {
   ) {
     const appDataLoc = path.join(getDataHome(), `/micro-backend`)
     const logsDir = path.join(appDataLoc, '/logs')
-    const callerLocArr = getCallerPath(1)?.split('\\') as Array<string>
+    const callerLocArr = getCallerPath(1)?.split('\\')
     const callerFile = callerLocArr[callerLocArr.length - 1] || 'unknown'
     const callerName = options?.name
     const type = options?.type || 'info'

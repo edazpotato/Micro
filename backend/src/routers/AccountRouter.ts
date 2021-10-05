@@ -10,7 +10,7 @@ const AccountRouter = server.router('/accounts')
 const usernameRegex = /^[a-z0-9]+$/i
 // Retreived from https://www.emailregex.com/ on the 5th of October 2021
 const emailRegex =
-  /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
+  /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
 const customEpoch: number | undefined = !process.env.EPOCH
   ? (process.env.EPOCH as undefined)
   : +process.env.EPOCH
@@ -30,19 +30,12 @@ AccountRouter.route('/login').post(async (req, res, next) => {
     }).exec()) as any
     if (!user) throw { status: 401, err: 'username_invalid' }
 
-    let comparison = await argon2.verify(
-      (user as any).password,
-      req.body.password,
-      {
-        type: argon2id,
-      }
-    )
+    let comparison = await argon2.verify(user.password, req.body.password, {
+      type: argon2id,
+    })
     if (!comparison) throw { status: 401, err: 'password_invalid' }
 
-    const sessionToken = await initSession(
-      (user as any).id,
-      req.clientIp as string
-    )
+    const sessionToken = await initSession(user.id, req.clientIp as string)
     return res.status(200).json({
       message: 'Successfully logged in!',
       data: {
