@@ -10,7 +10,10 @@ RootRouter.route('/').all((req, res) => {
 })
 
 RootRouter.route('/sha').all(async (req, res) => {
-  res.status(200).send({data: {sha: await getLocalCommitSha()}})
+  const sha = await getLocalCommitSha();
+  res.status(200).send({
+    data: { sha: { full: sha, short: sha.slice(0, 7) } },
+  });
 })
 
 export default RootRouter
