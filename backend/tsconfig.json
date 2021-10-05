@@ -11,6 +11,11 @@
         "./src/types",
         "./node_modules/@types"
       ],
+      "paths": {
+        "src/*": ["./src/*"],
+        "@routers/*": ["./src/routers/*"],
+        "@models/*": ["./src/models/*"]
+      },
       "esModuleInterop": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
