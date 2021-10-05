@@ -1,7 +1,4 @@
-import RootRouter from './RootRouter'
 import AccountRouter from './AccountRouter'
+import RootRouter from './RootRouter'
 
-export {
-    RootRouter,
-    AccountRouter
-}
+export { RootRouter, AccountRouter }
