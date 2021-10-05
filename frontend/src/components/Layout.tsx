@@ -1,47 +1,22 @@
-import Router, { useRouter } from "next/router";
-
 import Head from "next/head";
-import NProgress from "nprogress";
 import { NavBar } from ".";
-import { ReactElement } from "react";
-import { useEffect } from "react";
+import { ReactNode } from "react";
 
-declare global {
-	interface Window {
-		NProgress?: typeof NProgress;
-	}
+interface LayoutProps {
+	children: ReactNode | ReactNode[];
+	title?: string;
 }
 
-export function Layout({ children }: { children: ReactElement<any, any> }) {
-	const router = useRouter();
-
-	const path = router.pathname.slice(1);
-	let title = path;
-	if (router.query["user"]) {
-		const q = router.query["user"];
-		console.log(q);
-	}
-
-	useEffect(() => {
-		window.NProgress = NProgress;
-	}, []);
-
+export function Layout({ children, title }: LayoutProps) {
 	return (
 		<>
 			<Head>
-				<title>{title && `${title} // `}Micro</title>
+				<title>Micro {title && `// ${title}`}</title>
 			</Head>
 			<NavBar />
-			<main className="scrollable w-full h-full flex-1 bg-background dark:bg-background-d text-text dark:text-text-d overflow-y-auto">
-				<section className="container mx-auto">{children}</section>
+			<main className="scrollable flex flex-col w-full items-center pt-27 h-full flex-1 bg-background dark:bg-background-d overflow-x-hidden overflow-y-auto ">
+				{children}
 			</main>
-			<footer></footer>
 		</>
 	);
 }
-
-Router.events.on("routeChangeStart", () => {
-	NProgress.start();
-});
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
