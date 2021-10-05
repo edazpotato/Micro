@@ -123,7 +123,9 @@ AccountRouter.route('/register').post(async (req, res, next) => {
   }
 })
 
-AccountRouter.route('/logout').delete(async (req, res) => {})
+AccountRouter.route('/logout').delete(async (req, res) => {
+  // TODO
+})
 
 export default AccountRouter
 
