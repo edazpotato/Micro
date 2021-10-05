@@ -35,7 +35,7 @@ export function Typography({
 	let Element = element;
 
 	let size = largeness || "normal";
-	let bold = boldness || "regular";
+	let bold = boldness || "not at all";
 
 	if (!Element)
 		switch (size) {
@@ -76,11 +76,11 @@ export function Typography({
 					: "text-small",
 				bold === "bold"
 					? "font-bold"
-					: bold === "semi-bold"
+					: bold === "slightly bold"
 					? "font-semibold"
-					: bold === "medium"
+					: bold === "mediumly bold"
 					? "font-medium"
-					: bold === "normal"
+					: bold === "not at all"
 					? "font-normal"
 					: "font-button",
 				className
