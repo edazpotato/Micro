@@ -3,10 +3,6 @@ import path from 'path';
 import fetch from 'centra'
 import server from './classes/server';
 
-/*
-  TO-DO:
-    - Only allow the server to update if the backend folder has been modified.
-*/
 export default async function updater () {
   const localSha = await getLocalCommitSha();
   const latestCommit = await getLatestCommit();

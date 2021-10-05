@@ -1,5 +1,5 @@
 import { ChildProcessWithoutNullStreams, exec, spawn } from 'child_process';
-import express from 'express'
+import express, { Router, RouterOptions } from 'express'
 import fs from "fs";
 import path from "path";
 import date from 'date-and-time'
@@ -23,47 +23,49 @@ namespace server {
   
     console.log(fullMessage)
     if (options?.logInFile === undefined || options?.logInFile === true) {
-      try {
-        if (!fs.existsSync(appDataLoc)) fs.mkdirSync(appDataLoc)
-        if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir)
-        const logLoc = path.join(logsDir, `/${date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)}.txt`);
-        await new Promise((res, rej) => {
-          fs.appendFile(
-            logLoc, 
-            fullMessage + "\n", 
-            (err) => {
-              if (err) console.log(err);
-    
-              if (options?.error) fs.appendFile(
-                logLoc,
-                options.error.message,
-                (err) => {
-                  if (err) console.log(err);
-    
-                  res(null)
-                }
-              )
-              else res(null)
-            }
-          )
-        })
-      } catch (e) {
-        console.log("Couldn't append to log file\n" + e)
+      if (process.env.LOGS !== "false") {
+        try {
+          if (!fs.existsSync(appDataLoc)) fs.mkdirSync(appDataLoc)
+          if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir)
+          const logLoc = path.join(logsDir, `/${date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)}.txt`);
+          await new Promise((res, rej) => {
+            fs.appendFile(
+              logLoc, 
+              fullMessage + "\n", 
+              (err) => {
+                if (err) console.log(err);
+      
+                if (options?.error) fs.appendFile(
+                  logLoc,
+                  options.error.message,
+                  (err) => {
+                    if (err) console.log(err);
+      
+                    res(null)
+                  }
+                )
+                else res(null)
+              }
+            )
+          })
+        } catch (e) {
+          console.log("Couldn't append to log file\n" + e)
+        }
       }
     }
     
     if (options?.exits) process.exit(options.exits);
   }
 
-  export async function error (res: express.Response, status: number, errors: String[]) {
-    const error = {
-      errors
-    }
-    res.status(status).json(error)
+  export function error (res: express.Response, status: number, errIn: string | Error) {
+    const err = (errIn as any).message ? (errIn as any).message : errIn;
+
+    server.log(err, {type:"error"})
+    res.status(status).json({error: status !== 500 ? err : "internal_server_error"})
   }
 
   /**
-   * @description Runs a new child process with the specified command
+   * Runs a new child process with the specified command
    */
   export async function sh(command: string): Promise<string> {
     return new Promise((res, rej) => {
@@ -76,7 +78,7 @@ namespace server {
   }
 
   /**
-   * @description Spawns a new process with the specified command
+   * Spawns a new process with the specified command
    */
   export async function sp(command: string, detached?: boolean): Promise<ChildProcessWithoutNullStreams> {
     return new Promise((res, rej) => {
@@ -86,6 +88,9 @@ namespace server {
     })
   }
 
+  /**
+   * Formats and filters process.argv
+   */
   export function argv (argv: Array<string>, filter?: Array<string>): ServerArgs {
     const command = argv[0];
     const file = argv[1];
@@ -105,6 +110,10 @@ namespace server {
     }
 
     return {command, file, env, args}
+  }
+
+  export function router (hook?: string, options?: RouteOptions) {
+    return Object.defineProperty(Router(options), "___hook", {value: hook || "/"})
   }
 }
 
@@ -128,4 +137,25 @@ interface ServerArgs {
 interface ServerArgument {
   arg: string,
   data: Array<string>
+}
+
+interface RouteOptions {
+  /**
+      * Enable case sensitivity.
+      */
+   caseSensitive?: boolean | undefined;
+
+   /**
+     * Preserve the req.params values from the parent router.
+     * If the parent and the child have conflicting param names, the child’s value take precedence.
+     *
+     * @default false
+     * @since 4.5.0
+     */
+   mergeParams?: boolean | undefined;
+
+   /**
+     * Enable strict routing.
+     */
+   strict?: boolean | undefined;
 }

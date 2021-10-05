@@ -9,3 +9,4 @@ export * from "./IconButton";
 export * from "./TextField";
 export * from "./Avatar";
 export * from "./Link";
+export * from "./MeterBar";

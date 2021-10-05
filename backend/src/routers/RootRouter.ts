@@ -1,7 +1,9 @@
 import { Router } from 'express'
+import serverArgs from '../'
+import { server } from '../classes'
 import { getLocalCommitSha } from '../updater'
 
-const RootRouter = Object.defineProperty(Router(), "hook", {value: "/"})
+const RootRouter = server.router("/")
 
 RootRouter.route('/').all((req, res) => {
   res.status(200).json({
@@ -14,6 +16,10 @@ RootRouter.route('/sha').all(async (req, res) => {
   res.status(200).send({
     data: { sha: { full: sha, short: sha.slice(0, 7) } },
   });
+})
+
+RootRouter.route('/env').all(async (req, res) => {
+  res.status(200).send({data: {env: serverArgs.args.find(a => a.arg === "env")?.data[0] || "dev"}})
 })
 
 export default RootRouter
