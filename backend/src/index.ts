@@ -11,7 +11,6 @@ import updater from './updater'
 
 const port = process.env.PORT || 5000
 const app = express()
-new db()
 
 app.use((req, res, next) => {
   res.setHeader(

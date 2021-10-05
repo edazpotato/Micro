@@ -43,7 +43,7 @@ export async function getLatestCommit() {
   ).json()
 }
 
-export async function getLatestCommitSha(): Promise<String> {
+export async function getLatestCommitSha(): Promise<string> {
   const res = await (
     await fetch('https://api.github.com/repos/edazpotato/micro/commits/main')
       .header('User-Agent', 'Micro/1.0')
@@ -53,7 +53,7 @@ export async function getLatestCommitSha(): Promise<String> {
   return res.sha as string
 }
 
-export function getLocalCommitSha(): Promise<String> {
+export function getLocalCommitSha(): Promise<string> {
   return new Promise((res, rej) => {
     exec(
       `git --git-dir "${path.join(__dirname, '../../.git')}" rev-parse HEAD`,
