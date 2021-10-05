@@ -1,7 +1,6 @@
 import 'dotenv/config'
 
 import cors from 'cors'
-import db from './database'
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
