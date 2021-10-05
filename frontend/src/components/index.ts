@@ -11,3 +11,4 @@ export * from "./Avatar";
 export * from "./Link";
 export * from "./MeterBar";
 export * from "./ProgressBar";
+export * from "./User";

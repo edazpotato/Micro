@@ -1,8 +1,16 @@
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 export interface TypographyProps {
 	children: ReactNode;
-	largeness?: "massive" | "huge" | "large" | "normal" | "button";
+	largeness?:
+		| "massive"
+		| "huger"
+		| "huge"
+		| "large"
+		| "normal"
+		| "button"
+		| "small";
 	boldness?: "not at all" | "slightly bold" | "mediumly bold" | "bold";
 	element?:
 		| "h1"
@@ -14,7 +22,7 @@ export interface TypographyProps {
 		| "p"
 		| "blockquote"
 		| "span";
-	// variant?: "button";
+	className?: string;
 }
 
 export function Typography({
@@ -22,8 +30,8 @@ export function Typography({
 	largeness,
 	element,
 	boldness,
-}: // variant,
-TypographyProps) {
+	className,
+}: TypographyProps) {
 	let Element = element;
 
 	let size = largeness || "normal";
@@ -51,15 +59,21 @@ TypographyProps) {
 
 	return (
 		<Element
-			className={`MicroTypography text-text dark:text-text-d ${
+			className={clsx(
+				"MicroTypography text-text dark:text-text-d inline-block",
 				size === "massive"
 					? "text-massive"
+					: size === "huger"
+					? "text-huger"
 					: size === "huge"
 					? "text-huge"
 					: size === "large"
 					? "text-large"
-					: "text-normal"
-			} ${
+					: size === "normal"
+					? "text-normal"
+					: size === "button"
+					? "text-button"
+					: "text-small",
 				bold === "bold"
 					? "font-bold"
 					: bold === "slightly bold"
@@ -68,8 +82,9 @@ TypographyProps) {
 					? "font-medium"
 					: bold === "not at all"
 					? "font-normal"
-					: "font-button"
-			}`}>
+					: "font-button",
+				className
+			)}>
 			{children}
 		</Element>
 	);
