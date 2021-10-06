@@ -143,7 +143,6 @@ namespace server {
   }
 
   export function router(hook?: string, options?: IRouterOptions) {
-    if (!getCallerPath(1).includes('\\Micro\\backend\\src\\routers')) throw new Error('Routers must be located in "backend/src/routers/"')
     const hookOut = hook || "/"
     const protocol = options?.protocol || "*"
 
