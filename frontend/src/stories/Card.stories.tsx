@@ -60,11 +60,7 @@ export const Link = () => (
 export const PropagtionTesting = () => (
 	<Card
 		className="p-16 flex-col"
-		onPress={() => console.log("Card clicked!")}
-		// link
-		// href="https://github.com/edazpotato/Micro"
-		// target="_blank"
-	>
+		onPress={() => console.log("Card clicked!")}>
 		<Typography>Click me!</Typography>
 
 		<Button

@@ -1,9 +1,11 @@
-import { Post, Typography } from "../components";
+import { Layout, Post } from "../components";
 
 export default function Homepage() {
 	return (
-		<section className="MicroFeed h-auto">
+		<Layout>
 			<Post />
-		</section>
+			<Post />
+			<Post />
+		</Layout>
 	);
 }

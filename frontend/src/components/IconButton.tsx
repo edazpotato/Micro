@@ -1,6 +1,5 @@
-import { MouseEvent, ReactChild } from "react";
-
 import { Icon } from "react-feather";
+import { MouseEvent } from "react";
 import clsx from "clsx";
 import { useFocusRing } from "@react-aria/focus";
 
@@ -55,8 +54,7 @@ export function IconButton({
 					isFocusVisible && "focus:ring-4",
 					className
 				)}
-				{...rest}
-			>
+				{...rest}>
 				<ButtonIcon className="stroke-current " />
 			</Element>
 		</div>

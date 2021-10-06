@@ -70,6 +70,7 @@ export function MeterBar({
 		}))
 		.sort((a, b) => a.amount - b.amount);
 
+	// Not using <meter /> here because it's a pain to style
 	return (
 		<div className={clsx("MicroMeterBar w-full flex flex-col", className)}>
 			<div className="px-20 flex">
