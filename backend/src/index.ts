@@ -89,12 +89,13 @@ namespace server {
   /**
    * Runs a new child process with the specified command
    */
-  export async function sh(command: string): Promise<string> {
+  export async function sh(command: string): Promise<number> {
+    const commandArray = command.split(' ')
+
     return new Promise((res, rej) => {
-      exec(command, (err, stdOut, stdErr) => {
-        if (err) rej(err)
-        if (stdErr) rej(new Error(stdErr.trim()))
-        res(stdOut.trim())
+      spawn(commandArray[0], commandArray.slice(1), { shell: false }).addListener('exit', (code, signal) => {
+        if (code !== 0) rej(code)
+        else res(code)
       })
     })
   }
@@ -104,7 +105,7 @@ namespace server {
    */
   export async function sp(command: string, detached?: boolean): Promise<ChildProcessWithoutNullStreams> {
     return new Promise((res, rej) => {
-      const child = spawn(command, { detached })
+      const child = spawn(command, { detached, shell: false })
       child.unref()
       res(child)
     })
