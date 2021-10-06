@@ -224,8 +224,8 @@ const argFunc = {
       if (Object.keys(envs).find(e => e === env[0])) envs[env[0]]()
       else throw new Error(`Couldn't find an environment called "${env[0]}"`)
           
-      const argsUsed = env.length > 1 ? `using args "${env.slice(1)}` : ""
-      server.log(`Running in the "${env[0]}" environment ${argsUsed}"`, {name: "Env"})
+      const argsUsed = env.length > 1 ? `using args "${env.slice(1)}"` : ""
+      server.log(`Running in the "${env[0]}" environment ${argsUsed}`, {name: "Env"})
     } catch (e) {
       server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
     }
