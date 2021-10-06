@@ -6,7 +6,7 @@ import server from '..'
 
 const UserRouter = server.router('/account')
 
-const usernameRegex = /^(?:[A-Z]|[a-z]|[0-9]|\.|\_|\-){3,20}$/i
+const usernameRegex = /^(?:[A-Z]|[a-z]|\d|\.|\_|\-){3,20}$/i
 // Retreived from https://www.emailregex.com/ on the 5th of October 2021
 const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
 const customEpoch: number | undefined = !process.env.EPOCH ? process.env.EPOCH as undefined : +process.env.EPOCH
@@ -67,8 +67,8 @@ UserRouter.route('/register').post(async (req, res, next) => {
       username: req.body.username.toLowerCase(),
     }).exec()
   
-    if (usernames.length > 0) throw {status: 403, err: 'username_taken'}
-    if (emails.length > 0) throw {status: 403, err: 'email_taken'}
+    if (usernames.length > 0) throw new Error('403::username_taken')
+    if (emails.length > 0) throw new Error('403::email_taken')
   
     const hashedPassword = await argon2.hash(req.body.password, {
       type: argon2id,
