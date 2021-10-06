@@ -19,7 +19,7 @@ const serverStartDate = new Date()
 const routes: Array<IRouteData> = []
 const port = process.env.PORT || 5000
 const app = express()
-new db()
+db()
 
 
 namespace server {
