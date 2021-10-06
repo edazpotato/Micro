@@ -42,7 +42,7 @@ namespace server {
     const dateNow = new Date();
     const fullMessage = `[${type.toUpperCase()} | ${
       callerName ? callerName + '/' : ''
-    }${callerFile}](${ date.format(dateNow, `${dateFormat}`, true) }): ${message}`
+    }${callerFile}](${ date.format(dateNow, dateFormat, true) }): ${message}`
   
     console.log(fullMessage)
     if (options?.logInFile === undefined || options?.logInFile === true) {
@@ -50,23 +50,20 @@ namespace server {
         try {
           if (!fs.existsSync(appDataLoc)) fs.mkdirSync(appDataLoc)
           if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir)
+          const logFileName = date.format(serverStartDate, `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, true)
 
           const logLoc = path.join(
             logsDir, 
-            `/${date.format(
-              serverStartDate, 
-              `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`, 
-              true
-            )}.txt`
+            `/${logFileName}.txt`
           );
 
           await new Promise((res, rej) => {
-            fs.appendFile(logLoc, fullMessage + "\n", (err) => {
-              if (err) console.log(err)
+            fs.appendFile(logLoc, fullMessage + "\n", (err1) => {
+              if (err1) console.log(err1)
 
               if (options?.error) 
-                fs.appendFile(logLoc, options.error.message, (err) => {
-                  if (err) console.log(err)
+                fs.appendFile(logLoc, options.error.message, (err2) => {
+                  if (err2) console.log(err2)
       
                   res(null)
                 })
@@ -116,10 +113,10 @@ namespace server {
   /**
    * Formats and filters process.argv
    */
-  export function argv(argv: Array<string>, filter?: Array<string>): IServerArgs {
-    const command = argv[0]
-    const file = argv[1]
-    const staleArgs = argv.slice(2)
+  export function argv(arga: Array<string>, filter?: Array<string>): IServerArgs {
+    const command = arga[0]
+    const file = arga[1]
+    const staleArgs = arga.slice(2)
     var args: Array<IServerArgument> = []
     var env: Array<string> = []
     var discardLast = false
@@ -142,14 +139,14 @@ namespace server {
     return { command, file, env, args }
   }
 
-  export function router(path?: string, options?: IRouterOptions) {
+  export function router(hook?: string, options?: IRouterOptions) {
     if (!getCallerPath(1).includes('\\Micro\\backend\\src\\routers')) throw new Error('Routers must be located in "backend/src/routers/"')
-    const hook = path || "/"
+    const hookOut = hook || "/"
     const protocol = options?.protocol || "*"
 
     return Object.defineProperties(Router(options), {
       "___hook": {
-        value: hook
+        value: hookOut
       },
       "___protocol": {
         value: protocol
@@ -224,7 +221,8 @@ const argFunc = {
       if (Object.keys(envs).find(e => e === env[0])) envs[env[0]]()
       else throw new Error(`Couldn't find an environment called "${env[0]}"`)
           
-      server.log(`Running in the "${env[0]}" environment ${env.length > 1 ? `using args "${env.slice(1)}` : ""}"`, {name: "Env"})
+      const argsUsed = env.length > 1 ? `using args "${env.slice(1)}` : ""
+      server.log(`Running in the "${env[0]}" environment ${argsUsed}"`, {name: "Env"})
     } catch (e) {
       server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
     }
