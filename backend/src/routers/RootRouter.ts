@@ -1,9 +1,7 @@
-import { Router } from 'express'
-import serverArgs from '../'
-import { server } from '../classes'
+import server, { serverArgs } from '..'
 import { getLocalCommitSha } from '../updater'
 
-const RootRouter = server.router("/")
+const RootRouter = server.router()
 
 RootRouter.route('/').all((req, res) => {
   res.status(200).json({

@@ -4,13 +4,13 @@ const UserSchema: Schema = new Schema({
   username: String,
   displayname: String,
   flags: [
-    "admin",
-    "moderator",
-    "trusted",
-    "supporter",
-    "supporter_p",
-    "disabled",
-    "banned"
+    'admin',
+    'moderator',
+    'trusted',
+    'supporter',
+    'supporter_p',
+    'disabled',
+    'banned'
   ],
   email: {
     type: String,

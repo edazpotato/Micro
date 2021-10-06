@@ -5,8 +5,8 @@ const ApplicationSchema: Schema = new Schema({
   name: String,
   relation: Number,
   flags: [
-    "trusted",
-    "disabled"
+    'trusted',
+    'disabled'
   ],
   callbacks: [String]
 })
