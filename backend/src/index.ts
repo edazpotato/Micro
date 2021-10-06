@@ -26,7 +26,7 @@ namespace server {
   export async function log (
     message: string, 
     options?: {
-      type?: "info" | "warn" | "error" | "client_error", 
+      type?: "info" | "warn" | "server_error" | "req_error", 
       name?: string, 
       exits?: number, 
       error?: Error, 
@@ -84,7 +84,7 @@ namespace server {
     const errClientMsg = errStat !== 500 ? errIn.message.split('::')[1] : 'internal_server_error'
     const errLogMsg = errStat !== 500 ? errIn.message.split('::')[1] : errIn.message
 
-    server.log(`${errLogMsg} ==> "${req.originalUrl}" from "${req.clientIp}"`, {type: errStat !== 500 ? 'client_error' : 'error'})
+    server.log(`${errLogMsg} ==> "${req.originalUrl}" from "${req.clientIp}"`, {type: errStat !== 500 ? 'req_error' : 'server_error'})
     res.status(errStat).json({error: errClientMsg})
   }
 
@@ -223,10 +223,10 @@ const argFunc = {
       if (Object.keys(envs).find(e => e === env[0])) envs[env[0]]()
       else throw new Error(`Couldn't find an environment called "${env[0]}"`)
           
-      const argsUsed = env.length > 1 ? `using args "${env.slice(1)}"` : ""
-      server.log(`Running in the "${env[0]}" environment ${argsUsed}`, {name: "Env"})
+      const argsUsed = env.length > 1 ? `using args "${env.slice(1)}"` : ''
+      server.log(`Running in the "${env[0]}" environment ${argsUsed}`, {name: 'Env'})
     } catch (e) {
-      server.log((e as Error).message, {type: "error", exits: 1, name: "Env"})
+      server.log((e as Error).message, {type: 'server_error', exits: 1, name: 'Env'})
     }
   },
 }
