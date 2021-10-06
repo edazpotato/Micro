@@ -32,7 +32,7 @@ export async function updateServer() {
 }
 
 export async function getLatestCommit() {
-  return await (
+  return (
     await fetch('https://api.github.com/repos/edazpotato/micro/commits/main').header('User-Agent', 'Micro/1.0').send()
   ).json()
 }

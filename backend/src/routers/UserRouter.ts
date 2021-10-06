@@ -3,16 +3,15 @@ import crypto from 'crypto'
 import { UserModel } from '../models'
 import { UniqueID } from 'nodejs-snowflake'
 import server from '..'
-import mongoose from 'mongoose'
 
-const AccountRouter = server.router('/account')
+const UserRouter = server.router('/account')
 
 const usernameRegex = /^[a-z0-9]+$/i
 // Retreived from https://www.emailregex.com/ on the 5th of October 2021
 const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
 const customEpoch: number | undefined = !process.env.EPOCH ? process.env.EPOCH as undefined : +process.env.EPOCH
 
-AccountRouter.route('/login').post(async (req, res, next) => {
+UserRouter.route('/login').post(async (req, res, next) => {
   try {
     if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
     if (!req.body) throw {status: 400, err: 'username_missing'}
@@ -51,7 +50,7 @@ AccountRouter.route('/login').post(async (req, res, next) => {
   } catch (err: any) {server.error(res, err.status || 500, err.err || err)}
 })
 
-AccountRouter.route('/register').post(async (req, res, next) => {
+UserRouter.route('/register').post(async (req, res, next) => {
   try {
     if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
     if (!req.body) throw {status: 400, err: 'body_missing'}
@@ -105,11 +104,11 @@ AccountRouter.route('/register').post(async (req, res, next) => {
   } catch (err: any) {server.error(res, err.status || 500, err.err || err)}
 })
 
-AccountRouter.route('/logout').delete(async (req, res) => {
+UserRouter.route('/logout').delete(async (req, res) => {
   // TODO
 })
 
-export default AccountRouter
+export default UserRouter
 
 async function initSession (userId: string, clientIp: string) {
   const sessionToken = crypto.randomBytes(96).toString('base64')
