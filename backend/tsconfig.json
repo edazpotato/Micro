@@ -1,25 +1,20 @@
 {
-    "compilerOptions": {
-      "baseUrl": "./",
-      "target": "esnext",
-      "module": "CommonJS",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
-      "strictPropertyInitialization": false,
-      "typeRoots": [
-        "./src/types",
-        "./node_modules/@types"
-      ],
-      "paths": {
-        "src/*": ["./src/*"],
-        "@routers/*": ["./src/routers/*"],
-        "@models/*": ["./src/models/*"]
-      },
-      "esModuleInterop": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "moduleResolution": "Node"
-    }
-  }
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "esnext",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "Node",
+  },
+}
   

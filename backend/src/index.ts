@@ -10,6 +10,7 @@ import updater, { getLocalCommitSha } from './updater'
 import date from 'date-and-time'
 import { ChildProcessWithoutNullStreams, exec, spawn } from 'child_process'
 import { getDataHome } from 'platform-folders'
+import { IRouteData, IServerArgs, IRouterOptions, IServerArgument } from './interfaces/server'
 
 
 const dateFormat = "HH:mm:ss DD/MM/YYYY"
@@ -19,6 +20,7 @@ const routes: Array<IRouteData> = []
 const port = process.env.PORT || 5000
 const app = express()
 new db()
+
 
 namespace server {
   export async function log (
@@ -114,7 +116,7 @@ namespace server {
   /**
    * Formats and filters process.argv
    */
-  export function argv (argv: Array<string>, filter?: Array<string>): IServerArgs {
+  export function argv(argv: Array<string>, filter?: Array<string>): IServerArgs {
     const command = argv[0]
     const file = argv[1]
     const staleArgs = argv.slice(2)
@@ -140,15 +142,14 @@ namespace server {
     return { command, file, env, args }
   }
 
-  export function router (hook?: string, options?: IRouterOptions) {
-    const hookOut = hook || "/";
-    const protocol = options?.protocol || "*";
-
-    console.log(getCallerPath(0))
+  export function router(path?: string, options?: IRouterOptions) {
+    if (!getCallerPath(1).includes('\\Micro\\backend\\src\\routers')) throw new Error('Routers must be located in "backend/src/routers/"')
+    const hook = path || "/"
+    const protocol = options?.protocol || "*"
 
     return Object.defineProperties(Router(options), {
       "___hook": {
-        value: hookOut
+        value: hook
       },
       "___protocol": {
         value: protocol
@@ -156,7 +157,7 @@ namespace server {
     });
   }
 
-  export function getCallerPath (depth: number) {
+  export function getCallerPath(depth: number) {
     let stack = new Error().stack?.split('\n') as Array<string>
     return stack[2 + depth].slice(
       stack[2 + depth].lastIndexOf('(') + 1,
@@ -166,47 +167,6 @@ namespace server {
 }
 
 export default server
-
-interface IServerArgs {
-  command: string
-  file: string
-  env: Array<string>
-  args: Array<IServerArgument>
-}
-
-interface IServerArgument {
-  arg: string
-  data: Array<string>
-}
-
-interface IRouterOptions {
-  /**
-    * Enable case sensitivity.
-    */
-  caseSensitive?: boolean
-
-  /**
-    * Preserve the req.params values from the parent router.
-    * If the parent and the child have conflicting param names, the child’s value take precedence.
-    *
-    * @default false
-    * @since 4.5.0
-    */
-  mergeParams?: boolean
-
-  /**
-    * Enable strict routing.
-    */
-  strict?: boolean
-
-  protocol?: "admin" | "user"
-}
-
-
-interface IRouteData {
-  hook: string
-  route: Array<express.IRoute>
-}
 
 
 /* ~Main~ */
@@ -239,7 +199,7 @@ if (process.env.DRL !== 'false') {
         const hook: string = (router as any).___hook;
 
         if (hook) {
-          console.log(router.stack)
+          //console.log(router.stack)
           app.use(hook, router)
           server.log(`Hooked router "${routerName}" to endpoint "${hook}"`)
         }

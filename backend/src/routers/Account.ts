@@ -1,12 +1,11 @@
-import { Router } from 'express'
 import argon2, { argon2id } from 'argon2'
 import crypto from 'crypto'
 import { UserModel } from '../models'
 import { UniqueID } from 'nodejs-snowflake'
-import server from 'src/index'
+import server from '..'
 import mongoose from 'mongoose'
 
-const AccountRouter = server.router("/accounts")
+const AccountRouter = server.router('/account')
 
 const usernameRegex = /^[a-z0-9]+$/i
 // Retreived from https://www.emailregex.com/ on the 5th of October 2021
@@ -15,23 +14,23 @@ const customEpoch: number | undefined = !process.env.EPOCH ? process.env.EPOCH a
 
 AccountRouter.route('/login').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== "application/json") throw {status: 415, err: "invalid_content_type"}
-    if (!req.body) throw {status: 400, err: "username_missing"}
-    if (!req.clientIp) throw {status: 403, err: "unprocessable_ip"}
-    if (!req.body.username) throw {status: 400, err: "username_invalid"}
-    if (!req.body.password) throw {status: 400, err: "password_invalid"}
+    if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
+    if (!req.body) throw {status: 400, err: 'username_missing'}
+    if (!req.clientIp) throw {status: 403, err: 'unprocessable_ip'}
+    if (!req.body.username) throw {status: 400, err: 'username_invalid'}
+    if (!req.body.password) throw {status: 400, err: 'password_invalid'}
   
     let user = await UserModel.findOne({
       [req.body.username.includes('@')
         ? 'email'
         : 'username']: req.body.username.toLowerCase()
     }).exec() as any
-    if (!user) throw {status: 401, err: "username_invalid"}
+    if (!user) throw {status: 401, err: 'username_invalid'}
   
     let comparison = await argon2.verify(user.password, req.body.password, { 
       type: argon2id, 
     })
-    if (!comparison) throw {status: 401, err: "password_invalid"}
+    if (!comparison) throw {status: 401, err: 'password_invalid'}
   
     const sessionToken = await initSession(user.id, req.clientIp as string);
     return res.status(200).json({
@@ -54,15 +53,15 @@ AccountRouter.route('/login').post(async (req, res, next) => {
 
 AccountRouter.route('/register').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== "application/json") throw {status: 415, err: "invalid_content_type"}
-    if (!req.body) throw {status: 400, err: "body_missing"}
-    if (!req.clientIp) throw {status: 403, err: "unprocessable_ip"}
-    if (!req.body.username) throw {status: 400, err: "username_missing"}
-    if (!req.body.email) throw {status: 400, err: "email_missing"}
-    if (!req.body.password) throw {status: 400, err: "password_missing"}
-    if (!req.body.username.match(usernameRegex)) throw {status: 400, err: "username_invalid"}
-    if (!req.body.email.match(emailRegex)) throw {status: 400, err: "email_invalid"}
-    if (req.body.username.length <= 2) throw {status: 400, err: "username_too_short"}
+    if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
+    if (!req.body) throw {status: 400, err: 'body_missing'}
+    if (!req.clientIp) throw {status: 403, err: 'unprocessable_ip'}
+    if (!req.body.username) throw {status: 400, err: 'username_missing'}
+    if (!req.body.email) throw {status: 400, err: 'email_missing'}
+    if (!req.body.password) throw {status: 400, err: 'password_missing'}
+    if (!req.body.username.match(usernameRegex)) throw {status: 400, err: 'username_invalid'}
+    if (!req.body.email.match(emailRegex)) throw {status: 400, err: 'email_invalid'}
+    if (req.body.username.length <= 2) throw {status: 400, err: 'username_too_short'}
   
     let emails = await UserModel.find({
       email: req.body.email.toLowerCase(),
@@ -71,8 +70,8 @@ AccountRouter.route('/register').post(async (req, res, next) => {
       username: req.body.username.toLowerCase(),
     }).exec()
   
-    if (usernames.length > 0) throw {status: 403, err: "username_taken"}
-    if (emails.length > 0) throw {status: 403, err: "email_taken"}
+    if (usernames.length > 0) throw {status: 403, err: 'username_taken'}
+    if (emails.length > 0) throw {status: 403, err: 'email_taken'}
   
     const hashedPassword = await argon2.hash(req.body.password, {
       type: argon2id,
@@ -106,7 +105,7 @@ AccountRouter.route('/register').post(async (req, res, next) => {
   } catch (err: any) {server.error(res, err.status || 500, err.err || err)}
 })
 
-AccountRouter.route("/logout").delete(async (req, res) => {
+AccountRouter.route('/logout').delete(async (req, res) => {
   // TODO
 })
 
