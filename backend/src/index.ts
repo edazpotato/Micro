@@ -8,7 +8,7 @@ import path from 'path'
 import requestIp from 'request-ip'
 import updater, { getLocalCommitSha } from './updater'
 import date from 'date-and-time'
-import { ChildProcessWithoutNullStreams, exec, spawn } from 'child_process'
+import { ChildProcessWithoutNullStreams, spawn } from 'child_process'
 import { getDataHome } from 'platform-folders'
 import { IRouteData, IServerArgs, IRouterOptions, IServerArgument } from './interfaces/server'
 
@@ -26,7 +26,7 @@ namespace server {
   export async function log (
     message: string, 
     options?: {
-      type?: "info" | "warn" | "error", 
+      type?: "info" | "warn" | "error" | "client_error", 
       name?: string, 
       exits?: number, 
       error?: Error, 
@@ -79,11 +79,13 @@ namespace server {
     if (options?.exits) process.exit(options.exits)
   }
 
-  export function error (res: express.Response, status: number, errIn: string | Error) {
-    const err = (errIn as any).message ? (errIn as any).message : errIn
+  export function error (req: express.Request, res: express.Response, errIn: Error) {
+    const errStat: number = errIn.message.includes('::') ? (errIn.message.split('::')[0] as unknown) as number : 500
+    const errClientMsg = errStat !== 500 ? errIn.message.split('::')[1] : 'internal_server_error'
+    const errLogMsg = errStat !== 500 ? errIn.message.split('::')[1] : errIn.message
 
-    server.log(err, {type:'error'})
-    res.status(status).json({error: status !== 500 ? err : 'internal_server_error'})
+    server.log(`${errLogMsg} ==> "${req.originalUrl}" from "${req.clientIp}"`, {type: errStat !== 500 ? 'client_error' : 'error'})
+    res.status(errStat).json({error: errClientMsg})
   }
 
   /**

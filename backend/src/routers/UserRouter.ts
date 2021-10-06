@@ -6,30 +6,30 @@ import server from '..'
 
 const UserRouter = server.router('/account')
 
-const usernameRegex = /^[a-z0-9]+$/i
+const usernameRegex = /^(?:[A-Z]|[a-z]|[0-9]|\.|\_|\-){3,20}$/i
 // Retreived from https://www.emailregex.com/ on the 5th of October 2021
 const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/
 const customEpoch: number | undefined = !process.env.EPOCH ? process.env.EPOCH as undefined : +process.env.EPOCH
 
 UserRouter.route('/login').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
-    if (!req.body) throw {status: 400, err: 'username_missing'}
-    if (!req.clientIp) throw {status: 403, err: 'unprocessable_ip'}
-    if (!req.body.username) throw {status: 400, err: 'username_invalid'}
-    if (!req.body.password) throw {status: 400, err: 'password_invalid'}
+    if (req.headers['content-type'] !== 'application/json') throw new Error('415::invalid_content_type')
+    if (!req.body) throw new Error('400::body_missing')
+    if (!req.clientIp) throw new Error('403::unprocessable_ip')
+    if (!req.body.username) throw new Error('400::username_invalid')
+    if (!req.body.password) throw new Error('400::password_invalid')
   
     let user = await UserModel.findOne({
       [req.body.username.includes('@')
         ? 'email'
         : 'username']: req.body.username.toLowerCase()
     }).exec() as any
-    if (!user) throw {status: 401, err: 'username_invalid'}
+    if (!user) throw new Error('401::username_invalid')
   
     let comparison = await argon2.verify(user.password, req.body.password, { 
       type: argon2id, 
     })
-    if (!comparison) throw {status: 401, err: 'password_invalid'}
+    if (!comparison) throw new Error('401::password_invalid')
   
     const sessionToken = await initSession(user.id, req.clientIp as string);
     return res.status(200).json({
@@ -47,20 +47,18 @@ UserRouter.route('/login').post(async (req, res, next) => {
         }
       }
     })
-  } catch (err: any) {server.error(res, err.status || 500, err.err || err)}
+  } catch (err: any) {server.error(req, res, err)}
 })
 
 UserRouter.route('/register').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== 'application/json') throw {status: 415, err: 'invalid_content_type'}
-    if (!req.body) throw {status: 400, err: 'body_missing'}
-    if (!req.clientIp) throw {status: 403, err: 'unprocessable_ip'}
-    if (!req.body.username) throw {status: 400, err: 'username_missing'}
-    if (!req.body.email) throw {status: 400, err: 'email_missing'}
-    if (!req.body.password) throw {status: 400, err: 'password_missing'}
-    if (!req.body.username.match(usernameRegex)) throw {status: 400, err: 'username_invalid'}
-    if (!req.body.email.match(emailRegex)) throw {status: 400, err: 'email_invalid'}
-    if (req.body.username.length <= 2) throw {status: 400, err: 'username_too_short'}
+    if (req.headers['content-type'] !== 'application/json') throw new Error('415::invalid_content_type')
+    if (!req.body) throw new Error('400::body_missing')
+    if (!req.clientIp) throw new Error('403::unprocessable_ip')
+    if (!req.body.username || !req.body.username.match(usernameRegex)) throw new Error('400::username_invalid')
+    if (!req.body.email || !req.body.email.match(emailRegex)) throw new Error('400::email_invalid')
+    if (!req.body.password) throw new Error('400::password_missing')
+    if (req.body.username.length <= 2) throw new Error('400::username_too_short')
   
     let emails = await UserModel.find({
       email: req.body.email.toLowerCase(),
@@ -101,7 +99,7 @@ UserRouter.route('/register').post(async (req, res, next) => {
         }
       }
     })
-  } catch (err: any) {server.error(res, err.status || 500, err.err || err)}
+  } catch (err: any) {server.error(req, res, err)}
 })
 
 UserRouter.route('/logout').delete(async (req, res) => {
