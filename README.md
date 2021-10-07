@@ -35,6 +35,8 @@ However, be sure to look at the README files in the [frontend](./frontend/) and 
 
 ### Pull Requests
 
+**Note**: Merge all pull requests to the development branch, NOT the main branch.
+
 Feel free to put whatever you'd like in the description of your pull request.
 However, please be sure to include a brief summary of the changes you made and where you made them.
 
