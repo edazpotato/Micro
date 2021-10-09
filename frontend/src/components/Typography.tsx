@@ -1,8 +1,16 @@
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 export interface TypographyProps {
 	children: ReactNode;
-	largeness?: "massive" | "huge" | "large" | "normal" | "button";
+	largeness?:
+		| "massive"
+		| "huger"
+		| "huge"
+		| "large"
+		| "normal"
+		| "button"
+		| "small";
 	boldness?: "not at all" | "slightly bold" | "mediumly bold" | "bold";
 	element?:
 		| "h1"
@@ -14,7 +22,7 @@ export interface TypographyProps {
 		| "p"
 		| "blockquote"
 		| "span";
-	// variant?: "button";
+	className?: string;
 }
 
 export function Typography({
@@ -22,12 +30,12 @@ export function Typography({
 	largeness,
 	element,
 	boldness,
-}: // variant,
-TypographyProps) {
+	className,
+}: TypographyProps) {
 	let Element = element;
 
 	let size = largeness || "normal";
-	let bold = boldness || "regular";
+	let bold = boldness || "not at all";
 
 	if (!Element)
 		switch (size) {
@@ -45,32 +53,30 @@ TypographyProps) {
 				break;
 		}
 
-	// if (variant === "button") {
-	// 	return <Element className="">{children}</Element>;
-	// }
+	let textSize;
+	if (size === "massive") textSize = "text-massive";
+	else if (size === "huger") textSize = "text-huger";
+	else if (size === "huge") textSize = "text-huge";
+	else if (size === "large") textSize = "text-large";
+	else if (size === "normal") textSize = "text-normal";
+	else if (size === "button") textSize = "text-button";
+	else textSize = "text-small";
+
+	let textBoldness;
+	if (bold === "bold") textBoldness = "font-bold";
+	else if (bold === "slightly bold") textBoldness = "font-semibold";
+	else if (bold === "mediumly bold") textBoldness = "font-medium";
+	else if (bold === "not at all") textBoldness = "font-normal";
+	else textBoldness = "font-button";
 
 	return (
 		<Element
-			className={`MicroTypography text-text dark:text-text-d ${
-				size === "massive"
-					? "text-massive"
-					: size === "huge"
-					? "text-huge"
-					: size === "large"
-					? "text-large"
-					: "text-normal"
-			} ${
-				bold === "bold"
-					? "font-bold"
-					: bold === "semi-bold"
-					? "font-semibold"
-					: bold === "medium"
-					? "font-medium"
-					: bold === "normal"
-					? "font-normal"
-					: "font-button"
-			}`}
-		>
+			className={clsx(
+				"MicroTypography text-text dark:text-text-d inline-block",
+				textSize,
+				textBoldness,
+				className
+			)}>
 			{children}
 		</Element>
 	);

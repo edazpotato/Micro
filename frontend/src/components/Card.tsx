@@ -32,8 +32,8 @@ export function Card({
 			}}
 			tabIndex={link || onPress ? 0 : -1}
 			className={clsx(
-				"MicroCard bg-foreground dark:bg-foreground-d rounded flex",
-				fullWidth ? "w-full" : "w-auto",
+				"MicroCard bg-foreground dark:bg-foreground-d rounded flex mb-27",
+				fullWidth ? "w-full" : "w-535",
 				link && "cursor-pointer",
 				(link || onPress) &&
 					isFocusVisible &&
@@ -41,8 +41,7 @@ export function Card({
 				className
 			)}
 			rel={link ? "noopener noreferrer" : undefined}
-			{...rest}
-		>
+			{...rest}>
 			{children}
 		</Element>
 	);

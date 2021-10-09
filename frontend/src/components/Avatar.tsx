@@ -64,15 +64,16 @@ export function Avatar({
 
 	const ImageElement = dontUseNextImage ? "img" : NextImage;
 
+	let computedSize;
+	if (size === "small") computedSize = "w-30 h-30";
+	else if (size === "bigger") computedSize = "w-40 h-40";
+	else computedSize = "w-100 h-100";
+
 	return (
 		<div
 			className={clsx(
 				"MicroAvatar rounded-full bg-blue text-white flex items-center justify-center",
-				size === "small"
-					? "w-30 h-30"
-					: size === "bigger"
-					? "w-40 h-40"
-					: "w-100 h-100"
+				computedSize
 			)}
 			title={altText}>
 			{hasImgNotFailing ? (
