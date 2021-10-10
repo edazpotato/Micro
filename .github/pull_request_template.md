@@ -1,12 +1,14 @@
-<A short and concise description of changes and the motivation for them>
+A short and concise description of changes and the motivation for them
 
 ## Checklist
 
--   [ ] I have updated Type definitions
+<!-- To mark an item as completed, replace the space (e.g. [ ]) inside the square brackets with a x (e.g. [x])-->
+
+-   [ ] I have updated Type definitions.
 -   [ ] I have run prettier on all the files changed by this commit. (Run separately on the frontend and backend.)
--   [ ] All the linter checks pass
-<!-- If adding components... -->
--   [ ] I have updated / added new stories for affected components
+-   [ ] All the linter checks pass.
+<!-- If adding or changing components... -->
+-   [ ] I have updated / added new stories for affected components.
 
 ## Waiver
 
