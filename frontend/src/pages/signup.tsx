@@ -1,14 +1,10 @@
-import { Button, Card, TextField, Typography } from "../components";
+import { Button, Card, Layout, TextField, Typography } from "../components";
 
 export default function Homepage() {
   return (
-    <section className="h-auto">
-      <div className="text-center ">
-        <Typography>
-          <h2 className="font-light text-huge p-12">Sign up for Micro</h2>
-        </Typography>
+    <Layout>
         <form action="get">
-          <div className="centered grid place-items-center">
+          <div className="flex flex-row min-h-screen justify-center items-center">
             <Card className="grid gap-4 place-items-center rounded-lg px-60 py-20">
               <TextField
                 label="Username..."
@@ -45,7 +41,6 @@ export default function Homepage() {
             </Typography>
           </div>
         </form>
-      </div>
-    </section>
+    </Layout>
   );
 }
