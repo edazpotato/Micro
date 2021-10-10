@@ -28,7 +28,7 @@ export function Card({
 			onClick={(e) => {
 				e.stopPropagation(); // If it's in something clickable like a card,
 				e.preventDefault(); // don't fire the card's click event listener(s).
-				onPress && onPress(e as unknown as MouseEvent);
+				onPress && onPress((e as unknown) as MouseEvent);
 			}}
 			tabIndex={link || onPress ? 0 : -1}
 			className={clsx(
