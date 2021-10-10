@@ -109,8 +109,7 @@ export function TextField({
 					/* @ts-ignore */
 					ref={ref}
 					className={clsx(
-						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none font-medium",
-						fullWidth && "w-full",
+						"duration-100 resize-none bg-inset dark:bg-inset-d placeholder-placeholder dark:placeholder-placeholder-d text-text dark:text-text-d outline-none focus:outline-none font-medium w-full",
 						multiline
 							? "scrollable rounded-a-little-bit p-11" // 15 - 4 because of the padding for the ring
 							: clsx(
