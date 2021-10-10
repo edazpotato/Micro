@@ -1,74 +1,78 @@
 html,
 body,
 #__next {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 #__next {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 * {
-	font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 ::selection {
-	background: #23539e;
-	color: #ffffff;
+  background: #23539e;
+  color: #ffffff;
 }
-
+.divider {
+  border-bottom: 1px solid #444444;
+  width: 130%;
+  margin: 0.5rem 0;
+}
 :root {
-	--scrollbar: #b5b5b5;
-	--scrollbar-hover: #777777;
-	--scrollbar-dark: #444444;
-	--scrollbar-hover-dark: #555555;
+  --scrollbar: #b5b5b5;
+  --scrollbar-hover: #777777;
+  --scrollbar-dark: #444444;
+  --scrollbar-hover-dark: #555555;
 }
 
 .scrollable {
-	scroll-behavior: smooth;
-	scrollbar-color: var(--scrollbar) transparent;
-	scrollbar-width: thin;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--scrollbar) transparent;
+  scrollbar-width: thin;
 }
 /* @media screen and (min-width: 768px) {*/
 .scrollable::-webkit-scrollbar {
-	width: 6px;
-	height: 6px;
-	background-color: transparent;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
 }
 
 .scrollable::-webkit-scrollbar-track {
-	border-radius: 8px;
-	background-color: transparent;
+  border-radius: 8px;
+  background-color: transparent;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-	border-radius: 8px;
-	background-color: var(--scrollbar);
-	cursor: default !important;
+  border-radius: 8px;
+  background-color: var(--scrollbar);
+  cursor: default !important;
 }
 .scrollable::-webkit-scrollbar-thumb:hover,
 .scrollable::-webkit-scrollbar-thumb:active {
-	background-color: var(--scrollbar-hover);
-	cursor: default !important;
+  background-color: var(--scrollbar-hover);
+  cursor: default !important;
 }
 
 .scrollable::-webkit-scrollbar-corner {
-	background-color: transparent;
-	border-color: transparent;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	.scrollable::-webkit-scrollbar-thumb {
-		background-color: var(--scrollbar-dark);
-	}
-	.scrollable::-webkit-scrollbar-thumb:hover,
-	.scrollable::-webkit-scrollbar-thumb:active {
-		background-color: var(--scrollbar-hover-dark);
-	}
-	.scrollable {
-		scrollbar-color: var(--scrollbar-dark) transparent;
-	}
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-dark);
+  }
+  .scrollable::-webkit-scrollbar-thumb:hover,
+  .scrollable::-webkit-scrollbar-thumb:active {
+    background-color: var(--scrollbar-hover-dark);
+  }
+  .scrollable {
+    scrollbar-color: var(--scrollbar-dark) transparent;
+  }
 }
 /* }
 }
