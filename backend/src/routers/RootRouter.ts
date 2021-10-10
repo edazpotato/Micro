@@ -17,13 +17,11 @@ RootRouter.route('/sha').all(async (req, res) => {
 })
 
 RootRouter.route('/env').all(async (req, res) => {
-  res
-    .status(200)
-    .send({
-      data: {
-        env: serverArgs.args.find((a) => a.arg === 'env')?.data[0] || 'dev',
-      },
-    })
+  res.status(200).send({
+    data: {
+      env: serverArgs.args.find((a) => a.arg === 'env')?.data[0] || 'dev',
+    },
+  })
 })
 
 export default RootRouter

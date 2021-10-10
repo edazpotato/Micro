@@ -1,7 +1,7 @@
-import {exec} from 'child_process';
+import { exec } from 'child_process'
 import fetch from 'centra'
-import path from 'path';
-import server from '.';
+import path from 'path'
+import server from '.'
 
 export default async function updater() {
   const localSha = await getLocalCommitSha()
@@ -22,8 +22,7 @@ export default async function updater() {
       )} => ${latestCommit.sha.slice(0, 7)}`
     )
     updateServer()
-  }
-  else server.log('Server is up-to-date', {name: 'Updater', type: 'info'})
+  } else server.log('Server is up-to-date', { name: 'Updater', type: 'info' })
 }
 
 export async function updateServer() {
@@ -38,13 +37,17 @@ export async function updateServer() {
 
 export async function getLatestCommit() {
   return (
-    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main').header('User-Agent', 'Micro/1.0').send()
+    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main')
+      .header('User-Agent', 'Micro/1.0')
+      .send()
   ).json()
 }
 
 export async function getLatestCommitSha(): Promise<string> {
   const res = await (
-    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main').header('User-Agent', 'Micro/1.0').send()
+    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main')
+      .header('User-Agent', 'Micro/1.0')
+      .send()
   ).json()
   return res.sha as string
 }
@@ -52,10 +55,11 @@ export async function getLatestCommitSha(): Promise<string> {
 export function getLocalCommitSha(): Promise<string> {
   return new Promise((res, rej) => {
     exec(
-      `git --git-dir "${path.join(__dirname, '../../.git')}" rev-parse HEAD`, (err, stdOut, stdErr) => {
-        if (err) rej(err);
-        if (stdErr) rej(new Error(stdErr.trim()));
-        res(stdOut.trim());
+      `git --git-dir "${path.join(__dirname, '../../.git')}" rev-parse HEAD`,
+      (err, stdOut, stdErr) => {
+        if (err) rej(err)
+        if (stdErr) rej(new Error(stdErr.trim()))
+        res(stdOut.trim())
       }
     )
   })
