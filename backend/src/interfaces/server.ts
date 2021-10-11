@@ -14,36 +14,30 @@ interface IServerArgument {
 
 interface IRouterOptions {
   /**
-    * Enable case sensitivity.
-    */
+   * Enable case sensitivity.
+   */
   caseSensitive?: boolean
 
   /**
-    * Preserve the req.params values from the parent router.
-    * If the parent and the child have conflicting param names, the child’s value take precedence.
-    *
-    * @default false
-    * @since 4.5.0
-    */
+   * Preserve the req.params values from the parent router.
+   * If the parent and the child have conflicting param names, the child’s value take precedence.
+   *
+   * @default false
+   * @since 4.5.0
+   */
   mergeParams?: boolean
 
   /**
-    * Enable strict routing.
-    */
+   * Enable strict routing.
+   */
   strict?: boolean
 
-  protocol?: "admin" | "user"
+  protocol?: 'admin' | 'user'
 }
-
 
 interface IRouteData {
   hook: string
   route: Array<express.IRoute>
 }
 
-export { 
-  IRouteData, 
-  IServerArgument, 
-  IServerArgs, 
-  IRouterOptions,
-}
+export { IRouteData, IServerArgument, IServerArgs, IRouterOptions }

@@ -1,7 +1,4 @@
-import ApplicationModel from "./Application";
-import UserModel from "./User";
+import ApplicationModel from './Application'
+import UserModel from './User'
 
-export {
-  ApplicationModel,
-  UserModel
-}
+export { ApplicationModel, UserModel }

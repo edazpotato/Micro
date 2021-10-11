@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const UserSchema: Schema = new Schema({ 
+const UserSchema: Schema = new Schema({
   username: String,
   displayname: String,
   flags: [
@@ -10,22 +10,24 @@ const UserSchema: Schema = new Schema({
     'supporter',
     'supporter_p',
     'disabled',
-    'banned'
+    'banned',
   ],
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: String,
   id: String,
   joinedAt: Date,
   avatar: String || null,
-  sessions: [{
-    ip: String,
-    token: String,
-    expiresAt: Date
-  }],
+  sessions: [
+    {
+      ip: String,
+      token: String,
+      expiresAt: Date,
+    },
+  ],
 })
 
 export default mongoose.model('user', UserSchema)
