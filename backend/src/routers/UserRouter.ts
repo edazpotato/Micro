@@ -4,7 +4,7 @@ import { UserModel } from '../models'
 import { UniqueID } from 'nodejs-snowflake'
 import server from '..'
 
-const UserRouter = server.router('/user')
+const UserRouter = server.router('/users')
 
 const usernameRegex = /^(?:[A-Z]|[a-z]|\d|\.|\_|\-){3,20}$/i
 // Retreived from https://www.emailregex.com/ on the 6th of October 2021
