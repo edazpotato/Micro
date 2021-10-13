@@ -88,13 +88,9 @@ namespace server {
     res: express.Response,
     errIn: Error
   ) {
-    const errStat: number = errIn.message.includes('::')
-      ? ((errIn.message.split('::')[0] as unknown) as number)
-      : 500
-    const errClientMsg =
-      errStat !== 500 ? errIn.message.split('::')[1] : 'internal_server_error'
-    const errLogMsg =
-      errStat !== 500 ? errIn.message.split('::')[1] : errIn.message
+    const errStat: number = errIn.message.includes('::') ? ((errIn.message.split('::')[0] as unknown) as number) : 500
+    const errClientMsg = errStat !== 500 ? errIn.message.split('::')[1] : 'internal_server_error'
+    const errLogMsg = errStat !== 500 ? errIn.message.split('::')[1] : errIn.message
 
     server.log(`${errLogMsg} ==> "${req.originalUrl}" from "${req.clientIp}"`, {
       type: errStat !== 500 ? 'req_error' : 'server_error',
@@ -153,11 +149,11 @@ namespace server {
           discardLast = false
         }
 
-        if (filter?.find((a) => a === arg.slice(2)) === undefined)
-          discardLast = true
+        if (filter?.find((a) => a === arg.slice(2)) === undefined) discardLast = true
 
         args.push({ arg: arg.slice(2), data: [] })
-      } else if (args.length > 0) args[args.length - 1].data.push(arg)
+      } 
+      else if (args.length > 0) args[args.length - 1].data.push(arg)
       else env.push(arg)
     }
 

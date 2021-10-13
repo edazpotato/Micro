@@ -15,8 +15,7 @@ const customEpoch: number | undefined = !process.env.EPOCH
 
 UserRouter.route('/login').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== 'application/json')
-      throw new Error('415::invalid_content_type')
+    if (req.headers['content-type'] !== 'application/json') throw new Error('415::invalid_content_type')
     if (!req.body) throw new Error('400::body_missing')
     if (!req.clientIp) throw new Error('403::unprocessable_ip')
     if (!req.body.username) throw new Error('400::username_invalid')
@@ -25,7 +24,8 @@ UserRouter.route('/login').post(async (req, res, next) => {
     let user = (await UserModel.findOne({
       [req.body.username.includes('@')
         ? 'email'
-        : 'username']: req.body.username.toLowerCase(),
+        : 'username'
+      ]: req.body.username.toLowerCase(),
     }).exec()) as any
     if (!user) throw new Error('401::username_invalid')
 
@@ -57,17 +57,13 @@ UserRouter.route('/login').post(async (req, res, next) => {
 
 UserRouter.route('/register').post(async (req, res, next) => {
   try {
-    if (req.headers['content-type'] !== 'application/json')
-      throw new Error('415::invalid_content_type')
+    if (req.headers['content-type'] !== 'application/json') throw new Error('415::invalid_content_type')
     if (!req.body) throw new Error('400::body_missing')
     if (!req.clientIp) throw new Error('403::unprocessable_ip')
-    if (!req.body.username || !req.body.username.match(usernameRegex))
-      throw new Error('400::username_invalid')
-    if (!req.body.email || !req.body.email.match(emailRegex))
-      throw new Error('400::email_invalid')
+    if (!req.body.username || !req.body.username.match(usernameRegex)) throw new Error('400::username_invalid')
+    if (!req.body.email || !req.body.email.match(emailRegex)) throw new Error('400::email_invalid')
     if (!req.body.password) throw new Error('400::password_missing')
-    if (req.body.username.length <= 2)
-      throw new Error('400::username_too_short')
+    if (req.body.username.length <= 2) throw new Error('400::username_too_short')
 
     let emails = await UserModel.find({
       email: req.body.email.toLowerCase(),
