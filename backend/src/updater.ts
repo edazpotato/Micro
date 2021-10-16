@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import fetch from 'centra'
 import path from 'path'
-import server from '.'
+import server from './server'
 
 export default async function updater() {
   const localSha = await getLocalCommitSha()

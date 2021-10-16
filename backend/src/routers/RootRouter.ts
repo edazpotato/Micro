@@ -1,4 +1,5 @@
-import server, { serverArgs } from '..'
+import server from '../server'
+import { serverArgs } from '..'
 import { getLocalCommitSha } from '../updater'
 
 const RootRouter = server.router()

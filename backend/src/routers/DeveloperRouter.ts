@@ -1,4 +1,4 @@
-import server from '..'
+import server from '../server'
 
 const DeveloperRouter = server.router('/developer', { protocol: 'user' })
 
