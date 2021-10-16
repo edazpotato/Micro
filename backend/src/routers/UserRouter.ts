@@ -37,7 +37,7 @@ UserRouter.route('/session')
   return res.status(200).json({
     message: 'Successfully logged in!',
     data: {
-      sessionToken: (sessionToken as any).token,
+      sessionToken: sessionToken,
       user: {
         username: user.username,
         displayname: user.displayname,
@@ -90,7 +90,7 @@ UserRouter.route('/signup').post(server.rAsync(async (req, res) => {
   res.status(200).json({
     message: 'Successfully created your account.',
     data: {
-      sessionToken: (sessionToken as any).token,
+      sessionToken: sessionToken,
       user: {
         displayname: user.displayname,
         username: user.username,

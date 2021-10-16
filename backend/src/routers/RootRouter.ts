@@ -10,19 +10,19 @@ RootRouter.route('/').all((req, res) => {
   })
 })
 
-RootRouter.route('/sha').all(async (req, res) => {
+RootRouter.route('/sha').all(server.rAsync(async (req, res) => {
   const sha = await getLocalCommitSha()
   res.status(200).send({
     data: { sha: { full: sha, short: sha.slice(0, 7) } },
   })
-})
+}))
 
-RootRouter.route('/env').all(async (req, res) => {
+RootRouter.route('/env').all(server.rAsync(async (req, res) => {
   res.status(200).send({
     data: {
       env: serverArgs.args.find((a) => a.arg === 'env')?.data[0] || 'dev',
     },
   })
-})
+}))
 
 export default RootRouter
