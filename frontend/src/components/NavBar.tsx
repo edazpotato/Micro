@@ -1,5 +1,6 @@
 import { Hash as HashIcon } from "react-feather";
 import { Typography } from ".";
+import { Search } from "./Search";
 
 export function NavBar() {
 	let Icon = HashIcon;
@@ -10,6 +11,7 @@ export function NavBar() {
 				<Typography largeness="huge" boldness="mediumly bold">
 					Micro
 				</Typography>
+				<Search />
 			</nav>
 		</header>
 	);
