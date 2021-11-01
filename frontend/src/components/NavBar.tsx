@@ -1,6 +1,5 @@
 import { Hash as HashIcon } from "react-feather";
-import { Typography } from ".";
-import { Search } from "./Search";
+import { Typography, Search } from ".";
 
 export function NavBar() {
 	let Icon = HashIcon;
