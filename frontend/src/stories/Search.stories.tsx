@@ -5,7 +5,7 @@ export const Normal = () => (
 	<>
         	<div className="p-12">
                 {/* TODO: Add search icon */}
-                <TextField label="search" placeholder="Find people and posts..." type="search" rounded={true} className={
+                <TextField label="search" placeholder="Find people and posts..." type="search" rounded className={
                     clsx(
                         "w-full",
                     )}></TextField>
