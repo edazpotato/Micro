@@ -60,10 +60,9 @@ const argFunc = {
     try {
       const envs = {
         prod: () => setInterval(updater, (env[1] as any) || 600000),
-        test: () =>
-          setTimeout(() => {
-            process.exit(0)
-          }, 60000),
+        test: () => setTimeout(() => {
+          process.exit(0)
+        }, 60000),
       }
 
       //@ts-ignore
