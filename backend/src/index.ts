@@ -59,10 +59,8 @@ const argFunc = {
   env: (env: Array<string>) => {
     try {
       const envs = {
-        prod: () => setInterval(updater, (env[1] as any) || 600000),
-        test: () => setTimeout(() => {
-          process.exit(0)
-        }, 60000),
+        prod: () => {},
+        test: () => {},
       }
 
       //@ts-ignore
@@ -81,6 +79,15 @@ const argFunc = {
       })
     }
   },
+  autoUpdate: (env: Array<string>) => {
+    if (env[0] !== "false") {
+      const state: number = +env[0] || 60000;
+      setInterval(updater, state)
+      server.log(`"Auto Update" has been set to ${state} milliseconds`)
+    } else server.log(`"Auto Update" has been set to false`);
+    process.env.autoUpdate = env[0];
+  },
+  get au() { return this.autoUpdate }
 }
 export const serverArgs = server.argv(process.argv, Object.keys(argFunc))
 /* Do NOT use the "--env prod" argument when running in a local dev environment. 
@@ -89,4 +96,13 @@ This will overwrite any changes made to your local clone every five minutes if i
 for (const arg of serverArgs.args) {
   //@ts-ignore
   argFunc[arg.arg](arg.data)
+}
+
+if (process.env.TTL) {
+  const TTL: number = +process.env.TTL || 60000;
+
+  setTimeout(() => {
+    process.exit(0)
+  }, TTL)
+  server.log(`"Time to Live" has been set to ${TTL} milliseconds`)
 }

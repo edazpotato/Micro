@@ -39,11 +39,7 @@ export async function getLatestCommit() {
 }
 
 export async function getLatestCommitSha(): Promise<string> {
-  const res = await (
-    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main')
-      .header('User-Agent', 'Micro/1.0')
-      .send()
-  ).json()
+  const res = await getLatestCommit();
   return res.sha as string
 }
 
