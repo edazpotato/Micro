@@ -62,7 +62,7 @@ const argFunc = {
       const envs = {
         prod: () => {},
         test: () => {
-          process.env.TTL = '30000';
+          process.env.timeToLive = '30000';
         },
       }
 
