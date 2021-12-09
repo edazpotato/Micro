@@ -68,7 +68,7 @@ namespace server {
             })
           })
         } catch (e) {
-          console.log("Couldn't append to log file\n" + e)
+          if (process.env.environment !== "test") log("Can't append to log file\n" + e, { type: "server_error", logInFile: false })
         }
       }
     }
