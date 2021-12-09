@@ -1,7 +1,7 @@
 import argon2, { argon2id } from 'argon2'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
-import { UserModel } from '../models'
+import { MUser } from '../models'
 import { UniqueID } from 'nodejs-snowflake'
 import server from '../server'
 
@@ -20,7 +20,7 @@ UserRouter.route('/session')
   if (!req.body.username) throw new Error('400::username_invalid')
   if (!req.body.password) throw new Error('400::password_invalid')
 
-  let user = (await UserModel.findOne({
+  let user = (await MUser.findOne({
     [req.body.username.includes('@')
       ? 'email'
       : 'username'
@@ -63,10 +63,10 @@ UserRouter.route('/signup').post(server.rAsync(async (req, res) => {
   if (!req.body.password) throw new Error('400::password_missing')
   if (req.body.username.length <= 2) throw new Error('400::username_too_short')
 
-  let emails = await UserModel.find({
+  let emails = await MUser.find({
     email: req.body.email.toLowerCase(),
   }).exec()
-  let usernames = await UserModel.find({
+  let usernames = await MUser.find({
     username: req.body.username.toLowerCase(),
   }).exec()
 
@@ -76,7 +76,7 @@ UserRouter.route('/signup').post(server.rAsync(async (req, res) => {
   const hashedPassword = await argon2.hash(req.body.password, {
     type: argon2id,
   })
-  let user = new UserModel({
+  let user = new MUser({
     username: req.body.username.toLowerCase(),
     displayname: req.body.displayname || req.body.username.toLowerCase(),
     email: req.body.email.toLowerCase(),
@@ -121,7 +121,7 @@ async function initSession(
       { expiresIn: remeberLogin ? '8m' : '8d' }
     )
     
-    await UserModel.updateOne({ id: userId }, { $push: { sessions: sessionToken } })
+    await MUser.updateOne({ id: userId }, { $push: { sessions: sessionToken } })
     return sessionToken
   } else throw new Error('500::invalid_private_key')
 }

@@ -11,11 +11,12 @@ import {
   IServerArgument,
 } from './interfaces/server'
 
-const dateFormat = 'HH:mm:ss DD/MM/YYYY'
-const fileDateFormat = 'HH-mm-ss_DD-MM-YYYY'
 const serverStartDate = new Date()
 
 namespace server {
+  export const dateFormat = 'HH:mm:ss DD/MM/YYYY'
+  export const fileDateFormat = 'HH-mm-ss_DD-MM-YYYY'
+
   export async function log(
     message: string,
     options?: {
@@ -28,14 +29,16 @@ namespace server {
   ) {
     const appDataLoc = path.join(getDataHome(), '/micro-backend')
     const logsDir = path.join(appDataLoc, '/logs')
-    const callerLocArr = getCallerPath(1)?.split('\\')
+    const callerLocArr = getCallerPath(1)?.split('/')
     const callerFile = callerLocArr[callerLocArr.length - 1] || 'unknown'
     const callerName = options?.name
     const type = options?.type || 'info'
     const dateNow = new Date()
     const fullMessage = `[${type.toUpperCase()} | ${
-      callerName ? callerName + '/' : ''
-    }${callerFile}](${date.format(dateNow, dateFormat, true)}): ${message}`
+      callerName ? callerName + '@' : ''
+    }${callerFile}]${
+      process.env.timestamps === "false" ? '' : `(${date.format(dateNow, dateFormat, true)})`
+    }: ${message}`
 
     console.log(fullMessage)
     if (options?.logInFile === undefined || options?.logInFile === true) {
@@ -164,12 +167,12 @@ namespace server {
     })
   }
 
-  export function getCallerPath(depth: number) {
+  export function getCallerPath(depth: number): string {
     let stack = new Error().stack?.split('\n') as Array<string>
     return stack[2 + depth].slice(
       stack[2 + depth].lastIndexOf('(') + 1,
-      stack[2 + depth].lastIndexOf('.ts') + 3
-    )
+      stack[2 + depth].lastIndexOf(__filename.includes(".js") ? '.js' : '.ts') + 3
+    ).replace(/\\/gi, '/')
   }
 
   /**

@@ -1,6 +1,7 @@
 import 'dotenv/config'
 
 import cors from 'cors'
+import date from 'date-and-time'
 import db from './database'
 import express from 'express'
 import fs from 'fs'
@@ -71,47 +72,57 @@ const argFunc = {
 
       const argsUsed = env.length > 1 ? `using args "${env.slice(1)}"` : ''
       server.log(`Running in the "${env[0]}" environment ${argsUsed}`, {
-        name: 'Env',
+        name: 'env',
       })
       process.env.environment = env[0];
     } catch (e) {
       server.log((e as Error).message, {
         type: 'server_error',
         exits: 1,
-        name: 'Env',
+        name: 'env',
       })
     }
   },
 
   autoUpdate: (env: Array<string>) => {
     if (env[0] !== "false") {
-      const state: number = +env[0] || 60000;
+      const state: number = +env[0] || 300000;
       setInterval(updater, state)
-      server.log(`"Auto Update" has been set to ${state} milliseconds`)
-    } else server.log(`"Auto Update" has been set to false`);
+      server.log(`"autoUpdate" has been set to ${state} milliseconds`, { name: 'autoUpdate' })
+    } else server.log(`"autoUpdate" has been set to false`, { name: 'autoUpdate' });
     process.env.autoUpdate = env[0];
   },
   get au() { return this.autoUpdate },
 
   timeToLive: (env: Array<string>) => {
-    process.env.TTL = env[0];
+    process.env.timeToLive = env[0];
   },
-  get ttl() { return this.timeToLive }
+  get ttl() { return this.timeToLive },
+
+  timestamps: (env: Array<string>) => {
+    if (env[0] === "false") {
+      process.env.timestamps = "false";
+      server.log('"timestamps" has been set to false', { name: 'timestamps' })
+    }
+  },
+  get ts() { return this.timestamps },
 }
 export const serverArgs = server.argv(process.argv, Object.keys(argFunc))
-/* Do NOT use the "--env prod" argument when running in a local dev environment. 
-This will overwrite any changes made to your local clone every five minutes if it finds a new commit on main. */
 
+const timestampsArg = serverArgs.args.find(a => ['timestamps', 'ts'].includes(a.arg));
+if (timestampsArg) argFunc['timestamps'](timestampsArg.data);
 for (const arg of serverArgs.args) {
   //@ts-ignore
   argFunc[arg.arg](arg.data)
 }
 
-if (process.env.TTL) {
-  const TTL: number = +process.env.TTL || 60000;
+if (process.env.timeToLive) {
+  const TTL: number = +process.env.timeToLive || 60000;
 
   setTimeout(() => {
     process.exit(0)
   }, TTL)
-  server.log(`"Time to Live" has been set to ${TTL} milliseconds`)
+  server.log(`"Time to Live" has been set to ${TTL} milliseconds`, { name: 'TimeToLive' })
 }
+
+process.once('exit', () => server.log(`Server stopped at ${date.format(new Date(), server.dateFormat, true)}`))

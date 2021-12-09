@@ -1,4 +1,4 @@
-import ApplicationModel from './Application'
-import UserModel from './User'
+import MApplication from './Application'
+import MUser from './User'
 
-export { ApplicationModel, UserModel }
+export { MApplication, MUser }
