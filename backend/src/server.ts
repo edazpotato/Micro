@@ -12,6 +12,7 @@ import {
 } from './interfaces/server'
 
 const serverStartDate = new Date()
+var cantLogToFile = false;
 
 namespace server {
   export const dateFormat = 'HH:mm:ss DD/MM/YYYY'
@@ -68,7 +69,7 @@ namespace server {
             })
           })
         } catch (e) {
-          if (process.env.environment !== "test") log("Can't append to log file\n" + e, { type: "server_error", logInFile: false })
+          if (!cantLogToFile) log("Can't append to log file\n" + e, { type: "server_error", logInFile: false })
         }
       }
     }
