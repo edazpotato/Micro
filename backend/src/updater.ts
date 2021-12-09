@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import fetch from 'centra'
 import path from 'path'
-import server from '.'
+import server from './server'
 
 export default async function updater() {
   const localSha = await getLocalCommitSha()
@@ -15,12 +15,7 @@ export default async function updater() {
   }
 
   if (missingUpdate) {
-    server.log(
-      `Server not up-to-date. Attempting to update ${localSha.slice(
-        0,
-        7
-      )} => ${latestCommit.sha.slice(0, 7)}`
-    )
+    server.log(`Server not up-to-date. Attempting to update ${localSha.slice(0,7)} => ${latestCommit.sha.slice(0, 7)}`)
     updateServer()
   } else server.log('Server is up-to-date', { name: 'Updater', type: 'info' })
 }
@@ -44,11 +39,7 @@ export async function getLatestCommit() {
 }
 
 export async function getLatestCommitSha(): Promise<string> {
-  const res = await (
-    await fetch('https://api.github.com/repos/edazpotato/micro/commits/main')
-      .header('User-Agent', 'Micro/1.0')
-      .send()
-  ).json()
+  const res = await getLatestCommit();
   return res.sha as string
 }
 
