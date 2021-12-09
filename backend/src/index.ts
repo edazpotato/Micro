@@ -60,7 +60,9 @@ const argFunc = {
     try {
       const envs = {
         prod: () => {},
-        test: () => {},
+        test: () => {
+          process.env.TTL = '30000';
+        },
       }
 
       //@ts-ignore
@@ -71,6 +73,7 @@ const argFunc = {
       server.log(`Running in the "${env[0]}" environment ${argsUsed}`, {
         name: 'Env',
       })
+      process.env.environment = env[0];
     } catch (e) {
       server.log((e as Error).message, {
         type: 'server_error',
@@ -79,6 +82,7 @@ const argFunc = {
       })
     }
   },
+
   autoUpdate: (env: Array<string>) => {
     if (env[0] !== "false") {
       const state: number = +env[0] || 60000;
@@ -87,7 +91,12 @@ const argFunc = {
     } else server.log(`"Auto Update" has been set to false`);
     process.env.autoUpdate = env[0];
   },
-  get au() { return this.autoUpdate }
+  get au() { return this.autoUpdate },
+
+  timeToLive: (env: Array<string>) => {
+    process.env.TTL = env[0];
+  },
+  get ttl() { return this.timeToLive }
 }
 export const serverArgs = server.argv(process.argv, Object.keys(argFunc))
 /* Do NOT use the "--env prod" argument when running in a local dev environment. 
