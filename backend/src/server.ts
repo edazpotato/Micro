@@ -69,7 +69,10 @@ namespace server {
             })
           })
         } catch (e) {
-          if (!cantLogToFile) log("Can't append to log file\n" + e, { type: "server_error", logInFile: false })
+          if (!cantLogToFile) {
+            log("Can't append to log file\n" + e, { type: "server_error", logInFile: false })
+            cantLogToFile = true;
+          }
         }
       }
     }
