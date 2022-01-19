@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^8.5.5",
     "@types/node": "^16.7.9",
     "@types/request-ip": "^0.0.37",
+    "@types/shelljs": "^0.8.10",
     "argon2": "^0.28.2",
     "body-parser": "^1.19.0",
     "centra": "^2.5.0",
@@ -36,6 +37,7 @@
     "nodejs-snowflake": "^1.6.2",
     "platform-folders": "^0.5.4",
     "request-ip": "^2.1.3",
+    "shelljs": "^0.8.4",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   }

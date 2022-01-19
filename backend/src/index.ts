@@ -8,8 +8,10 @@ import fs from 'fs'
 import path from 'path'
 import requestIp from 'request-ip'
 import updater from './updater'
-import { IRouteData } from './interfaces/server'
+import { IRouteData, IServerArgs } from './interfaces'
 import server from './server'
+
+server.cRequire()
 
 const routes: Array<IRouteData> = []
 const port = process.env.PORT || 5000
@@ -31,7 +33,7 @@ async function use () {
   
   const routers = fs.readdirSync(path.join(__dirname, '/routers'))
   
-  for (const routerName of routers) {
+  for await (const routerName of routers) {
     const routeLocation = './routers/' + routerName
   
     await import(routeLocation).then((routerE) => {
@@ -53,10 +55,13 @@ async function use () {
     console.log('testout')
     server.error(req, res, err)
   })
+
   app.listen(port, () => server.log(`Listening on port ${port}`))
 }
 
+// Functions processed by the server for arguments
 const argFunc = {
+  // Set server environment
   env: (env: Array<string>) => {
     try {
       const envs = {
@@ -84,6 +89,7 @@ const argFunc = {
     }
   },
 
+  // Toggle auto updates
   autoUpdate: (env: Array<string>) => {
     if (env[0] !== "false") {
       const state: number = +env[0] || 300000;
@@ -94,11 +100,13 @@ const argFunc = {
   },
   get au() { return this.autoUpdate },
 
+  // Set the time the server will stay online in milliseconds
   timeToLive: (env: Array<string>) => {
     process.env.timeToLive = env[0];
   },
   get ttl() { return this.timeToLive },
 
+  // Toggle timestamp logging
   timestamps: (env: Array<string>) => {
     if (env[0] === "false") {
       process.env.timestamps = "false";
@@ -106,8 +114,13 @@ const argFunc = {
     }
   },
   get ts() { return this.timestamps },
+
+  logs: async (env: Array<string>) => {
+    process.env.LOGS = "true"
+    server.log(`Currently logging to "${await server.getLogFile()}.txt"`, { logInFile: false })
+  }
 }
-export const serverArgs = server.argv(process.argv, Object.keys(argFunc))
+export const serverArgs: IServerArgs = server.argv(process.argv, Object.keys(argFunc))
 
 const timestampsArg = serverArgs.args.find(a => ['timestamps', 'ts'].includes(a.arg));
 if (timestampsArg) argFunc['timestamps'](timestampsArg.data);
@@ -122,7 +135,7 @@ if (process.env.timeToLive) {
   setTimeout(() => {
     process.exit(0)
   }, TTL)
-  server.log(`"Time to Live" has been set to ${TTL} milliseconds`, { name: 'TimeToLive' })
+  server.log(`"Time to Live" has been set to ${TTL} milliseconds`, { name: 'timeToLive' })
 }
 
 process.once('exit', () => server.log(`Server stopped at ${date.format(new Date(), server.dateFormat, true)}`))
