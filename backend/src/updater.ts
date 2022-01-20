@@ -16,18 +16,8 @@ export default async function updater() {
 
   if (missingUpdate) {
     server.log(`Server not up-to-date. Attempting to update ${localSha.slice(0,7)} => ${latestCommit.sha.slice(0, 7)}`)
-    updateServer()
+    server.sh('yarn run auto-update')
   } else server.log('Server is up-to-date', { name: 'Updater', type: 'info' })
-}
-
-export async function updateServer() {
-  await server.sh('git reset --hard HEAD && git clean -df && git pull && yarn install && yarn run prod')
-  //await server.sh('git clean -df')
-  //await server.sh('git pull')
-  //await server.sh('yarn install')
-
-  //await server.sp('yarn run prod')
-  process.exit(0)
 }
 
 export async function getLatestCommit() {
