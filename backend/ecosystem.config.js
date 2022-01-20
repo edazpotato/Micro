@@ -4,12 +4,13 @@ module.exports = {
       name: "micro-server-prod",
       script: './dist/index.js',
       watch: './dist/',
-      args: "--env prod --au"
+      args: "--env prod --au --logs"
     },
     {
       name: "micro-server-dev",
       script: './dist/index.js',
-      watch: './dist/'
+      watch: './dist/',
+      args: '--logs'
     },
   ],
 };

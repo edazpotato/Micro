@@ -1,7 +1,10 @@
 import server from '../server'
+import { MDeveloper } from '../models'
 
-const DeveloperRouter = server.router('/developer', { protocol: 'user' })
+const DeveloperRouter = server.router('/dev')
 
-DeveloperRouter.route('/applications/new').post(async (req, res) => {
+DeveloperRouter.route('/app/new').post(async (req, res) => {
   // TODO
 })
+
+//export default DeveloperRouter

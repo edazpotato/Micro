@@ -5,11 +5,12 @@ import { getLocalCommitSha } from './updater'
 import date from 'date-and-time'
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process'
 import { getDataHome } from 'platform-folders'
+import shell from 'shelljs'
 import {
   IServerArgs,
   IRouterOptions,
   IServerArgument,
-} from './interfaces/server'
+} from './interfaces'
 
 const serverStartDate = new Date()
 var cantLogToFile = false;
@@ -17,6 +18,31 @@ var cantLogToFile = false;
 namespace server {
   export const dateFormat = 'HH:mm:ss DD/MM/YYYY'
   export const fileDateFormat = 'HH-mm-ss_DD-MM-YYYY'
+
+  export function cRequire () {
+    if (!shell.which('git') || !shell.which('yarn')) {
+      shell.echo('Please ensure you have "git" and "yarn" installed before running.')
+      process.exit(1)
+    } else if (!shell.which('pm2')) {
+      log('"pm2" was not found on your system. "pm2" might be necessary to use certain parts of the API.', { type: 'warn' })
+    }
+  }
+
+  /**
+   * Asynchronously get location of current log file
+   */
+  export async function getLogFile () {
+    return date.format(
+      serverStartDate,
+      `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`,
+      true
+    )
+  }
+
+  /**
+   * Get location of AppData folder
+   */
+  export function getAppData() { return path.join(getDataHome(), '/micro-backend') }
 
   export async function log(
     message: string,
@@ -28,7 +54,7 @@ namespace server {
       logInFile?: boolean
     }
   ) {
-    const appDataLoc = path.join(getDataHome(), '/micro-backend')
+    const appDataLoc = getAppData()
     const logsDir = path.join(appDataLoc, '/logs')
     const callerLocArr = getCallerPath(1)?.split('/')
     const callerFile = callerLocArr[callerLocArr.length - 1] || 'unknown'
@@ -43,17 +69,11 @@ namespace server {
 
     console.log(fullMessage)
     if (options?.logInFile === undefined || options?.logInFile === true) {
-      if (process.env.LOGS !== 'false') {
+      if (process.env.LOGS === 'true') {
         try {
           if (!fs.existsSync(appDataLoc)) fs.mkdirSync(appDataLoc)
           if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir)
-          const logFileName = date.format(
-            serverStartDate,
-            `[${(await getLocalCommitSha()).slice(0, 7)}] ${fileDateFormat}`,
-            true
-          )
-
-          const logLoc = path.join(logsDir, `/${logFileName}.txt`)
+          const logLoc = path.join(logsDir, `/${await getLogFile()}.txt`)
 
           await new Promise((res, rej) => {
             fs.appendFile(logLoc, fullMessage + '\n', (err1) => {

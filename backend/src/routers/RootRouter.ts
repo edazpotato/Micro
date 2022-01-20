@@ -20,9 +20,13 @@ RootRouter.route('/sha').all(server.rAsync(async (req, res) => {
 RootRouter.route('/env').all(server.rAsync(async (req, res) => {
   res.status(200).send({
     data: {
-      env: serverArgs.args.find((a) => a.arg === 'env')?.data[0] || 'dev',
+      env: process.env.environment || 'unknown',
     },
   })
+}))
+
+RootRouter.route('/err').all(server.rAsync(async (req, res) => {
+  throw new Error('Test error')
 }))
 
 export default RootRouter
