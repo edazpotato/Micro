@@ -38,7 +38,7 @@
     "nodejs-snowflake": "^1.6.2",
     "platform-folders": "^0.5.4",
     "request-ip": "^2.1.3",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   }
