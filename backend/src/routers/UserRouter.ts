@@ -54,7 +54,8 @@ UserRouter.route('/session')
   // TODO
 }))
 
-UserRouter.route('/signup').post(server.rAsync(async (req, res) => {
+UserRouter.route('/signup')
+.post(server.rAsync(async (req, res) => {
   if (req.headers['content-type'] !== 'application/json') throw new Error('415::invalid_content_type')
   if (!req.body) throw new Error('400::body_missing')
   if (!req.clientIp) throw new Error('403::unprocessable_ip')
@@ -109,7 +110,7 @@ export default UserRouter
 async function initSession(
   userId: string, 
   clientIp: string, 
-  remeberLogin?: boolean
+  rememberLogin?: boolean
   ) {
   if (typeof process.env.PRIVATE_KEY === 'string') {
     const sessionToken = jwt.sign(
@@ -118,7 +119,7 @@ async function initSession(
         clientIp 
       }, 
       process.env.PRIVATE_KEY, 
-      { expiresIn: remeberLogin ? '8m' : '8d' }
+      { expiresIn: rememberLogin ? '8m' : '8d' }
     )
     
     await MUser.updateOne({ id: userId }, { $push: { sessions: sessionToken } })

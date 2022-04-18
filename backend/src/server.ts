@@ -51,12 +51,13 @@ namespace server {
       name?: string
       exits?: number
       error?: Error
-      logInFile?: boolean
+      logInFile?: boolean,
+      depth?: number
     }
   ) {
     const appDataLoc = getAppData()
     const logsDir = path.join(appDataLoc, '/logs')
-    const callerLocArr = getCallerPath(1)?.split('/')
+    const callerLocArr = getCallerPath(options?.depth || 1)?.split('/')
     const callerFile = callerLocArr[callerLocArr.length - 1] || 'unknown'
     const callerName = options?.name
     const type = options?.type || 'info'
@@ -105,14 +106,17 @@ namespace server {
     res: express.Response,
     errIn: Error
   ) {
-    const errStat: number = errIn.message.includes('::') ? ((errIn.message.split('::')[0] as unknown) as number) : 500
-    const errClientMsg = errStat !== 500 ? errIn.message.split('::')[1] : 'internal_server_error'
-    const errLogMsg = errStat !== 500 ? errIn.message.split('::')[1] : errIn.message
+    const messageSplit = errIn.message.split('::');
 
-    server.log(`${errLogMsg} ==> "${req.originalUrl}" from "${req.clientIp}"`, {
+    const errStat: number = errIn.message.includes('::') ? ((messageSplit[0] as unknown) as number) : 500
+    const errID = messageSplit[1] || 'internal_server_error';
+    const errMsg = errStat !== 500 ? messageSplit[2] : errIn;
+
+    server.log(`"${req.originalUrl}" ==> ${errID} ==> "${req.clientIp}"${errMsg ? "\n" + errMsg : ""}`, {
       type: errStat !== 500 ? 'req_error' : 'server_error',
+      depth: 2
     })
-    res.status(errStat).json({ error: errClientMsg })
+    res.status(errStat).json({ error: errStat !== 500 ? errID : 'internal_server_error', message: errStat !== 500 ? errMsg : undefined })
   }
 
   /**
@@ -202,14 +206,27 @@ namespace server {
   /**
    * Handle asynchronous routes
    */
-  export function rAsync (route: (req: express.Request, res: express.Response, next?: express.NextFunction) => {}) {
-    function out(req: express.Request, res: express.Response, next: express.NextFunction) {
-      try { route(req, res, next) } catch (err: any) {
-        console.log('test')
-        next(err)
+  export function rAsync (route: (req: express.Request, res: express.Response, next: express.NextFunction) => Promise<any>) {
+    return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      try { await route(req, res, next) } catch (err: any) { next(err) }
+    }
+  }
+
+  export function validateRequest (req: express.Request, flags: Array<string | {
+    flag: string,
+    regex: RegExp,
+    function: Function
+  }>) {
+    const requestValidationFlags = {
+      username: () => {
+        
       }
     }
-    return out
+
+    for (const flag of flags) {
+      // @ts-ignore
+      if (typeof flag === "string") requestValidationFlags[flag](req)
+    }
   }
 }
 

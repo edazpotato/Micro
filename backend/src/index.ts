@@ -15,49 +15,42 @@ server.cRequire()
 
 const routes: Array<IRouteData> = []
 const port = process.env.PORT || 5000
-const app = express()
-db()
-use()
+const app = express();
+db();
 
-async function use () {
-  app.use((req, res, next) => {
-    res.setHeader(
-      'X-Powered-By',
-      'Our awsome supporters and open-source contributors!'
-    )
-    next()
-  })
-  app.use(cors({ origin: 'micro.edaz.codes' }))
-  app.use(express.json())
-  app.use(requestIp.mw())
-  
-  const routers = fs.readdirSync(path.join(__dirname, '/routers'))
-  
-  for await (const routerName of routers) {
-    const routeLocation = './routers/' + routerName
-  
-    await import(routeLocation).then((routerE) => {
-      const router: express.Router = routerE.router || routerE.default
-  
-      if (typeof router === 'function' && (router as any).___hook) {
-        const hook: string = (router as any).___hook
-  
-        if (hook) {
-          //console.log(router.stack)
-          app.use(hook, router)
-          server.log(`Hooked router "${routerName}" to endpoint "${hook}"`)
-        }
-      }
-    })
+app.use((req, res, next) => {
+  res.setHeader(
+    'X-Powered-By',
+    'Our awsome supporters and open-source contributors!'
+  )
+  next()
+})
+app.use(cors({ origin: 'micro.edaz.codes' }))
+app.use(express.json())
+app.use(requestIp.mw())
+
+const routers = fs.readdirSync(path.join(__dirname, '/routers'))
+for (const routerName of routers) {
+  const routeLocation = './routers/' + routerName
+
+  const rawRouter = require(routeLocation)
+  const router: express.Router = rawRouter.router || rawRouter.default
+
+  if (typeof router === 'function' && (router as any).___hook) {
+    const hook: string = (router as any).___hook
+
+    if (hook) {
+      app.use(hook, router)
+      server.log(`Hooked router "${routerName}" ==> "${hook}"`)
+    }
   }
-
-  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log('testout')
-    server.error(req, res, err)
-  })
-
-  app.listen(port, () => server.log(`Listening on port ${port}`))
 }
+
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  server.error(req, res, err)
+})
+
+app.listen(port, () => server.log(`Listening on port ${port}`))
 
 // Functions processed by the server for arguments
 const argFunc = {

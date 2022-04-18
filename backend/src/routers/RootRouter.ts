@@ -26,7 +26,11 @@ RootRouter.route('/env').all(server.rAsync(async (req, res) => {
 }))
 
 RootRouter.route('/err').all(server.rAsync(async (req, res) => {
-  throw new Error('Test error')
+  throw new Error('404::error_endpoint_triggered::Man this isn\'t cool')
+}))
+
+RootRouter.route('/errw').all(server.rAsync(async (req, res) => {
+  throw new Error('veryWeirdError')
 }))
 
 export default RootRouter
