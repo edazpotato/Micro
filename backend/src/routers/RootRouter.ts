@@ -26,7 +26,7 @@ RootRouter.route('/env').all(server.rAsync(async (req, res) => {
 }))
 
 RootRouter.route('/err').all(server.rAsync(async (req, res) => {
-  throw new Error('404::error_endpoint_triggered::Man this isn\'t cool')
+  throw new Error('404::error_endpoint_triggered::This error was thrown by the temp err endpoint')
 }))
 
 RootRouter.route('/errw').all(server.rAsync(async (req, res) => {
